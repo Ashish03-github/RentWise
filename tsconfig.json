@@ -24,7 +24,14 @@
     "baseUrl": "src",
     "paths": {
       "@/*": ["*"],
-      "@/common/*": ["common/*"]
+      "@/common/*": ["common/*"],
+      "@/features/*": ["features/*"],
+      "@/assets/*": ["assets/*"],
+      "@/utils/*": ["utils/*"],
+      "@/services/*": ["services/*"],
+      "@/navigation/*": ["navigation/*"],
+      "@/store/*": ["store/*"],
+      "@themes/*": ["themes/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],
