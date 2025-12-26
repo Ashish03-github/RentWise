@@ -1,11 +1,7 @@
-import { View, Text } from 'react-native';
 import React from 'react';
+import LoginScreen from './features/auth/screens/LoginScreen';
 const App = () => {
-  return (
-    <View>
-      <Text>App is working</Text>
-    </View>
-  );
+  return <LoginScreen />;
 };
 
 export default App;

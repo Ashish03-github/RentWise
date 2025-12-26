@@ -1,24 +1,18 @@
-import { fonts, spacing, layout, colors } from "@/theme";
-import { useColorScheme } from "react-native"
+import { useColorScheme } from "react-native";
+import { fonts, spacing, layout, colors, type RootTheme } from "@/theme";
 
-
-const useTheme = () => {
-    const colorScheme = useColorScheme()
-    const isDarkMode = colorScheme === "dark" ? "dark" : "light";
-
-    let Fonts = fonts;
-    let Spacing = spacing;
-    let Layout = layout;
-    let Colors = colors[isDarkMode];
+const useTheme = (): RootTheme & { isDarkMode: boolean } => {
+    const colorScheme = useColorScheme();
+    const isDarkMode = colorScheme === "dark";
+    const themeVariant = isDarkMode ? "dark" : "light";
 
     return {
         isDarkMode,
-        Fonts,
-        Spacing,
-        Layout,
-        Colors
-    }
+        Colors: colors[themeVariant],
+        Fonts: fonts,
+        Layout: layout,
+        Spacing: spacing,
+    };
+};
 
-}
-
-export default useTheme
+export default useTheme;

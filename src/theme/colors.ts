@@ -67,5 +67,5 @@ const colors = {
     },
 } as const;
 
-export type ThemeColors = typeof colors;
+export type ThemeColors = typeof colors[keyof typeof colors];
 export default colors;
