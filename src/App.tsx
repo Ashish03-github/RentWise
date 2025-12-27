@@ -1,8 +1,13 @@
 import React from 'react';
-import LoginScreen from './features/auth/screens/LoginScreen';
-import RegisterScreen from './features/auth/screens/RegisterScreen';
+import RootNavigator from './navigation/RootNavigator';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 const App = () => {
-  return <RegisterScreen />;
+  return (
+    <Provider store={store}>
+      <RootNavigator />
+    </Provider>
+  );
 };
 
 export default App;

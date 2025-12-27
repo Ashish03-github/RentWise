@@ -15,18 +15,16 @@ const RegisterScreen = () => {
     [Colors, Layout, Fonts],
   );
 
-  const { email, password, setEmail, setPassword, handleLogin } =
-    useLoginController();
+  const { email, password, setEmail, setPassword } = useLoginController();
 
   return (
-    <Container>
+    <Container buttonLabel={'Continue'}>
       <View style={styles.container}>
         <RegisterForm
           email={email}
           password={password}
           onEmailChange={setEmail}
           onPasswordChange={setPassword}
-          onSubmit={handleLogin}
         />
       </View>
     </Container>

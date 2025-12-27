@@ -1,11 +1,12 @@
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
 import React from 'react';
+import { Container } from '@/common/components';
 
 const DashboardScreen = () => {
   return (
-    <View>
+    <Container buttonLabel={null}>
       <Text>DashboardScreen</Text>
-    </View>
+    </Container>
   );
 };
 

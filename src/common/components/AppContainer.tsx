@@ -19,7 +19,7 @@ type AppContainerProps = {
   noPadding?: boolean;
   style?: ViewStyle;
   backgroundColor?: string;
-  buttonLabel?: string;
+  buttonLabel?: string | null;
 };
 
 const AppContainer = ({
@@ -27,7 +27,7 @@ const AppContainer = ({
   children,
   backgroundColor,
   noPadding = false,
-  buttonLabel = 'Continue',
+  buttonLabel = null,
 }: AppContainerProps) => {
   const { Colors, Layout, Spacing } = useTheme();
 
@@ -50,13 +50,13 @@ const AppContainer = ({
         >
           {children}
         </ScrollView>
-        {buttonLabel && (
+        {buttonLabel ? (
           <Button
             title={buttonLabel}
             onPress={() => {}}
             style={styles.buttonStyle}
           />
-        )}
+        ) : null}
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

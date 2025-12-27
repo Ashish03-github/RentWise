@@ -2,12 +2,12 @@ import { Text } from 'react-native';
 import React from 'react';
 import { Container } from '@/common/components';
 
-const PaymentScreen = () => {
+const TenantScreen = () => {
   return (
     <Container>
-      <Text>Payments Screen</Text>
+      <Text>Tenant Screen</Text>
     </Container>
   );
 };
 
-export default PaymentScreen;
+export default TenantScreen;

@@ -1,0 +1,1 @@
+export { default as PropertyScreen } from './PropertyScreen'

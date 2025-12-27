@@ -1,0 +1,13 @@
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { PropertyRoutes } from '../routes';
+import { PropertyScreen } from '@/features/property/screens';
+
+const Stack = createNativeStackNavigator();
+
+export default function PropertyStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name={PropertyRoutes.property} component={PropertyScreen} />
+    </Stack.Navigator>
+  );
+}
