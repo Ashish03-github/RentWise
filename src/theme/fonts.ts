@@ -132,6 +132,24 @@ const fonts = {
     sz24: {
         fontSize: normalizeFonts(24)
     },
+    sz25: {
+        fontSize: normalizeFonts(26)
+    },
+    sz26: {
+        fontSize: normalizeFonts(28)
+    },
+    sz27: {
+        fontSize: normalizeFonts(30)
+    },
+    sz28: {
+        fontSize: normalizeFonts(32)
+    },
+    sz29: {
+        fontSize: normalizeFonts(34)
+    },
+    sz30: {
+        fontSize: normalizeFonts(36)
+    },
 
 } as const;
 

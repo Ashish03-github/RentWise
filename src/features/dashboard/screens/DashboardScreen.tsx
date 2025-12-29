@@ -1,11 +1,11 @@
-import { Text } from 'react-native';
 import React from 'react';
 import { Container } from '@/common/components';
+import SummaryGrid from '../components/SummaryGrid';
 
 const DashboardScreen = () => {
   return (
-    <Container buttonLabel={null}>
-      <Text>DashboardScreen</Text>
+    <Container isDashboard={true} screenHeading={null} buttonLabel={null}>
+      <SummaryGrid />
     </Container>
   );
 };

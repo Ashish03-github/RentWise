@@ -12,19 +12,23 @@ import useTheme from '../hooks/useTheme';
 import { ThemeColors } from '@/theme/colors';
 import { ThemeLayout } from '@/theme/layout';
 import { ThemeSpacing } from '@/theme/spacing';
-import { Button } from '.';
+import { AppHeader, Button } from '.';
 
 type AppContainerProps = {
-  children: React.ReactNode;
-  noPadding?: boolean;
   style?: ViewStyle;
+  noPadding?: boolean;
+  isDashboard?: boolean;
   backgroundColor?: string;
+  children: React.ReactNode;
+  screenHeading: string | null;
   buttonLabel?: string | null;
 };
 
 const AppContainer = ({
   style,
   children,
+  isDashboard,
+  screenHeading,
   backgroundColor,
   noPadding = false,
   buttonLabel = null,
@@ -42,6 +46,8 @@ const AppContainer = ({
         style={styles.flex}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
+        <AppHeader isDashboard={isDashboard} heading={screenHeading} />
+
         <ScrollView
           style={styles.flex}
           keyboardShouldPersistTaps="handled"
@@ -50,6 +56,7 @@ const AppContainer = ({
         >
           {children}
         </ScrollView>
+
         {buttonLabel ? (
           <Button
             title={buttonLabel}

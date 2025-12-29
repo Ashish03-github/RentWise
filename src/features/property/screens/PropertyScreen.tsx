@@ -4,7 +4,7 @@ import { Container } from '@/common/components';
 
 const PropertyScreen = () => {
   return (
-    <Container>
+    <Container screenHeading={'Properties'}>
       <Text>Property Screen</Text>
     </Container>
   );

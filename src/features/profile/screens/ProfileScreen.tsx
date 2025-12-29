@@ -4,7 +4,7 @@ import { Container } from '@/common/components';
 
 const ProfileScreen = () => {
   return (
-    <Container>
+    <Container screenHeading={'Profile'}>
       <Text>Profile Screen</Text>
     </Container>
   );

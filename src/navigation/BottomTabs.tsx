@@ -7,12 +7,34 @@ import TenantStack from './stacks/TenantStack';
 import ProfileStack from './stacks/ProfileStack';
 import useTheme from '@/common/hooks/useTheme';
 import { StyleSheet } from 'react-native';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { ThemeFonts } from '@/theme/fonts';
 import { ThemeColors } from '@/theme/colors';
 import { ThemeSpacing } from '@/theme/spacing';
-
+import { AppIcon } from '@/common/components';
 const Tab = createBottomTabNavigator();
+
+const getTabIcon = (routeName: string, color: string, size: number) => {
+  switch (routeName) {
+    case BottomTabRoutes.property:
+      return <AppIcon name="maps-home-work" size={size} color={color} />;
+
+    case BottomTabRoutes.tenant:
+      return <AppIcon type="feather" name="users" size={size} color={color} />;
+
+    case BottomTabRoutes.dashboard:
+      return <AppIcon type="ionicons" name="grid" size={size} color={color} />;
+
+    case BottomTabRoutes.payments:
+      return <AppIcon name="credit-card" size={size} color={color} />;
+
+    case BottomTabRoutes.profile:
+      return <AppIcon name="account-circle" size={size} color={color} />;
+
+    default:
+      return null;
+  }
+};
 
 export default function BottomTabs() {
   const { Fonts, Colors, Spacing } = useTheme();
@@ -23,22 +45,15 @@ export default function BottomTabs() {
 
   return (
     <Tab.Navigator
-      screenOptions={{
+      initialRouteName={BottomTabRoutes.dashboard}
+      screenOptions={({ route }) => ({
         headerShown: false,
         tabBarLabelStyle: styles.tabLabel,
-        tabBarActiveTintColor: Colors.blackPure,
+        tabBarActiveTintColor: Colors.primaryPure,
         tabBarInactiveTintColor: Colors.lightGrayPure,
-      }}
+        tabBarIcon: ({ color, size }) => getTabIcon(route.name, color, size),
+      })}
     >
-      <Tab.Screen
-        name={BottomTabRoutes.dashboard}
-        options={{
-          tabBarLabel: 'Dashboard',
-          tabBarLabelStyle: styles.tabLabel,
-        }}
-        component={DashboardStack}
-      />
-
       <Tab.Screen
         name={BottomTabRoutes.property}
         options={{
@@ -55,6 +70,15 @@ export default function BottomTabs() {
           tabBarLabelStyle: styles.tabLabel,
         }}
         component={TenantStack}
+      />
+
+      <Tab.Screen
+        name={BottomTabRoutes.dashboard}
+        options={{
+          tabBarLabel: 'Dashboard',
+          tabBarLabelStyle: styles.tabLabel,
+        }}
+        component={DashboardStack}
       />
 
       <Tab.Screen

@@ -4,7 +4,7 @@ import { Container } from '@/common/components';
 
 const PaymentScreen = () => {
   return (
-    <Container>
+    <Container screenHeading={'Payments'}>
       <Text>Payments Screen</Text>
     </Container>
   );
