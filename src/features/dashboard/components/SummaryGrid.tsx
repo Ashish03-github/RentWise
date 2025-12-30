@@ -1,49 +1,30 @@
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import SummaryCard from './SummaryCard';
-import { CardItem } from '../types/components.type';
+import useTheme from '@/common/hooks/useTheme';
+import { ThemeLayout } from '@/theme/layout';
+import { DashboardSummaryDummyData } from '../constants/dummyData';
 
 const SummaryGrid = () => {
-  const data: Array<CardItem> = [
-    {
-      cardIcon: 'indian-rupee-sign',
-      cardHeading: 'Collected',
-      cardText: '85000 INR',
-      cardSubText: 'This Month',
-    },
-    {
-      cardIcon: 'exclamation',
-      cardHeading: 'Pending',
-      cardText: '25000 INR',
-      cardSubText: ' ',
-    },
-    {
-      cardIcon: 'house-chimney',
-      cardHeading: 'Properties',
-      cardText: '6 Property',
-      cardSubText: '4 occupied',
-    },
-    {
-      cardIcon: 'users',
-      cardHeading: 'Teanants',
-      cardText: '4 Active',
-      cardSubText: '',
-    },
-  ];
+  const { Layout } = useTheme();
+  const styles = React.useMemo(() => stylesFn(Layout), [Layout]);
+
   return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-      }}
-    >
-      {data.map((item, index) => (
+    <View style={styles.cardWrapper}>
+      {DashboardSummaryDummyData.map((item, index) => (
         <SummaryCard cardItem={item} key={index} cardType={`${index}`} />
       ))}
     </View>
   );
 };
 
+const stylesFn = (Layout: ThemeLayout) =>
+  StyleSheet.create({
+    cardWrapper: {
+      // ...Layout.flex,
+      ...Layout.flexRow,
+      ...Layout.flexWrap,
+      ...Layout.justifyBetween,
+    },
+  });
 export default SummaryGrid;
