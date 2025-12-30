@@ -9,6 +9,8 @@ const colors = {
         lightRed: { backgroundColor: "#DB566A24" },
         white: { backgroundColor: "#FFFFFF" },
         green: { backgroundColor: "#309535" },
+        lightGreen: { backgroundColor: "#7fdb8b" },
+        lightOrange: { backgroundColor: '#f9bb77' },
 
 
         // Text Colors
@@ -18,7 +20,9 @@ const colors = {
         textBlack: { color: "#000000" },
         textWhite: { color: "#FFFFFF" },
         textGreen: { color: "#309535" },
+        textLightGreen: { color: "#7fdb8b" },
         inputFiledTextColor: { color: "#757474" },
+        textLightOrange: { color: '#f9bb77' },
 
 
         // Simple Colors
@@ -29,7 +33,9 @@ const colors = {
         blackPure: "#000000",
         whitePure: "#FFFFFF",
         redPure: "#D64252",
-        pureGreen: "#309535"
+        pureGreen: "#309535",
+        pureLightGreen: "#7fdb8b",
+        pureLightOrange: '#f9bb77',
 
     },
     dark: {
@@ -42,7 +48,8 @@ const colors = {
         lightRed: { backgroundColor: "#DB566A24" },
         white: { backgroundColor: "#FFFFFF" },
         green: { backgroundColor: "#309535" },
-
+        lightGreen: { backgroundColor: "#7fdb8b" },
+        lightOrange: { backgroundColor: '#f9bb77' },
 
         // Text Colors
         textPrimary: { color: "#000000" },
@@ -51,6 +58,8 @@ const colors = {
         textBlack: { color: "#000000" },
         textWhite: { color: "#FFFFFF" },
         textGreen: { color: "#309535" },
+        textLightGreen: { color: "#7fdb8b" },
+        textLightOrange: { color: '#f9bb77' },
         inputFiledTextColor: {
             color: "#757474"
         },
@@ -63,7 +72,9 @@ const colors = {
         blackPure: "#000000",
         whitePure: "#FFFFFF",
         redPure: "#D64252",
-        pureGreen: "#309535"
+        pureGreen: "#309535",
+        pureLightGreen: "#7fdb8b",
+        pureLightOrange: '#f9bb77',
     },
 } as const;
 
