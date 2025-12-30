@@ -77,16 +77,19 @@ const stylesFn = (
   StyleSheet.create({
     safeArea: {
       ...Layout.flex,
-      ...Colors.background,
+      ...Colors.white,
+      ...Spacing.pb1,
+      marginBottom: -16,
     },
     flex: {
       ...Layout.flex,
+      // backgroundColor: 'red',
     },
     container: {
       flexGrow: 1,
       ...Spacing.p4,
-      // ...Spacing.pb0,
-      ...Colors.background,
+      ...Spacing.pb0,
+      // ...Colors.red,
     },
     buttonStyle: {
       ...Spacing.mx4,
