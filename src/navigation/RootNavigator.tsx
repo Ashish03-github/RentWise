@@ -11,7 +11,7 @@ export default function RootNavigator() {
   );
   return (
     <NavigationContainer>
-      {true ? <AppDrawer /> : <AuthNavigator />}
+      {isAuthenticated ? <AppDrawer /> : <AuthNavigator />}
     </NavigationContainer>
   );
 }

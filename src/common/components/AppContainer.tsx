@@ -5,6 +5,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ViewStyle,
+  Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -22,6 +23,7 @@ type AppContainerProps = {
   children: React.ReactNode;
   screenHeading: string | null;
   buttonLabel?: string | null;
+  onButtonPress?: () => void;
 };
 
 const AppContainer = ({
@@ -32,6 +34,7 @@ const AppContainer = ({
   backgroundColor,
   noPadding = false,
   buttonLabel = null,
+  onButtonPress,
 }: AppContainerProps) => {
   const { Colors, Layout, Spacing } = useTheme();
 
@@ -60,7 +63,13 @@ const AppContainer = ({
         {buttonLabel ? (
           <Button
             title={buttonLabel}
-            onPress={() => {}}
+            onPress={
+              onButtonPress
+                ? onButtonPress
+                : () => {
+                    Alert.alert('Please pass onButtonPress method.');
+                  }
+            }
             style={styles.buttonStyle}
           />
         ) : null}
@@ -79,17 +88,14 @@ const stylesFn = (
       ...Layout.flex,
       ...Colors.white,
       ...Spacing.pb1,
-      marginBottom: -16,
     },
     flex: {
       ...Layout.flex,
-      // backgroundColor: 'red',
     },
     container: {
       flexGrow: 1,
       ...Spacing.p4,
       ...Spacing.pb0,
-      // ...Colors.red,
     },
     buttonStyle: {
       ...Spacing.mx4,
