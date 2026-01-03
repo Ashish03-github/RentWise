@@ -145,9 +145,8 @@ export const stylesFn = (
     label: {
       ...Fonts.sz11,
       ...Spacing.mb2,
-      ...Fonts.font500,
-      ...Fonts.font500,
-      ...Colors.textBlack,
+      ...Fonts.font600,
+      ...Colors.textPrimary,
       lineHeight: scale(16),
     },
 
@@ -170,7 +169,8 @@ export const stylesFn = (
       lineHeight: scale(20),
       ...Colors.inputFiledTextColor,
       paddingVertical: scaleVertical(10),
-      ...Fonts.font400,
+      ...Fonts.font500,
+      ...Colors.textBlack,
       includeFontPadding: false,
       textAlignVertical: 'center',
     },

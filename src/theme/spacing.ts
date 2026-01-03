@@ -544,6 +544,9 @@ const spacing = {
     top2: {
         top: scaleVertical(8)
     },
+    top3: {
+        top: scaleVertical(14),
+    },
     top4: {
         top: scaleVertical(16)
     },
@@ -560,6 +563,9 @@ const spacing = {
     },
     bottom2: {
         bottom: scaleVertical(8)
+    },
+    bottom3: {
+        bottom: scaleVertical(14)
     },
     bottom4: {
         bottom: scaleVertical(16)
@@ -594,6 +600,9 @@ const spacing = {
     },
     right2: {
         right: scale(8)
+    },
+    right3: {
+        right: scale(14)
     },
     right4: {
         right: scale(16)

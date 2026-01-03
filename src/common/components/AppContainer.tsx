@@ -6,6 +6,9 @@ import {
   Platform,
   ViewStyle,
   Alert,
+  Modal,
+  View,
+  Pressable,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -18,6 +21,8 @@ import { AppHeader, Button } from '.';
 type AppContainerProps = {
   style?: ViewStyle;
   noPadding?: boolean;
+  showModal?: boolean;
+  modalComponent?: React.ReactNode;
   isDashboard?: boolean;
   backgroundColor?: string;
   children: React.ReactNode;
@@ -29,8 +34,10 @@ type AppContainerProps = {
 const AppContainer = ({
   style,
   children,
+  showModal,
   isDashboard,
   screenHeading,
+  modalComponent,
   backgroundColor,
   noPadding = false,
   buttonLabel = null,
@@ -49,30 +56,45 @@ const AppContainer = ({
         style={styles.flex}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-        <AppHeader isDashboard={isDashboard} heading={screenHeading} />
-
-        <ScrollView
-          style={styles.flex}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={[styles.container, style]}
-        >
-          {children}
-        </ScrollView>
-
-        {buttonLabel ? (
-          <Button
-            title={buttonLabel}
-            onPress={
-              onButtonPress
-                ? onButtonPress
-                : () => {
-                    Alert.alert('Please pass onButtonPress method.');
-                  }
-            }
-            style={styles.buttonStyle}
-          />
-        ) : null}
+        {!showModal ? (
+          <>
+            <AppHeader isDashboard={isDashboard} heading={screenHeading} />
+            <ScrollView
+              style={styles.flex}
+              keyboardShouldPersistTaps="handled"
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={[styles.container, style]}
+            >
+              {children}
+            </ScrollView>
+            {buttonLabel ? (
+              <Button
+                title={buttonLabel}
+                onPress={
+                  onButtonPress
+                    ? onButtonPress
+                    : () => {
+                        Alert.alert('Please pass onButtonPress method.');
+                      }
+                }
+                style={styles.buttonStyle}
+              />
+            ) : null}
+          </>
+        ) : (
+          <Modal
+            transparent
+            visible={showModal}
+            animationType="fade"
+            statusBarTranslucent
+          >
+            <Pressable style={styles.modalContainer}>
+              <Pressable style={styles.modalContent} onPress={() => {}}>
+                {modalComponent}
+              </Pressable>
+            </Pressable>
+          </Modal>
+        )}
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -99,6 +121,16 @@ const stylesFn = (
     },
     buttonStyle: {
       ...Spacing.mx4,
+    },
+    modalContainer: {
+      ...Layout.flex,
+      backgroundColor: 'rgba(0,0,0,0.2)',
+      ...Spacing.p4,
+      ...Layout.justifyCenter,
+    },
+    modalContent: {
+      width: '100%',
+      ...Layout.center,
     },
   });
 
