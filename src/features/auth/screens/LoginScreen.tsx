@@ -7,13 +7,18 @@ import LoginForm from '../components/LoginForm';
 import useLoginController from '../controller/useLoginController';
 
 const LoginScreen = () => {
-  const { Colors } = useTheme();
-  const styles = React.useMemo(() => stylesFn(Colors), [Colors]);
+  const { Layout } = useTheme();
+  const styles = React.useMemo(() => stylesFn(Layout), [Layout]);
 
-  const { email, password, setEmail, setPassword } = useLoginController();
+  const { email, password, setEmail, setPassword, handleLogin } =
+    useLoginController();
 
   return (
-    <Container screenHeading={null} buttonLabel={'Continue'}>
+    <Container
+      screenHeading={null}
+      buttonLabel={'Continue'}
+      onButtonPress={handleLogin}
+    >
       <View style={styles.container}>
         <LoginForm
           email={email}
@@ -30,8 +35,7 @@ const stylesFn = (Layout: ThemeLayout) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
+      ...Layout.justifyCenter,
     },
   });
 export default LoginScreen;
