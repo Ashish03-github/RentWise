@@ -1,11 +1,11 @@
-import { Text } from 'react-native';
 import React from 'react';
 import { Container } from '@/common/components';
+import PropertyList from '../components/PropertyList';
 
 const PropertyScreen = () => {
   return (
     <Container screenHeading={'Properties'}>
-      <Text>Property Screen</Text>
+      <PropertyList />
     </Container>
   );
 };
