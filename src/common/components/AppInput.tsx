@@ -190,10 +190,11 @@ export const stylesFn = (
     },
 
     errorText: {
+      ...Fonts.sz9,
       ...Spacing.mt2,
-      ...Fonts.sz10,
       lineHeight: scale(16),
       color: Colors.redPure,
+      ...Fonts.font500Italic,
     },
   });
 

@@ -8,6 +8,7 @@ import { ThemeSpacing } from '@/theme/spacing';
 import { scale, scaleVertical } from '@/theme/scale';
 import AppIcon from './AppIcon';
 import { ICONS } from '@/constants/icons';
+import { useNavigation } from '@react-navigation/native';
 
 type AppHeaderProps = {
   heading?: string | null;
@@ -15,6 +16,7 @@ type AppHeaderProps = {
 };
 const AppHeader: React.FC<AppHeaderProps> = ({ heading, isDashboard }) => {
   const { Colors, Fonts, Layout, Spacing } = useTheme();
+  const navigation = useNavigation();
   const styles = React.useMemo(
     () => stylesFn(Colors, Fonts, Layout, Spacing),
     [Colors, Fonts, Layout, Spacing],
@@ -25,11 +27,20 @@ const AppHeader: React.FC<AppHeaderProps> = ({ heading, isDashboard }) => {
       {isDashboard ? (
         <View style={styles.dashboardHeadingWithIcon}>
           <Text style={styles.logoText}>RentWise</Text>
-          <AppIcon type="octicons" name={ICONS.BELL} size={scale(20)} />
+          <AppIcon
+            onPress={() => navigation.goBack()}
+            type="octicons"
+            name={ICONS.BELL}
+            size={scale(20)}
+          />
         </View>
       ) : (
         <View style={styles.headingWithIconContainer}>
-          <AppIcon type="ionicons" name={ICONS.back} />
+          <AppIcon
+            onPress={() => navigation.goBack()}
+            type="ionicons"
+            name={ICONS.back}
+          />
           <Text style={styles.screenHeadingText}>{heading}</Text>
         </View>
       )}

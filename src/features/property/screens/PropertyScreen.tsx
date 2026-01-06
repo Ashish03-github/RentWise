@@ -1,16 +1,16 @@
 import React from 'react';
 import { AppIcon, Container } from '@/common/components';
 import PropertyList from '../components/PropertyList';
-import AddPropertyForm from '../components/AddPropertyForm';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ThemeColors } from '@/theme/colors';
-import { ThemeFonts } from '@/theme/fonts';
 import { ThemeLayout } from '@/theme/layout';
 import { scale } from '@/theme/scale';
 import useTheme from '@/common/hooks/useTheme';
+import { useNavigation } from '@react-navigation/native';
+import { PropertyRoutes } from '@/navigation/routes';
 
 const PropertyScreen = () => {
-  const [isVisible, setIsVisible] = React.useState(false);
+  const navigation = useNavigation();
 
   const { Colors, Fonts, Layout } = useTheme();
   const styles = React.useMemo(
@@ -18,21 +18,11 @@ const PropertyScreen = () => {
     [Colors, Fonts, Layout],
   );
 
-  const handFormPress = () => {
-    setIsVisible(false);
-  };
-
   const showFormModal = () => {
-    setIsVisible(true);
+    navigation.navigate(PropertyRoutes.addProperty);
   };
   return (
-    <Container
-      showModal={isVisible}
-      modalComponent={
-        <AddPropertyForm onPress={handFormPress} onCancel={handFormPress} />
-      }
-      screenHeading={'Properties'}
-    >
+    <Container screenHeading={'Properties'}>
       <View style={styles.container}>
         <PropertyList />
 

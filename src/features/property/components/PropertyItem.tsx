@@ -7,9 +7,10 @@ import { ThemeFonts } from '@/theme/fonts';
 import { ThemeLayout } from '@/theme/layout';
 import { AppIcon, AppImage } from '@/common/components';
 import { ThemeSpacing } from '@/theme/spacing';
+import { PropertyItem as Property } from '../types/proprty.type';
 
 type PropertyItemProps = {
-  item: PropertyItem;
+  item: Property;
   key: number;
 };
 
@@ -17,11 +18,11 @@ const PropertyItem: React.FC<PropertyItemProps> = ({ item, key }) => {
   const {
     image,
     propertyName,
-    propertyAdress,
+    propertyAddress,
     propertyRent,
-    propertySatus,
+    propertyStatus,
     propertyType,
-    propertyRentReccurance,
+    propertyRentRecurrence,
   } = item;
   const { Colors, Fonts, Layout, Spacing } = useTheme();
   const styles = React.useMemo(
@@ -50,7 +51,7 @@ const PropertyItem: React.FC<PropertyItemProps> = ({ item, key }) => {
           ellipsizeMode="tail"
           style={styles.propertyAddress}
         >
-          {propertyAdress}
+          {propertyAddress}
         </Text>
         <View style={styles.propertyTypeContainer}>
           <AppIcon name="house" size={12} />
@@ -62,12 +63,12 @@ const PropertyItem: React.FC<PropertyItemProps> = ({ item, key }) => {
           activeOpacity={0.8}
           style={styles.propertyStatusButton}
         >
-          <Text style={styles.propertyStatusText}>{propertySatus}</Text>
+          <Text style={styles.propertyStatusText}>{propertyStatus}</Text>
         </TouchableOpacity>
         <View style={styles.propertyRentContainer}>
           <AppIcon size={12} name="currency-rupee" />
           <Text style={styles.propertyRentText}>
-            {propertyRent}/{propertyRentReccurance}
+            {propertyRent}/{propertyRentRecurrence}
           </Text>
         </View>
       </View>

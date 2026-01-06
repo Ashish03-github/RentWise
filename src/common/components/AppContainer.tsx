@@ -5,9 +5,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ViewStyle,
-  Alert,
   Modal,
-  View,
   Pressable,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -16,31 +14,43 @@ import useTheme from '../hooks/useTheme';
 import { ThemeColors } from '@/theme/colors';
 import { ThemeLayout } from '@/theme/layout';
 import { ThemeSpacing } from '@/theme/spacing';
-import { AppHeader, Button } from '.';
+import { AppHeader, Button, BottomSheet } from '.';
 
 type AppContainerProps = {
   style?: ViewStyle;
   noPadding?: boolean;
-  showModal?: boolean;
-  modalComponent?: React.ReactNode;
   isDashboard?: boolean;
   backgroundColor?: string;
   children: React.ReactNode;
+
   screenHeading: string | null;
   buttonLabel?: string | null;
   onButtonPress?: () => void;
+
+  overlayType?: 'modal' | 'bottomSheet';
+  isOverlayVisible?: boolean;
+  onCloseOverlay?: () => void;
+
+  modalComponent?: React.ReactNode;
+
+  bottomSheetComponent?: React.ReactNode;
+  bottomSheetSnapPoint?: number | `${number}%`;
 };
 
 const AppContainer = ({
   style,
   children,
-  showModal,
   isDashboard,
+  overlayType,
   screenHeading,
+  onCloseOverlay,
   modalComponent,
   backgroundColor,
+  isOverlayVisible,
   noPadding = false,
   buttonLabel = null,
+  bottomSheetComponent,
+  bottomSheetSnapPoint,
   onButtonPress,
 }: AppContainerProps) => {
   const { Colors, Layout, Spacing } = useTheme();
@@ -56,45 +66,51 @@ const AppContainer = ({
         style={styles.flex}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-        {!showModal ? (
-          <>
-            <AppHeader isDashboard={isDashboard} heading={screenHeading} />
-            <ScrollView
-              style={styles.flex}
-              keyboardShouldPersistTaps="handled"
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={[styles.container, style]}
-            >
-              {children}
-            </ScrollView>
-            {buttonLabel ? (
-              <Button
-                title={buttonLabel}
-                onPress={
-                  onButtonPress
-                    ? onButtonPress
-                    : () => {
-                        Alert.alert('Please pass onButtonPress method.');
-                      }
-                }
-                style={styles.buttonStyle}
-              />
-            ) : null}
-          </>
-        ) : (
-          <Modal
-            transparent
-            visible={showModal}
-            animationType="fade"
-            statusBarTranslucent
+        <>
+          <AppHeader isDashboard={isDashboard} heading={screenHeading} />
+
+          <ScrollView
+            style={styles.flex}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={[styles.container, style]}
           >
-            <Pressable style={styles.modalContainer}>
-              <Pressable style={styles.modalContent} onPress={() => {}}>
-                {modalComponent}
+            {children}
+          </ScrollView>
+
+          {buttonLabel ? (
+            <Button
+              title={buttonLabel}
+              onPress={onButtonPress ? onButtonPress : () => {}}
+              style={styles.buttonStyle}
+            />
+          ) : null}
+
+          {overlayType === 'modal' && isOverlayVisible ? (
+            <Modal
+              transparent
+              visible
+              animationType="fade"
+              statusBarTranslucent
+            >
+              <Pressable style={styles.modalContainer} onPress={onCloseOverlay}>
+                <Pressable style={styles.modalContent}>
+                  {modalComponent}
+                </Pressable>
               </Pressable>
-            </Pressable>
-          </Modal>
-        )}
+            </Modal>
+          ) : null}
+
+          {overlayType === 'bottomSheet' && isOverlayVisible ? (
+            <BottomSheet
+              isVisible
+              snapPoint={bottomSheetSnapPoint}
+              onClose={onCloseOverlay ?? (() => {})}
+            >
+              {bottomSheetComponent}
+            </BottomSheet>
+          ) : null}
+        </>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
