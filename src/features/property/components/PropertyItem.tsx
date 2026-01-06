@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
 import { scale, scaleVertical } from '@/theme/scale';
 import useTheme from '@/common/hooks/useTheme';
@@ -59,12 +59,25 @@ const PropertyItem: React.FC<PropertyItemProps> = ({ item, key }) => {
         </View>
       </View>
       <View style={styles.propertyStatusAndAmountContainer}>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          style={styles.propertyStatusButton}
+        <View
+          style={[
+            styles.statusBadge,
+            propertyStatus === 'Vacant'
+              ? styles.vacantBadge
+              : styles.occupiedBadge,
+          ]}
         >
-          <Text style={styles.propertyStatusText}>{propertyStatus}</Text>
-        </TouchableOpacity>
+          <Text
+            style={[
+              styles.statusText,
+              propertyStatus === 'Vacant'
+                ? styles.vacantText
+                : styles.occupiedText,
+            ]}
+          >
+            {propertyStatus === 'Vacant' ? 'Vacant' : 'Occupied'}
+          </Text>
+        </View>
         <View style={styles.propertyRentContainer}>
           <AppIcon size={12} name="currency-rupee" />
           <Text style={styles.propertyRentText}>
@@ -91,7 +104,6 @@ const stylesFn = (
       ...Colors.primaryLight2,
       borderRadius: scale(10),
       ...Spacing.mb4,
-      // height: scaleVertical(0),
     },
     propertyTypeContainer: {
       width: scale(60),
@@ -159,6 +171,32 @@ const stylesFn = (
       ...Layout.flexRow,
       ...Layout.alignCenter,
       ...Spacing.pt4,
+    },
+    statusContainer: {
+      ...Layout.center,
+      minWidth: scale(70),
+    },
+    statusBadge: {
+      ...Spacing.px4,
+      ...Spacing.py1,
+      borderRadius: scale(12),
+      ...Layout.center,
+    },
+    occupiedBadge: {
+      backgroundColor: 'rgba(34, 197, 94, 0.1)',
+    },
+    vacantBadge: {
+      backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    },
+    statusText: {
+      ...Fonts.font500,
+      ...Fonts.sz9,
+    },
+    occupiedText: {
+      color: '#22C55E',
+    },
+    vacantText: {
+      color: '#EF4444',
     },
   });
 

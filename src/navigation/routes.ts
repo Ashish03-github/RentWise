@@ -34,6 +34,7 @@ export const ProfileRoutes = {
 
 export const TenantRoutes = {
     tenant: 'Tenant',
+    addTenant: "AddTenant",
     editTenant: 'EditTenant',
 }
 
