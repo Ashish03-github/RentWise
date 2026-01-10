@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
-import { scale, scaleVertical } from '@/theme/scale';
+import { scale } from '@/theme/scale';
 import useTheme from '@/common/hooks/useTheme';
 import { ThemeColors } from '@/theme/colors';
 import { ThemeFonts } from '@/theme/fonts';
@@ -99,11 +99,11 @@ const stylesFn = (
     propertyItemContainer: {
       ...Layout.fullWidth,
       ...Layout.flexRow,
-      paddingVertical: scaleVertical(10),
-      paddingHorizontal: scale(10),
+      ...Spacing.p2,
+      ...Spacing.mb3,
       ...Colors.primaryLight2,
       borderRadius: scale(10),
-      ...Spacing.mb4,
+      // ...Spacing.mb4,
     },
     propertyTypeContainer: {
       width: scale(60),
@@ -132,23 +132,26 @@ const stylesFn = (
       ...Spacing.ml1,
     },
     propertyImageContainer: {
-      flex: 0.25,
-      ...Layout.justifyCenter,
-      // backgroundColor: 'red',
+      width: scale(50),
+      height: scale(50),
+      borderRadius: scale(10),
+      overflow: 'hidden',
+      marginRight: scale(12),
     },
     imageStyle: {
-      width: scale(70),
-      height: scale(70),
+      width: '100%',
+      height: '100%',
       borderRadius: scale(10),
     },
     propertyDetailsContainer: {
-      flex: 0.5,
+      flex: 0.7,
       ...Layout.justifyCenter,
       // backgroundColor: 'yellow',
     },
     propertyStatusAndAmountContainer: {
-      flex: 0.25,
+      flex: 0.3,
       ...Layout.center,
+      // backgroundColor: 'red',
     },
     propertyStatusButton: {
       width: scale(72),

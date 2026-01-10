@@ -1,6 +1,15 @@
 import React, { useMemo, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
+import {
+  View,
+  Text,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+  TextStyle,
+} from 'react-native';
+import DropDownPicker, {
+  DropDownPickerProps,
+} from 'react-native-dropdown-picker';
 
 import { ThemeColors } from '@/theme/colors';
 import { ThemeFonts } from '@/theme/fonts';
@@ -15,7 +24,7 @@ export type DropdownItem<T = string> = {
   value: T;
 };
 
-type AppDropdownProps<T = string> = {
+interface AppDropdownProps<T = string> extends DropDownPickerProps {
   label?: string;
   placeholder?: string;
   items: DropdownItem<T>[];
@@ -24,7 +33,16 @@ type AppDropdownProps<T = string> = {
   disabled?: boolean;
   zIndex?: number;
   error?: string;
-};
+
+  // New optional style props
+  containerStyle?: StyleProp<ViewStyle>;
+  dropdownStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+  placeholderStyle?: StyleProp<TextStyle>;
+  listItemStyle?: StyleProp<ViewStyle>;
+  labelStyle?: StyleProp<TextStyle>;
+  errorTextStyle?: StyleProp<TextStyle>;
+}
 
 const AppDropdown = <T extends string | number>({
   label,
@@ -35,45 +53,59 @@ const AppDropdown = <T extends string | number>({
   error,
   disabled = false,
   zIndex = 0,
+  containerStyle,
+  dropdownStyle,
+  textStyle,
+  placeholderStyle,
+  listItemStyle,
+  labelStyle,
+  errorTextStyle,
+  ...props
 }: AppDropdownProps<T>) => {
   const [open, setOpen] = useState(false);
   const [dropdownItems, setDropdownItems] = useState<DropdownItem<T>[]>(items);
 
   const { Colors, Fonts, Spacing } = useTheme();
-
   const styles = useMemo(
     () => stylesFn(Colors, Fonts, Spacing),
     [Colors, Fonts, Spacing],
   );
 
   const containerStyles = useMemo(
-    () => [styles.dropdownInput, error && styles.errorBorder],
-    [error],
+    () => [styles.dropdownInput, error && styles.errorBorder, containerStyle],
+    [error, containerStyle],
   );
 
   return (
     <View style={[styles.wrapper, { zIndex }]}>
-      {label && <Text style={styles.label}>{label}</Text>}
+      {label && <Text style={[styles.label, labelStyle]}>{label}</Text>}
 
       <DropDownPicker
         open={open}
         value={value}
         items={dropdownItems}
         setOpen={setOpen}
-        setValue={onChange}
+        setValue={callback => {
+          const nextValue = callback(value);
+          onChange(nextValue as T);
+        }}
         setItems={setDropdownItems}
         placeholder={placeholder}
         disabled={disabled}
         style={containerStyles}
-        textStyle={styles.dropdownText}
-        listItemLabelStyle={styles.listItemText}
-        dropDownContainerStyle={styles.dropdownList}
-        placeholderStyle={styles.dropdownPlaceholder}
+        textStyle={[styles.dropdownText, textStyle]}
+        listItemLabelStyle={[styles.listItemText, listItemStyle]}
+        modalContentContainerStyle={{ backgroundColor: 'red' }}
+        dropDownContainerStyle={[styles.dropdownList, dropdownStyle]}
+        placeholderStyle={[styles.dropdownPlaceholder, placeholderStyle]}
         ArrowUpIconComponent={() => <AppIcon name="keyboard-arrow-up" />}
         ArrowDownIconComponent={() => <AppIcon name="keyboard-arrow-down" />}
+        {...props}
       />
 
-      {!!error && <Text style={styles.errorText}>{error}</Text>}
+      {!!error && (
+        <Text style={[styles.errorText, errorTextStyle]}>{error}</Text>
+      )}
     </View>
   );
 };
@@ -85,8 +117,8 @@ const stylesFn = (
 ) =>
   StyleSheet.create({
     wrapper: {
-      ...Spacing.mb4,
-      zIndex: 10000,
+      // ...Spacing.mb4,
+      // zIndex: 10000,
     },
 
     label: {
@@ -103,7 +135,7 @@ const stylesFn = (
       borderRadius: scale(8),
       minHeight: scaleVertical(44),
       paddingHorizontal: scale(12),
-      ...Colors.white,
+      // ...Colors.white,
     },
 
     dropdownList: {
@@ -111,7 +143,8 @@ const stylesFn = (
       borderColor: Colors.lightGrayPure,
       borderRadius: scale(8),
       marginTop: scale(8),
-      ...Colors.white,
+      // ...Colors.white,
+      // backgroundColor: '#FFFFFF',
       // zIndex: 10000,
     },
 

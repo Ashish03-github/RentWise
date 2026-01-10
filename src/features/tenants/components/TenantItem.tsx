@@ -8,7 +8,7 @@ import { ThemeLayout } from '@/theme/layout';
 import { AppImage } from '@/common/components';
 import { ThemeSpacing } from '@/theme/spacing';
 import { TenantItem as Tenant } from '../types/tenant.components.type';
-import { format } from 'date-fns';
+import { formatDate } from '@/utils/utils.helper';
 
 type TenantItemProps = {
   item: Tenant;
@@ -30,14 +30,6 @@ const TenantItem: React.FC<TenantItemProps> = ({ item }) => {
     () => stylesFn(Colors, Fonts, Layout, Spacing),
     [Colors, Fonts, Layout, Spacing],
   );
-
-  const formatDate = (dateString: string) => {
-    try {
-      return format(new Date(dateString), 'dd MMM, yyyy');
-    } catch (error) {
-      return dateString;
-    }
-  };
 
   return (
     <View style={styles.tenantItemContainer}>
@@ -120,7 +112,7 @@ const stylesFn = (
     },
     tenantName: {
       ...Fonts.font600,
-      ...Fonts.sz14,
+      ...Fonts.sz12,
       ...Colors.textBlack,
       marginBottom: scale(2),
     },
@@ -136,8 +128,8 @@ const stylesFn = (
       marginTop: scale(2),
     },
     leaseDateText: {
-      ...Fonts.font400,
-      ...Fonts.sz10,
+      ...Fonts.font500Italic,
+      ...Fonts.sz8,
       ...Colors.textBlack,
       // marginLeft: scale(4),
     },

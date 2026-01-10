@@ -18,6 +18,7 @@ const TenantsList = () => {
       data={tenantsData}
       renderItem={renderItem}
       keyExtractor={(_, i) => i.toString()}
+      removeClippedSubviews={true}
     />
   );
 };
