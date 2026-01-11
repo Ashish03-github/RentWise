@@ -15,6 +15,7 @@ import { ThemeColors } from '@/theme/colors';
 import { ThemeLayout } from '@/theme/layout';
 import { ThemeSpacing } from '@/theme/spacing';
 import { AppHeader, Button, BottomSheet } from '.';
+import { scale } from '@/theme/scale';
 
 type AppContainerProps = {
   style?: ViewStyle;
@@ -125,15 +126,16 @@ const stylesFn = (
     safeArea: {
       ...Layout.flex,
       ...Colors.white,
-      ...Spacing.pb1,
+      paddingBottom: scale(-20),
     },
     flex: {
       ...Layout.flex,
+      // backgroundColor: 'red',
     },
     container: {
       flexGrow: 1,
       ...Spacing.p4,
-      ...Spacing.pb0,
+      ...Spacing.pb1,
     },
     buttonStyle: {
       ...Spacing.mx4,
@@ -145,7 +147,7 @@ const stylesFn = (
       ...Layout.justifyCenter,
     },
     modalContent: {
-      width: '100%',
+      ...Layout.fullWidth,
       ...Layout.center,
     },
   });

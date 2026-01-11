@@ -1,15 +1,3 @@
-interface AppInputProps extends TextInputProps {
-  label?: string;
-  error?: string;
-  containerStyle?: object;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
-  placeholder?: string;
-
-  debounceDelay?: number;
-  onDebouncedChange?: (text: string) => void;
-}
-
 import { ThemeColors } from '@/theme/colors';
 import { ThemeFonts } from '@/theme/fonts';
 import { ThemeLayout } from '@/theme/layout';
@@ -23,17 +11,10 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import {
-  TextInput,
-  View,
-  Text,
-  StyleSheet,
-  TextInputProps,
-  Pressable,
-} from 'react-native';
+import { TextInput, View, Text, StyleSheet, Pressable } from 'react-native';
 import useTheme from '../hooks/useTheme';
 import { moderateScale, scale, scaleVertical } from '@/theme/scale';
-
+import { AppInputProps } from './components.type';
 const AppInput = forwardRef<TextInput, AppInputProps>(
   (
     {

@@ -40,7 +40,7 @@ const stylesFn = (
       ...Layout.roundedMd,
       height: scaleVertical(75),
       ...Layout.center,
-      ...Spacing.m1,
+      margin: scale(5),
     },
     quickActionIconContainer: {
       width: scale(40),
