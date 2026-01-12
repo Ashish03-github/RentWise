@@ -5,13 +5,15 @@ export const DashboardSummaryDummyData: Array<CardItem> = [
     {
         cardIcon: Dashboard_Icons.rupee,
         cardHeading: 'Collected',
-        cardText: '85,000 INR',
+        cardText: '85,000',
+        isAmount: true,
         cardSubText: 'This Month',
     },
     {
         cardIcon: Dashboard_Icons.exclaimation,
         cardHeading: 'Pending',
-        cardText: '25,000 INR',
+        cardText: '25,000',
+        isAmount: true,
         cardSubText: ' ',
     },
     {
@@ -19,12 +21,14 @@ export const DashboardSummaryDummyData: Array<CardItem> = [
         cardHeading: 'Properties',
         cardText: '6 Property',
         cardSubText: '4 occupied',
+        isAmount: false,
     },
     {
         cardIcon: Dashboard_Icons.users,
         cardHeading: 'Teanants',
         cardText: '4 Active',
         cardSubText: '',
+        isAmount: false,
     },
 ];
 

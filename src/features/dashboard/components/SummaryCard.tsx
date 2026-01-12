@@ -14,6 +14,7 @@ import { ThemeLayout } from '@/theme/layout';
 import { ThemeSpacing } from '@/theme/spacing';
 import { scale } from '@/theme/scale';
 import { CardType, SummaryCardProps } from '../types/components.type';
+import { Dashboard_Icons } from '../assets/icons';
 
 const SummaryCard: React.FC<SummaryCardProps> = ({ cardType, cardItem }) => {
   const { Colors, Fonts, Layout, Spacing } = useTheme();
@@ -43,7 +44,17 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ cardType, cardItem }) => {
       </View>
       <View style={styles.cardDetailsContainer}>
         <Text style={styles.cardHeading}>{cardItem.cardHeading}</Text>
-        <Text style={styles.cardText}>{cardItem.cardText}</Text>
+        <View style={styles.amountContainer}>
+          {cardItem.isAmount && (
+            <AppIcon
+              size={18}
+              type="fontAwesome6"
+              name={Dashboard_Icons.rupee}
+              color={Colors.whitePure}
+            />
+          )}
+          <Text style={styles.cardText}>{cardItem.cardText}</Text>
+        </View>
         <Text style={styles.cardSubText}>{cardItem.cardSubText}</Text>
       </View>
     </GradientView>
@@ -84,11 +95,16 @@ const stylesFn = (
       ...Fonts.sz16,
       ...Fonts.font600Italic,
       ...Colors.textWhite,
+      ...Spacing.ml1,
     },
     cardSubText: {
       ...Fonts.sz10,
       ...Fonts.font500Italic,
       ...Colors.textWhite,
+    },
+    amountContainer: {
+      ...Layout.flexRow,
+      ...Layout.alignCenter,
     },
   });
 

@@ -13,7 +13,6 @@ const PropertyScreen = () => {
     <Container screenHeading={'Properties'}>
       <View style={styles.container}>
         <PropertyList />
-
         <CircularButton />
       </View>
     </Container>

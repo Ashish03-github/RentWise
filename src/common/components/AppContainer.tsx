@@ -126,7 +126,7 @@ const stylesFn = (
     safeArea: {
       ...Layout.flex,
       ...Colors.white,
-      paddingBottom: scale(-20),
+      // paddingBottom: scale(-20),
     },
     flex: {
       ...Layout.flex,

@@ -6,6 +6,7 @@ export type CardItem = {
     cardIcon: string;
     cardHeading?: string;
     cardText?: string;
+    isAmount: boolean;
     cardSubText: string;
 };
 
