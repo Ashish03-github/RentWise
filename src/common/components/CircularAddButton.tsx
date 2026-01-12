@@ -7,7 +7,12 @@ import { useNavigation } from '@react-navigation/native';
 import useTheme from '../hooks/useTheme';
 import AppIcon from './AppIcon';
 
-const CircularAddButton = () => {
+type CircularAddButtonProps = {
+  nextToScreen: string;
+};
+const CircularAddButton: React.FC<CircularAddButtonProps> = ({
+  nextToScreen,
+}) => {
   const navigation = useNavigation();
   const { Colors, Fonts, Layout } = useTheme();
   const styles = React.useMemo(
@@ -16,7 +21,7 @@ const CircularAddButton = () => {
   );
 
   const navigateTo = () => {
-    // navigation.navigate()
+    navigation.navigate(nextToScreen);
   };
 
   return (

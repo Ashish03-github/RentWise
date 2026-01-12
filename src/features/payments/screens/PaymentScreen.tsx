@@ -5,6 +5,7 @@ import RecentPaymentsList from '../components/RecentPaymentsList';
 import { StyleSheet, View } from 'react-native';
 import useTheme from '@/common/hooks/useTheme';
 import { ThemeLayout } from '@/theme/layout';
+import { PaymentRoutes } from '@/navigation/routes';
 
 const PaymentScreen = () => {
   const { Layout } = useTheme();
@@ -16,7 +17,7 @@ const PaymentScreen = () => {
         {/* <PaymentsFilters /> */}
         <RecentPaymentsList />
 
-        <CircularButton />
+        <CircularButton nextToScreen={PaymentRoutes.addPayment} />
       </View>
     </Container>
   );

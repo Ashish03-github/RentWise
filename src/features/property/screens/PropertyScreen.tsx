@@ -4,6 +4,7 @@ import PropertyList from '../components/PropertyList';
 import { StyleSheet, View } from 'react-native';
 import { ThemeLayout } from '@/theme/layout';
 import useTheme from '@/common/hooks/useTheme';
+import { PropertyRoutes } from '@/navigation/routes';
 
 const PropertyScreen = () => {
   const { Layout } = useTheme();
@@ -13,7 +14,7 @@ const PropertyScreen = () => {
     <Container screenHeading={'Properties'}>
       <View style={styles.container}>
         <PropertyList />
-        <CircularButton />
+        <CircularButton nextToScreen={PropertyRoutes.addProperty} />
       </View>
     </Container>
   );
