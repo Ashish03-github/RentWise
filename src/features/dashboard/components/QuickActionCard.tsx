@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 import React from 'react';
 import useTheme from '@/common/hooks/useTheme';
 import { ThemeSpacing } from '@/theme/spacing';
@@ -9,7 +9,11 @@ import { ThemeLayout } from '@/theme/layout';
 import { AppIcon } from '@/common/components';
 import { QuickActionCardProps } from '../types/components.type';
 
-const QuickActionCard: React.FC<QuickActionCardProps> = ({ data, key }) => {
+const QuickActionCard: React.FC<QuickActionCardProps> = ({
+  data,
+  key,
+  onPress,
+}) => {
   const { iconName, actionName } = data;
   const { Spacing, Fonts, Layout, Colors } = useTheme();
   const styles = React.useMemo(
@@ -17,12 +21,12 @@ const QuickActionCard: React.FC<QuickActionCardProps> = ({ data, key }) => {
     [Spacing, Fonts, Layout, Colors],
   );
   return (
-    <View key={key} style={styles.actionCard}>
+    <Pressable onPress={onPress} key={key} style={styles.actionCard}>
       <View style={styles.quickActionIconContainer}>
         <AppIcon size={20} color={Colors.primaryPure} name={iconName} />
       </View>
       <Text style={styles.quickActionText}>{actionName}</Text>
-    </View>
+    </Pressable>
   );
 };
 

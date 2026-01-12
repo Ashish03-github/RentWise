@@ -9,11 +9,8 @@ const DashboardScreen = () => {
   return (
     <Container isDashboard={true} screenHeading={null} buttonLabel={null}>
       <SummaryGrid />
-
       <MonthlyRentStatusSection />
-
       <NeedsAttentionSection />
-
       <QuickActionsGrid />
     </Container>
   );

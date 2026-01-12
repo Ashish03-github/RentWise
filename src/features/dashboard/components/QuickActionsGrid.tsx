@@ -1,26 +1,39 @@
 import { View, Text, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useCallback } from 'react';
+import { ThemeFonts } from '@/theme/fonts';
+import { ThemeLayout } from '@/theme/layout';
 import useTheme from '@/common/hooks/useTheme';
 import { ThemeSpacing } from '@/theme/spacing';
-import { ThemeFonts } from '@/theme/fonts';
 import QuickActionCard from './QuickActionCard';
-import { ThemeLayout } from '@/theme/layout';
 import { DashboardQuickActionsDummyData } from '../constants/dummyData';
+import { QuickActionItem } from '../types/components.type';
+import { useNavigation } from '@react-navigation/native';
 
 const QuickActionsGrid = () => {
+  const navigation = useNavigation();
   const { Spacing, Fonts, Layout, Colors } = useTheme();
   const styles = React.useMemo(
     () => stylesFn(Spacing, Fonts, Layout),
     [Spacing, Fonts, Layout, Colors],
   );
 
+  const navigateTo = useCallback(
+    (item: QuickActionItem) => () => {
+      // navigation.navigate(item.navigateTo);
+    },
+    [],
+  );
+
   return (
     <View style={styles.sectionStyle}>
       <Text style={styles.sectionHeading}>Quick Actions </Text>
-
       <View style={styles.quickActionsWrapper}>
         {DashboardQuickActionsDummyData.map((item, index) => (
-          <QuickActionCard data={item} key={index.toString()} />
+          <QuickActionCard
+            data={item}
+            onPress={navigateTo(item)}
+            key={index.toString()}
+          />
         ))}
       </View>
     </View>

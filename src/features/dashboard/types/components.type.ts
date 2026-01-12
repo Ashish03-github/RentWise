@@ -43,10 +43,12 @@ export type AttentionItemProps = {
 export interface QuickActionItem {
     actionName: string,
     iconName: string,
+    navigateTo?: string;
 }
 
 export type QuickActionCardProps = {
     data: QuickActionItem,
     key: string
+    onPress?: () => void;
 }
 

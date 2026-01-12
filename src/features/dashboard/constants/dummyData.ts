@@ -1,5 +1,6 @@
 import { AttentionItem, CardItem, QuickActionItem, TenantRentItem } from "../types/components.type";
 import { Dashboard_Icons } from "../assets/icons";
+import { PaymentRoutes, PropertyRoutes, TenantRoutes } from "@/navigation/routes";
 
 export const DashboardSummaryDummyData: Array<CardItem> = [
     {
@@ -69,18 +70,22 @@ export const DashboardAttentionDummyData: Array<AttentionItem> = [
 export const DashboardQuickActionsDummyData: Array<QuickActionItem> = [
     {
         iconName: Dashboard_Icons.addHome,
-        actionName: "Add Property"
+        actionName: "Add Property",
+        navigateTo: PropertyRoutes.addProperty
     },
     {
         iconName: Dashboard_Icons.addUsers,
-        actionName: "Add Tenant"
+        actionName: "Add Tenant",
+        navigateTo: TenantRoutes.addTenant
     },
     {
         iconName: Dashboard_Icons.addPayment,
-        actionName: "Add Payment"
+        actionName: "Add Payment",
+        navigateTo: PaymentRoutes.addPayment
     },
     {
         iconName: Dashboard_Icons.graph,
-        actionName: "View Report"
+        actionName: "View Report",
+        navigateTo: PaymentRoutes.addPayment
     },
 ]
