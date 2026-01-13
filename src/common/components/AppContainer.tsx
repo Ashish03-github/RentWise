@@ -4,7 +4,6 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  ViewStyle,
   Modal,
   Pressable,
 } from 'react-native';
@@ -16,27 +15,7 @@ import { ThemeLayout } from '@/theme/layout';
 import { ThemeSpacing } from '@/theme/spacing';
 import { AppHeader, Button, BottomSheet } from '.';
 import { scale } from '@/theme/scale';
-
-type AppContainerProps = {
-  style?: ViewStyle;
-  noPadding?: boolean;
-  isDashboard?: boolean;
-  backgroundColor?: string;
-  children: React.ReactNode;
-
-  screenHeading: string | null;
-  buttonLabel?: string | null;
-  onButtonPress?: () => void;
-
-  overlayType?: 'modal' | 'bottomSheet';
-  isOverlayVisible?: boolean;
-  onCloseOverlay?: () => void;
-
-  modalComponent?: React.ReactNode;
-
-  bottomSheetComponent?: React.ReactNode;
-  bottomSheetSnapPoint?: number | `${number}%`;
-};
+import { AppContainerProps } from './components.type';
 
 const AppContainer = ({
   style,
@@ -126,11 +105,10 @@ const stylesFn = (
     safeArea: {
       ...Layout.flex,
       ...Colors.white,
-      // paddingBottom: scale(-20),
+      paddingBottom: scale(-20),
     },
     flex: {
       ...Layout.flex,
-      // backgroundColor: 'red',
     },
     container: {
       flexGrow: 1,
@@ -138,7 +116,7 @@ const stylesFn = (
       ...Spacing.pb1,
     },
     buttonStyle: {
-      ...Spacing.mx4,
+      ...Spacing.m4,
     },
     modalContainer: {
       ...Layout.flex,

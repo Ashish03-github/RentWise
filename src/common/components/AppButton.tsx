@@ -109,7 +109,7 @@ const createStyles = (
 
     text: {
       ...Colors.textWhite,
-      ...Fonts.font600,
+      ...Fonts.font500,
       ...Fonts.sz12,
     },
   });

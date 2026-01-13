@@ -51,9 +51,9 @@ const stylesFn = (
       ...Layout.justifyCenter,
     },
     cardContainer: {
-      height: '80%',
+      height: '60%',
       ...Colors.white,
-      elevation: scale(2),
+      // elevation: scale(2),
       borderRadius: scale(10),
       shadowColor: Colors.lightGrayPure,
       ...Layout.justifyEnd,

@@ -70,3 +70,24 @@ export const PROPERTY_TYPE_ITEMS = [
     { label: 'Warehouse / Godown', value: 'warehouse' },
     { label: 'Plot / Land', value: 'plot' },
 ];
+
+
+export const propertyTypeItems = [
+    { label: "Room", value: "Room" },
+    { label: "Flat", value: "Flat" },
+    { label: "Land", value: "Land" },
+    { label: "Bungalow", value: "Bungalow" },
+    { label: "Restorant", value: "Restorant" },
+]
+
+export const propertyStatusItems = [
+    { label: 'Booking', value: 'Booking' },
+    { label: "Rent", value: "Rent" },
+    { label: 'Booked', value: 'Booked' as const },
+];
+
+export const rentRecurrenceItems = [
+    { label: 'Monthly', value: 'Monthly' as const },
+    { label: 'Yearly', value: 'Yearly' as const },
+    { label: 'Other', value: 'Other' as const },
+];

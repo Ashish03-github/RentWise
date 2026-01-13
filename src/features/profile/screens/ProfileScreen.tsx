@@ -25,10 +25,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   userDetailsContainer: {
-    height: '40%',
+    height: '50%',
   },
   servicesContainer: {
-    height: '60%',
+    height: '50%',
   },
 });
 

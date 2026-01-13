@@ -163,8 +163,21 @@ export const STATUS_UI_MAP: Record<
 };
 
 export const recentPaymentsFilterOptions = [
-    { label: 'All', value: 'all' },
-    { label: 'Paid', value: 'paid' },
-    { label: 'Partial', value: 'partial' },
-    { label: 'Pending', value: 'pending' },
+    { label: 'All', value: 'All' },
+    { label: 'Paid', value: 'Paid' },
+    { label: 'Partial', value: 'Partial' },
+    { label: 'Pending', value: 'Pending' },
 ]
+
+export const payementTypeItems = [
+    { label: 'Booking', value: 'Booking' },
+    { label: "Rent", value: "Rent" },
+    { label: "Deposite", value: "Deposite" },
+];
+
+
+export const rentStatusItems = [
+    { label: 'Paid', value: 'Paid' },
+    { label: "Pending", value: "Pending" },
+    { label: "Partial", value: "Partial" },
+];

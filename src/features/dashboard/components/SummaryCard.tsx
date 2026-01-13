@@ -51,6 +51,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ cardType, cardItem }) => {
               type="fontAwesome6"
               name={Dashboard_Icons.rupee}
               color={Colors.whitePure}
+              style={{ ...Spacing.mr1 }}
             />
           )}
           <Text style={styles.cardText}>{cardItem.cardText}</Text>
@@ -95,7 +96,7 @@ const stylesFn = (
       ...Fonts.sz16,
       ...Fonts.font600Italic,
       ...Colors.textWhite,
-      ...Spacing.ml1,
+      // ...Spacing.ml1,
     },
     cardSubText: {
       ...Fonts.sz10,
