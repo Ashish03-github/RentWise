@@ -43,9 +43,9 @@ type DropdownItem<T = any> = {
 export interface AppDropdownProps<T> {
     label?: string;
     placeholder?: string;
-    items: DropdownItem<T>[];
+    items?: DropdownItem<T>[];
     value?: T;
-    onChange: Dispatch<SetStateAction<string>>;
+    onChange: Dispatch<SetStateAction<string | undefined>>;
     error?: string;
     disabled?: boolean;
     iconSize?: number,

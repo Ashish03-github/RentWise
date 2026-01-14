@@ -1,176 +1,155 @@
+import React, { useMemo, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import React from 'react';
 import { Button, Container, Dropdown, FormInput } from '@/common/components';
 import { scale } from '@/theme/scale';
-import { ThemeColors } from '@/theme/colors';
-import { ThemeFonts } from '@/theme/fonts';
-import { ThemeLayout } from '@/theme/layout';
-import { ThemeSpacing } from '@/theme/spacing';
 import useTheme from '@/common/hooks/useTheme';
 import {
   propertyStatusItems,
   propertyTypeItems,
   rentRecurrenceItems,
 } from '@/features/property/constants/properties.dummy.data';
+import { ThemeColors } from '@/theme/colors';
+import { ThemeFonts } from '@/theme/fonts';
+import { ThemeLayout } from '@/theme/layout';
+import { ThemeSpacing } from '@/theme/spacing';
 
 const AddTenantForm = () => {
   const { Colors, Fonts, Layout, Spacing } = useTheme();
-  const styles = React.useMemo(
-    () => stylesFn(Colors, Fonts, Layout, Spacing),
-    [Colors, Fonts, Layout],
+
+  const [tenantName, setTenantName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+
+  const [property, setProperty] = useState<string | undefined>('');
+  const [deposite, setDeposite] = useState<string>('');
+  const [rent, setRent] = useState<string>('');
+
+  const [leaseStartDate, setLeaseStartDate] = useState<string | undefined>('');
+  const [leaseEndDate, setLeaseEndDate] = useState<string | undefined>('');
+
+  const [propertyType, setPropertyType] = useState<string>();
+  const [rentRecurrence, setRentRecurrence] = useState<string>();
+
+  const styles = useMemo(
+    () => stylesFn(Layout, Spacing),
+    [Colors, Fonts, Layout, Spacing],
   );
+
+  const onSubmit = () => {
+    const payload = {
+      tenantName,
+      email,
+      phone,
+      rent,
+      property,
+      deposite,
+      leaseStartDate,
+      leaseEndDate,
+      propertyType,
+      rentRecurrence,
+    };
+
+    console.log('PAYLOAD =>', payload);
+  };
+
   return (
-    <Container screenHeading={'Add Tenant'}>
+    <Container screenHeading="Add Tenant">
+      {/* Tenant Name */}
       <FormInput
         type="Personal-Details-Field"
         label="Tenant Name"
-        placeholder="Enter property name"
-        onChangeText={() => {}}
-        // error={'Please enter valid property name.'}
+        placeholder="Enter tenant name"
+        value={tenantName}
+        onChangeText={setTenantName}
       />
 
+      {/* Email */}
       <FormInput
         type="Personal-Details-Field"
         label="Email Address"
         placeholder="Enter email address"
-        onChangeText={() => {}}
-        // error={'Please enter valid property name.'}
-        multiline
-        numberOfLines={3}
+        value={email}
+        onChangeText={setEmail}
       />
 
+      {/* Phone */}
       <FormInput
         type="Personal-Details-Field"
         label="Phone Number"
         placeholder="Enter phone number"
-        onChangeText={() => {}}
-        // error={'Please enter valid property name.'}
-        multiline
-        numberOfLines={3}
+        value={phone}
+        onChangeText={setPhone}
       />
 
       <Dropdown
         label="Select Property"
-        value={null}
-        placeholder="Select property type"
-        isDatePicker={true}
-        emptyMessage="No properties found."
-        items={[]}
-        onChange={() => {}}
-        // error={'Please enter valid property name.'}
+        items={propertyStatusItems}
+        value={property}
+        onChange={setProperty}
       />
 
-      {/* <Dropdown
-        label="Property Status"
-        value={''}
-        placeholder="Select property type"
-        items={propertyTypeItems}
-        onChange={() => {}}
-        // error={'Please enter valid property name.'}
-      /> */}
-
+      {/* Property Type */}
       <Dropdown
         label="Property Type"
-        value={''}
-        placeholder="Select property type"
-        items={propertyStatusItems}
-        onChange={() => {}}
-        // error={'Please enter valid property name.'}
-      />
-
-      <Dropdown
-        label="Lease Start Date"
-        value={null}
-        isDatePicker={true}
-        placeholder="Select start date"
-        items={[]}
-        onChange={() => {}}
-        emptyMessage="No properties found."
-        // error={'Please enter valid property name.'}
-      />
-
-      <Dropdown
-        label="Lease End Date"
-        value={null}
-        placeholder="Select end date"
-        isDatePicker={true}
-        items={[]}
-        onChange={() => {}}
-        emptyMessage="No properties found."
-        // error={'Please enter valid property name.'}
+        items={propertyTypeItems}
+        value={propertyType}
+        onChange={setPropertyType}
       />
 
       <FormInput
         type="Personal-Details-Field"
-        label="Property Deposit"
-        keyboardType="numeric"
-        placeholder="Enter deposit amount"
-        onChangeText={() => {}}
-        // error={'Please enter valid property name.'}
+        label="Property Deposite"
+        placeholder="Enter deposite amount"
+        keyboardType="number-pad"
+        value={deposite}
+        onChangeText={setDeposite}
       />
 
       <FormInput
         type="Personal-Details-Field"
         label="Property Rent"
-        keyboardType="numeric"
         placeholder="Enter rent amount"
-        onChangeText={() => {}}
-        // error={'Please enter valid property name.'}
+        value={rent}
+        keyboardType="number-pad"
+        onChangeText={setRent}
       />
 
+      {/* Lease Start Date */}
+      <Dropdown
+        label="Lease Start Date"
+        isDatePicker
+        value={leaseStartDate}
+        onChange={setLeaseStartDate}
+      />
+
+      {/* Lease End Date */}
+      <Dropdown
+        label="Lease End Date"
+        isDatePicker
+        value={leaseEndDate}
+        onChange={setLeaseEndDate}
+      />
+
+      {/* Rent Recurrence */}
       <Dropdown
         label="Rent Recurrence"
-        value={''}
         items={rentRecurrenceItems}
-        placeholder="Select rent recurrence period"
-        onChange={() => {}}
-        // error={'Please enter valid property name.'}
+        value={rentRecurrence}
+        onChange={setRentRecurrence}
       />
 
-      <FormInput
-        type="Personal-Details-Field"
-        label="Note"
-        placeholder="Enter note"
-        onChangeText={() => {}}
-        multiline
-        numberOfLines={3}
-        // error={'Please enter valid property name.'}
-      />
-
-      <Button title={'Add Tenant'} style={styles.button} onPress={() => {}} />
+      <Button title="Add Tenant" style={styles.button} onPress={onSubmit} />
     </Container>
   );
 };
 
-const stylesFn = (
-  Colors: ThemeColors,
-  Fonts: ThemeFonts,
-  Layout: ThemeLayout,
-  Spacing: ThemeSpacing,
-) =>
+export default AddTenantForm;
+
+/* ---------------------------------------
+   STYLES
+--------------------------------------- */
+const stylesFn = (Layout: ThemeLayout, Spacing: ThemeSpacing) =>
   StyleSheet.create({
-    container: {
-      ...Layout.flex,
-      ...Colors.white,
-      ...Spacing.pb4,
-    },
-    scrollContent: {
-      ...Layout.flexGrow,
-    },
-    formHeaderContainer: {
-      ...Layout.center,
-      borderBottomWidth: scale(0.6),
-      borderColor: Colors.lightGrayPure,
-    },
-    formHeading: {
-      ...Fonts.font600,
-      ...Fonts.sz16,
-    },
-    icon: {
-      ...Layout.absolute,
-      ...Spacing.top2,
-      ...Spacing.right2,
-    },
     button: {
       ...Layout.fullWidth,
       ...Layout.rounded3xl,
@@ -178,5 +157,3 @@ const stylesFn = (
       ...Spacing.mb3,
     },
   });
-
-export default AddTenantForm;

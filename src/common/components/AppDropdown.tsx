@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useMemo, useRef } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -10,29 +10,31 @@ import { ThemeFonts } from '@/theme/fonts';
 import { ThemeLayout } from '@/theme/layout';
 import { ThemeSpacing } from '@/theme/spacing';
 import { AppDropdownProps } from './components.type';
-import { Calendar } from '.';
+import AppCalendar from './AppCalendar';
 
 type InternalItem<T> = {
   label: string;
   value?: T;
   icon?: string;
   __emptyMessage?: boolean;
+  __isCalendar?: boolean;
 };
 
 const AppDropdown = <T,>({
   label,
   placeholder = 'Select option',
-  items,
+  items = [],
   value,
   onChange,
   error,
   disabled = false,
   iconSize = 22,
-  isDatePicker,
-  styles: customStyles = {},
+  isDatePicker = false,
   emptyMessage = '',
+  styles: customStyles = {},
 }: AppDropdownProps<T> & { emptyMessage?: string }) => {
   const { Colors, Fonts, Layout, Spacing } = useTheme();
+  const dropdownRef = useRef<SelectDropdown>(null);
 
   const styles = useMemo(
     () => stylesFn(Colors, Fonts, Layout, Spacing),
@@ -44,12 +46,20 @@ const AppDropdown = <T,>({
     [items, value],
   );
 
+  /* ---------------------------------------------------
+     DATA SOURCE
+  --------------------------------------------------- */
   const dropdownData: InternalItem<T>[] = useMemo(() => {
+    if (isDatePicker) {
+      return [{ label: 'calendar', __isCalendar: true }];
+    }
+
     if (!selectedItem && emptyMessage) {
       return [{ label: emptyMessage, __emptyMessage: true }, ...items];
     }
+
     return items;
-  }, [items, selectedItem, emptyMessage]);
+  }, [isDatePicker, items, selectedItem, emptyMessage]);
 
   const renderDropdownButton = useCallback(
     (_: InternalItem<T> | null, isOpened: boolean) => (
@@ -62,14 +72,12 @@ const AppDropdown = <T,>({
         ]}
       >
         <Text
-          style={[
-            styles.text,
-            !selectedItem && styles.placeholder,
-            customStyles.text,
-          ]}
+          style={[styles.text, !selectedItem && styles.placeholder]}
           numberOfLines={1}
         >
-          {selectedItem?.label ?? placeholder}
+          {isDatePicker && (value as string).length > 0
+            ? (value as string) ?? placeholder
+            : selectedItem?.label ?? placeholder}
         </Text>
 
         <Icon
@@ -84,49 +92,47 @@ const AppDropdown = <T,>({
       error,
       disabled,
       customStyles.container,
-      customStyles.text,
       selectedItem,
+      value,
       placeholder,
       iconSize,
+      isDatePicker,
       Colors.textBlack.color,
     ],
   );
 
   const renderDropdownItem = useCallback(
-    (item: InternalItem<T>, isSelected: boolean) => {
-      if (isDatePicker) {
+    (item: InternalItem<T>) => {
+      if (item.__isCalendar) {
         return (
-          <View>
-            <Calendar />
+          <View style={{ padding: scale(10) }}>
+            <AppCalendar
+              selectedDate={value as string}
+              onDateSelect={date => {
+                onChange(date);
+                dropdownRef.current?.closeDropdown();
+              }}
+            />
           </View>
         );
       }
+
       if (item.__emptyMessage) {
         return (
           <View style={styles.emptyItem}>
-            <Text style={[styles.emptyItemText, customStyles.emptyMessage]}>
-              {item.label}
-            </Text>
+            <Text style={styles.emptyItemText}>{item.label}</Text>
           </View>
         );
       }
 
       return (
-        <View
-          style={[
-            styles.item,
-            isSelected && styles.itemSelected,
-            customStyles.item,
-          ]}
-        >
+        <View style={[styles.item]}>
           {item.icon && <Icon name={item.icon} size={22} style={Spacing.mr2} />}
-          <Text style={[styles.itemText, customStyles.itemText]}>
-            {item.label}
-          </Text>
+          <Text style={styles.itemText}>{item.label}</Text>
         </View>
       );
     },
-    [styles, customStyles, Spacing],
+    [onChange, value, styles, Spacing],
   );
 
   return (
@@ -134,17 +140,22 @@ const AppDropdown = <T,>({
       {label && <Text style={styles.label}>{label}</Text>}
 
       <SelectDropdown
+        ref={dropdownRef}
         data={dropdownData}
         disabled={disabled}
         statusBarTranslucent
-        onSelect={item => {
-          if (item.__emptyMessage) return;
-          onChange(item.value);
-        }}
         renderButton={renderDropdownButton}
         renderItem={renderDropdownItem}
-        dropdownStyle={[styles.dropdown, customStyles.dropdown]}
+        dropdownStyle={[
+          styles.dropdown,
+          isDatePicker && { height: scaleVertical(360) },
+        ]}
         showsVerticalScrollIndicator={false}
+        onSelect={item => {
+          if (!isDatePicker && !item.__emptyMessage) {
+            onChange(item.value);
+          }
+        }}
       />
 
       {!!error && (
@@ -210,7 +221,7 @@ const stylesFn = (
     },
 
     dropdown: {
-      borderRadius: 8,
+      borderRadius: 12,
       backgroundColor: Colors.white.backgroundColor,
     },
 
@@ -219,10 +230,6 @@ const stylesFn = (
       ...Layout.alignCenter,
       paddingVertical: scaleVertical(10),
       paddingHorizontal: scale(12),
-    },
-
-    itemSelected: {
-      backgroundColor: '#F1F5F9',
     },
 
     itemText: {
@@ -234,7 +241,6 @@ const stylesFn = (
     emptyItem: {
       paddingVertical: scaleVertical(20),
       paddingHorizontal: scale(12),
-      ...Layout.roundedMd,
     },
 
     emptyItemText: {
