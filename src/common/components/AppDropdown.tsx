@@ -10,6 +10,7 @@ import { ThemeFonts } from '@/theme/fonts';
 import { ThemeLayout } from '@/theme/layout';
 import { ThemeSpacing } from '@/theme/spacing';
 import { AppDropdownProps } from './components.type';
+import { Calendar } from '.';
 
 type InternalItem<T> = {
   label: string;
@@ -27,6 +28,7 @@ const AppDropdown = <T,>({
   error,
   disabled = false,
   iconSize = 22,
+  isDatePicker,
   styles: customStyles = {},
   emptyMessage = '',
 }: AppDropdownProps<T> & { emptyMessage?: string }) => {
@@ -92,6 +94,13 @@ const AppDropdown = <T,>({
 
   const renderDropdownItem = useCallback(
     (item: InternalItem<T>, isSelected: boolean) => {
+      if (isDatePicker) {
+        return (
+          <View>
+            <Calendar />
+          </View>
+        );
+      }
       if (item.__emptyMessage) {
         return (
           <View style={styles.emptyItem}>

@@ -62,4 +62,5 @@ export interface AppDropdownProps<T> {
         errorText?: StyleProp<TextStyle>;
         emptyMessage?: StyleProp<TextStyle>;
     };
+    isDatePicker?: boolean
 }

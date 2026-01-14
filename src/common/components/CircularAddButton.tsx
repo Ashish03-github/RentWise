@@ -1,5 +1,5 @@
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, { memo } from 'react';
 import { scale } from '@/theme/scale';
 import { ThemeColors } from '@/theme/colors';
 import { ThemeLayout } from '@/theme/layout';
@@ -45,9 +45,10 @@ const stylesFn = (Colors: ThemeColors, Layout: ThemeLayout) =>
       ...Layout.absolute,
       bottom: scale(20),
       right: 0,
-      borderRadius: scale(28),
+      borderRadius: scale(18),
       ...Colors.primary,
       ...Layout.center,
+      elevation: scale(5),
     },
   });
-export default CircularAddButton;
+export default memo(CircularAddButton);

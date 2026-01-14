@@ -53,6 +53,7 @@ const AddTenantForm = () => {
         label="Select Property"
         value={null}
         placeholder="Select property type"
+        isDatePicker={true}
         emptyMessage="No properties found."
         items={[]}
         onChange={() => {}}
@@ -79,19 +80,23 @@ const AddTenantForm = () => {
 
       <Dropdown
         label="Lease Start Date"
-        value={''}
+        value={null}
+        isDatePicker={true}
         placeholder="Select start date"
-        items={propertyStatusItems}
+        items={[]}
         onChange={() => {}}
+        emptyMessage="No properties found."
         // error={'Please enter valid property name.'}
       />
 
       <Dropdown
         label="Lease End Date"
-        value={''}
+        value={null}
         placeholder="Select end date"
-        items={propertyStatusItems}
+        isDatePicker={true}
+        items={[]}
         onChange={() => {}}
+        emptyMessage="No properties found."
         // error={'Please enter valid property name.'}
       />
 
