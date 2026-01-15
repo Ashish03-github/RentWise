@@ -11,9 +11,8 @@ import {
   PaymentItemProps,
   PaymentStatus,
 } from '../types/payments.components.type';
-import { AppIcon, AppImage } from '@/common/components';
+import { AppImage } from '@/common/components';
 import { STATUS_UI_MAP } from '../constants/payments.dummy.data';
-import { Icons } from '../assets/payments.icons';
 
 const PaymentItem: React.FC<PaymentItemProps> = ({ item, index }) => {
   const {
@@ -23,9 +22,6 @@ const PaymentItem: React.FC<PaymentItemProps> = ({ item, index }) => {
     leaseEndDate,
     tenantImage,
     paymentstatus,
-    paidAmount,
-    partialAmount,
-    daysLate,
   } = item;
 
   const { Colors, Fonts, Layout, Spacing } = useTheme();

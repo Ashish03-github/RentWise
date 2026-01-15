@@ -1,24 +1,14 @@
-import React, { useMemo, useState } from 'react';
-import { StyleSheet } from 'react-native';
-import { Button, Container, Dropdown, FormInput } from '@/common/components';
-import { scale } from '@/theme/scale';
-import useTheme from '@/common/hooks/useTheme';
+import React, { useState } from 'react';
+import { Container, Dropdown, FormInput } from '@/common/components';
 import {
   propertyStatusItems,
   propertyTypeItems,
   rentRecurrenceItems,
 } from '@/features/property/constants/properties.dummy.data';
-import { ThemeColors } from '@/theme/colors';
-import { ThemeFonts } from '@/theme/fonts';
-import { ThemeLayout } from '@/theme/layout';
-import { ThemeSpacing } from '@/theme/spacing';
-
 const AddTenantForm = () => {
-  const { Colors, Fonts, Layout, Spacing } = useTheme();
-
-  const [tenantName, setTenantName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [tenantName, setTenantName] = useState<string | undefined>('');
+  const [email, setEmail] = useState<string | undefined>('');
+  const [phone, setPhone] = useState<string | undefined>('');
 
   const [property, setProperty] = useState<string | undefined>('');
   const [deposite, setDeposite] = useState<string>('');
@@ -29,11 +19,6 @@ const AddTenantForm = () => {
 
   const [propertyType, setPropertyType] = useState<string>();
   const [rentRecurrence, setRentRecurrence] = useState<string>();
-
-  const styles = useMemo(
-    () => stylesFn(Layout, Spacing),
-    [Colors, Fonts, Layout, Spacing],
-  );
 
   const onSubmit = () => {
     const payload = {
@@ -53,7 +38,11 @@ const AddTenantForm = () => {
   };
 
   return (
-    <Container screenHeading="Add Tenant">
+    <Container
+      buttonLabel={'Add Tenant'}
+      onButtonPress={onSubmit}
+      screenHeading="Add Tenant"
+    >
       {/* Tenant Name */}
       <FormInput
         type="Personal-Details-Field"
@@ -138,22 +127,9 @@ const AddTenantForm = () => {
         onChange={setRentRecurrence}
       />
 
-      <Button title="Add Tenant" style={styles.button} onPress={onSubmit} />
+      {/* <Button title="Add Tenant" style={styles.button} onPress={onSubmit} /> */}
     </Container>
   );
 };
 
 export default AddTenantForm;
-
-/* ---------------------------------------
-   STYLES
---------------------------------------- */
-const stylesFn = (Layout: ThemeLayout, Spacing: ThemeSpacing) =>
-  StyleSheet.create({
-    button: {
-      ...Layout.fullWidth,
-      ...Layout.rounded3xl,
-      ...Spacing.mt2,
-      ...Spacing.mb3,
-    },
-  });

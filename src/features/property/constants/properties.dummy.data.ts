@@ -73,17 +73,22 @@ export const PROPERTY_TYPE_ITEMS = [
 
 
 export const propertyTypeItems = [
-    { label: "Room", value: "Room" },
-    { label: "Flat", value: "Flat" },
-    { label: "Land", value: "Land" },
-    { label: "Bungalow", value: "Bungalow" },
-    { label: "Restorant", value: "Restorant" },
+    { label: 'Apartment / Flat', value: 'Apartment / Flat' },
+    { label: 'Independent House', value: 'Independent House' },
+    { label: 'Villa', value: 'Villa' },
+    { label: 'Builder Floor', value: 'Builder Floor' },
+    { label: 'PG / Hostel', value: 'PG / Hostel' },
+    { label: 'Office Space', value: 'Office Space' },
+    { label: 'Shop / Showroom', value: 'Shop / Showroom' },
+    { label: 'Commercial Building', value: 'Commercial Building' },
+    { label: 'Warehouse / Godown', value: 'Warehouse / Godown' },
+    { label: 'Plot / Land', value: 'Plot / Land' },
 ]
 
 export const propertyStatusItems = [
-    { label: 'Booking', value: 'Booking' },
-    { label: "Rent", value: "Rent" },
-    { label: 'Booked', value: 'Booked' as const },
+    { label: 'Vacant', value: 'Vacant' },
+    { label: "Occupied", value: "Occupied" },
+    { label: 'Booked', value: 'Booked' },
 ];
 
 export const rentRecurrenceItems = [

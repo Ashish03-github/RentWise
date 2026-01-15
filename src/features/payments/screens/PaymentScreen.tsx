@@ -14,9 +14,7 @@ const PaymentScreen = () => {
     <Container screenHeading={'Payments'}>
       <View style={styles.container}>
         <PaymentsInfo />
-        {/* <PaymentsFilters /> */}
         <RecentPaymentsList />
-
         <CircularButton nextToScreen={PaymentRoutes.addPayment} />
       </View>
     </Container>

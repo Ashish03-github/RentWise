@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useCallback } from 'react';
 import TenantRentItem from './TenantRentItem';
 import { ThemeSpacing } from '@/theme/spacing';
 import useTheme from '@/common/hooks/useTheme';
 import { ThemeFonts } from '@/theme/fonts';
 import { DashboardTenantsDummyData } from '../constants/dummyData';
+import { TenantRentItem as ITenantRentItem } from '../types/components.type';
 
 const MonthlyRentStatusSection = () => {
   const { Spacing, Fonts } = useTheme();
@@ -12,13 +13,17 @@ const MonthlyRentStatusSection = () => {
     () => stylesFn(Spacing, Fonts),
     [Spacing, Fonts],
   );
+
+  const renderItem = useCallback(
+    (item: ITenantRentItem, index: number) => (
+      <TenantRentItem data={item} key={index.toString()} />
+    ),
+    [],
+  );
   return (
     <View style={styles.sectionStyle}>
       <Text style={styles.sectionHeading}>Current Month Rent Status </Text>
-
-      {DashboardTenantsDummyData.map((item, index) => (
-        <TenantRentItem data={item} key={index.toString()} />
-      ))}
+      {DashboardTenantsDummyData.map(renderItem)}
     </View>
   );
 };

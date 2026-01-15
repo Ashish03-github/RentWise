@@ -46,9 +46,6 @@ const AppDropdown = <T,>({
     [items, value],
   );
 
-  /* ---------------------------------------------------
-     DATA SOURCE
-  --------------------------------------------------- */
   const dropdownData: InternalItem<T>[] = useMemo(() => {
     if (isDatePicker) {
       return [{ label: 'calendar', __isCalendar: true }];
@@ -72,7 +69,11 @@ const AppDropdown = <T,>({
         ]}
       >
         <Text
-          style={[styles.text, !selectedItem && styles.placeholder]}
+          style={[
+            styles.text,
+            !selectedItem && styles.placeholder,
+            customStyles.text,
+          ]}
           numberOfLines={1}
         >
           {isDatePicker && (value as string).length > 0

@@ -52,3 +52,5 @@ export type QuickActionCardProps = {
     onPress?: () => void;
 }
 
+export type PaymentStatus = 'Paid' | 'Pending' | 'Partial';
+

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Container, Dropdown, FormInput } from '@/common/components';
 import useTheme from '@/common/hooks/useTheme';
 import { scale } from '@/theme/scale';
@@ -8,15 +8,23 @@ import { ThemeFonts } from '@/theme/fonts';
 import { ThemeLayout } from '@/theme/layout';
 import { ThemeSpacing } from '@/theme/spacing';
 import {
-  propertyStatusItems,
-  propertyTypeItems,
-} from '@/features/property/constants/properties.dummy.data';
-import {
   payementTypeItems,
   rentStatusItems,
 } from '../constants/payments.dummy.data';
 
 const AddPaymentScreen = () => {
+  const [tenantName, setTenantName] = useState<string | undefined>('');
+  const [propertyName, setPropertyName] = useState<string | undefined>('');
+  const [fromDate, setFromDate] = useState<string | undefined>('');
+  const [toDate, setToDate] = useState<string | undefined>('');
+  const [paidAmount, setPaidAmount] = useState<string | undefined>('');
+  const [remainingAmount, setRemainingAmount] = useState<string | undefined>(
+    '',
+  );
+  const [rentStatus, setRentStatus] = useState<string | undefined>('');
+  const [paymentType, setPaymentType] = useState<string | undefined>('');
+  const [note, setNote] = useState<string | undefined>('');
+
   const { Colors, Fonts, Layout, Spacing } = useTheme();
   const styles = React.useMemo(
     () => stylesFn(Colors, Fonts, Layout, Spacing),
@@ -25,86 +33,89 @@ const AddPaymentScreen = () => {
   return (
     <Container screenHeading={'Add Payments'}>
       <Dropdown
-        value={''}
-        onChange={() => {}}
+        items={[]}
+        value={tenantName}
+        onChange={setTenantName}
         label="Select Tenant"
-        items={propertyTypeItems}
         placeholder="Select tenant"
+        emptyMessage="No tenant added yet."
         // error={'Please enter valid property name.'}
       />
 
       <Dropdown
-        value={''}
-        onChange={() => {}}
+        items={[]}
+        value={propertyName}
+        onChange={setPropertyName}
         label="Select Property"
-        items={propertyTypeItems}
         placeholder="Select property type"
+        emptyMessage="No property added yet."
         // error={'Please enter valid property name.'}
       />
 
       <Dropdown
-        value={''}
+        items={[]}
         label="From Date"
-        onChange={() => {}}
-        items={propertyStatusItems}
+        value={fromDate}
+        isDatePicker={true}
+        onChange={setFromDate}
         placeholder="Select start date"
         // error={'Please enter valid property name.'}
       />
 
       <Dropdown
+        items={[]}
         label="To Date"
-        value={''}
+        value={toDate}
+        isDatePicker={true}
+        onChange={setToDate}
         placeholder="Select end date"
-        items={propertyStatusItems}
-        onChange={() => {}}
         // error={'Please enter valid property name.'}
       />
 
       <FormInput
-        type="Personal-Details-Field"
+        value={paidAmount}
         label="Paid Amount"
+        onChangeText={setPaidAmount}
+        type="Personal-Details-Field"
         placeholder="Enter paid amount"
-        onChangeText={() => {}}
-        multiline
-        numberOfLines={3}
         // error={'Please enter valid property name.'}
       />
 
       <FormInput
-        type="Personal-Details-Field"
+        value={remainingAmount}
         label="Remaining Amount"
+        type="Personal-Details-Field"
+        onChangeText={setRemainingAmount}
         placeholder="Enter remaining amount"
-        onChangeText={() => {}}
-        multiline
-        numberOfLines={3}
         // error={'Please enter valid property name.'}
       />
 
       <Dropdown
-        value={''}
+        value={rentStatus}
         label="Rent Status"
-        onChange={() => {}}
+        onChange={setRentStatus}
         items={rentStatusItems}
         placeholder="Select property type"
         // error={'Please enter valid property name.'}
       />
 
       <Dropdown
+        value={paymentType}
         label="Payment Type"
-        value={''}
-        placeholder="Select payement type"
+        onChange={setPaymentType}
         items={payementTypeItems}
-        onChange={() => {}}
+        placeholder="Select payement type"
         // error={'Please enter valid property name.'}
       />
 
       <FormInput
-        type="Personal-Details-Field"
-        label="Note"
-        placeholder="Enter note"
-        onChangeText={() => {}}
         multiline
+        label="Note"
+        value={note}
         numberOfLines={3}
+        placeholder="Enter note"
+        onChangeText={setNote}
+        type="Personal-Details-Field"
         // error={'Please enter valid property name.'}
       />
 

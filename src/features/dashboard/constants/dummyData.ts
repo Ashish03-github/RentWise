@@ -1,4 +1,4 @@
-import { AttentionItem, CardItem, QuickActionItem, TenantRentItem } from "../types/components.type";
+import { AttentionItem, CardItem, PaymentStatus, QuickActionItem, TenantRentItem } from "../types/components.type";
 import { Dashboard_Icons } from "../assets/icons";
 import { PaymentRoutes, PropertyRoutes, TenantRoutes } from "@/navigation/routes";
 
@@ -89,3 +89,40 @@ export const DashboardQuickActionsDummyData: Array<QuickActionItem> = [
         navigateTo: PaymentRoutes.addPayment
     },
 ]
+
+export const STATUS_UI_MAP: Record<
+    PaymentStatus,
+    {
+        label: string;
+        badgeStyle: object;
+        textStyle: object;
+    }
+> = {
+    Paid: {
+        label: 'Paid',
+        badgeStyle: {
+            backgroundColor: 'rgba(34, 197, 94, 0.1)',
+        },
+        textStyle: {
+            color: '#22C55E',
+        },
+    },
+    Pending: {
+        label: 'Pending',
+        badgeStyle: {
+            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+        },
+        textStyle: {
+            color: '#EF4444',
+        },
+    },
+    Partial: {
+        label: 'Partial',
+        badgeStyle: {
+            backgroundColor: 'rgba(234, 179, 8, 0.1)',
+        },
+        textStyle: {
+            color: '#EAB308',
+        },
+    },
+};

@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import React, { useCallback } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
 import { ThemeSpacing } from '@/theme/spacing';
 import { ThemeFonts } from '@/theme/fonts';
 import useTheme from '@/common/hooks/useTheme';
@@ -7,8 +7,9 @@ import { ThemeColors } from '@/theme/colors';
 import { ThemeLayout } from '@/theme/layout';
 import { scale } from '@/theme/scale';
 import { AppIcon } from '@/common/components';
-import { TenantRentItemProps } from '../types/components.type';
+import { PaymentStatus, TenantRentItemProps } from '../types/components.type';
 import { Dashboard_Icons } from '../assets/icons';
+import { STATUS_UI_MAP } from '../constants/dummyData';
 
 const TenantRentItem: React.FC<TenantRentItemProps> = ({ data, key }) => {
   const { Spacing, Fonts, Colors, Layout } = useTheme();
@@ -20,24 +21,13 @@ const TenantRentItem: React.FC<TenantRentItemProps> = ({ data, key }) => {
 
   const {
     tenantName = 'User 1',
-    propertyRent = 'Nill',
+    propertyRent = 'Null',
     rentStatus = 'Pending',
     propertyName = 'Not Available',
   } = data;
 
-  const getRentStatusBadgeColor = useCallback(() => {
-    switch (rentStatus) {
-      case 'Paid':
-        return { ...Colors.textGreen };
-      case 'Pending':
-        return { ...Colors.textRed };
-      case 'Partial':
-        return { ...Colors.textLightOrange };
-
-      default:
-        break;
-    }
-  }, [rentStatus]);
+  const statusConfig =
+    STATUS_UI_MAP[rentStatus as PaymentStatus] ?? STATUS_UI_MAP.Pending;
 
   return (
     <View key={key} style={styles.tenantRentItemContainer}>
@@ -61,11 +51,11 @@ const TenantRentItem: React.FC<TenantRentItemProps> = ({ data, key }) => {
         </View>
       </View>
       <View style={styles.tenantRentStatusButtonContainer}>
-        <TouchableOpacity style={styles.rentStatusBadege}>
-          <Text style={[styles.rentStatusText, getRentStatusBadgeColor()]}>
-            {rentStatus}
+        <View style={[styles.statusBadge, statusConfig.badgeStyle]}>
+          <Text style={[styles.statusText, statusConfig.textStyle]}>
+            {statusConfig.label}
           </Text>
-        </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -135,6 +125,16 @@ const stylesFn = (
     },
     rentStatusText: {
       ...Fonts.font500Italic,
+      ...Fonts.sz8,
+    },
+    statusBadge: {
+      minWidth: scale(70),
+      ...Spacing.py1,
+      borderRadius: scale(12),
+      ...Layout.center,
+    },
+    statusText: {
+      ...Fonts.font500,
       ...Fonts.sz8,
     },
   });

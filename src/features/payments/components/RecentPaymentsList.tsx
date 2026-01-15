@@ -1,5 +1,5 @@
 import { View, Text, FlatList, StyleSheet } from 'react-native';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
   recentPaymentsData,
   recentPaymentsFilterOptions,
@@ -10,9 +10,12 @@ import { ThemeFonts } from '@/theme/fonts';
 import useTheme from '@/common/hooks/useTheme';
 import { Dropdown } from '@/common/components';
 import { scale, scaleVertical } from '@/theme/scale';
+import { RecentPayment } from '../types/payments.components.type';
 
 const RecentPaymentsList = () => {
-  const [selectedFilter, setSelectedFilter] = React.useState<string>('all');
+  const [selectedFilter, setSelectedFilter] = React.useState<
+    string | undefined
+  >('all');
   const { Spacing, Fonts, Colors, Layout } = useTheme();
 
   const styles = useMemo(() => stylesFn(Spacing, Fonts), [Spacing, Fonts]);
@@ -46,6 +49,13 @@ const RecentPaymentsList = () => {
     [Spacing, Fonts, Colors, Layout],
   );
 
+  const renderItem = useCallback(
+    ({ item, index }: { item: RecentPayment; index: number }) => (
+      <PaymentItem item={item} index={index.toString()} />
+    ),
+    [],
+  );
+
   return (
     <View style={styles.container}>
       <View style={styles.headerRow}>
@@ -55,18 +65,18 @@ const RecentPaymentsList = () => {
           iconSize={16}
           value={selectedFilter}
           styles={dropdownStyle}
+          // placeholder="Select"
           onChange={setSelectedFilter}
-          emptyMessage="No filter option is available."
           items={recentPaymentsFilterOptions}
         />
       </View>
 
       <FlatList
         data={recentPaymentsData}
-        renderItem={({ item, index }) => (
-          <PaymentItem item={item} index={index.toString()} />
-        )}
         keyExtractor={(_, i) => i.toString()}
+        initialNumToRender={10}
+        renderItem={renderItem}
+        removeClippedSubviews={true}
       />
     </View>
   );

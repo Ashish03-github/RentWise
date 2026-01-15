@@ -17,6 +17,8 @@ const PropertyList = () => {
     <FlatList
       data={propertiesData}
       renderItem={renderItem}
+      initialNumToRender={10}
+      removeClippedSubviews={true}
       keyExtractor={(_, i) => i.toString()}
     />
   );
