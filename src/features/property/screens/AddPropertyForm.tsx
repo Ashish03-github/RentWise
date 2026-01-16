@@ -1,117 +1,98 @@
-import React, { useState } from 'react';
-import { Container, Dropdown, FormInput } from '@/common/components';
+import React from 'react';
+import { Container, RHFDropdown, RHFInput } from '@/common/components';
 import {
-  propertyStatusItems,
   propertyTypeItems,
   rentRecurrenceItems,
+  propertyStatusItems,
 } from '../constants/properties.dummy.data';
+import { useAddPropertyFormController } from '../controller';
 
 const AddPropertyForm = () => {
-  const [propertyName, setPropertyName] = useState<string | undefined>('');
-  const [propertyAddress, setPropertyAddress] = useState<string | undefined>(
-    '',
-  );
-  const [propertyType, setPropertyType] = useState<string | undefined>('');
-  const [propertyStaus, setPropertyStatus] = useState<string | undefined>('');
-  const [depositeAmount, setDepositeAmount] = useState<string | undefined>('');
-  const [rentAmount, setRentAmount] = useState<string | undefined>('');
-  const [rentRecurrence, setRentRecurrence] = useState<string | undefined>('');
-  const [note, setNote] = useState<string | undefined>('');
-
-  const onSubmit = () => {
-    console.log('Property Details =>', {
-      propertyName,
-      propertyAddress,
-      propertyType,
-      propertyStaus,
-      depositeAmount,
-      rentAmount,
-      rentRecurrence,
-      note,
-    });
-  };
+  const { control, handleSubmit, errors, onSubmit } =
+    useAddPropertyFormController();
 
   return (
     <Container
-      onButtonPress={onSubmit}
+      onButtonPress={handleSubmit(onSubmit)}
       buttonLabel={'Add Property'}
       screenHeading="Add Property"
     >
-      <FormInput
+      <RHFInput
+        control={control}
+        errors={errors}
+        name="propertyName"
         label="Property Name"
-        value={propertyName}
-        onChangeText={setPropertyName}
         type="Personal-Details-Field"
         placeholder="Enter property name"
-        // error={'Please enter valid property name.'}
       />
 
-      <FormInput
+      <RHFInput
         multiline
+        errors={errors}
+        control={control}
         numberOfLines={3}
-        value={propertyAddress}
+        name={'propertyAddress'}
         label="Property Address"
-        onChangeText={setPropertyAddress}
         type="Personal-Details-Field"
         placeholder="Enter property address"
       />
 
-      <Dropdown
+      <RHFDropdown
+        name="propertyType"
         label="Property Type"
-        value={propertyType}
+        control={control}
+        errors={errors}
         items={propertyTypeItems}
-        onChange={setPropertyType}
         placeholder="Select property type"
-        // error={'Please enter valid property name.'}
       />
 
-      <Dropdown
+      <RHFDropdown
+        name={'propertyStatus'}
         label="Property Status"
-        value={propertyStaus}
+        control={control}
+        errors={errors}
         items={propertyStatusItems}
-        onChange={setPropertyStatus}
         placeholder="Select property status"
-        // error={'Please enter valid property name.'}
       />
 
-      <FormInput
+      <RHFInput
+        name="propertyDeposit"
         label="Property Deposit"
-        value={depositeAmount}
+        control={control}
+        errors={errors}
         keyboardType="numeric"
         type="Personal-Details-Field"
-        onChangeText={setDepositeAmount}
         placeholder="Enter deposit amount"
-        // error={'Please enter valid property name.'}
       />
 
-      <FormInput
-        value={rentAmount}
+      <RHFInput
+        name="propertyRent"
         label="Property Rent"
         keyboardType="numeric"
-        onChangeText={setRentAmount}
+        control={control}
+        errors={errors}
         type="Personal-Details-Field"
         placeholder="Enter rent amount"
-        // error={'Please enter valid property name.'}
       />
 
-      <Dropdown
+      <RHFDropdown
         label="Rent Recurrence"
-        value={rentRecurrence}
+        name="rentRecurrence"
+        control={control}
+        errors={errors}
         items={rentRecurrenceItems}
-        onChange={setRentRecurrence}
         placeholder="Select rent recurrence period"
-        // error={'Please enter valid property name.'}
       />
 
-      <FormInput
+      <RHFInput
+        name="note"
         label="Note"
         multiline
-        value={note}
+        errors={errors}
+        control={control}
         numberOfLines={3}
         placeholder="Enter note"
-        onChangeText={setNote}
         type="Personal-Details-Field"
-        // error={'Please enter valid property name.'}
       />
     </Container>
   );
