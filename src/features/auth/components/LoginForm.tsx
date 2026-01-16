@@ -1,30 +1,43 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import { InputField } from '@/common/components';
+import React, { useCallback, useState } from 'react';
+import { Button, InputField } from '@/common/components';
 import { ThemeColors } from '@/theme/colors';
 import { ThemeFonts } from '@/theme/fonts';
 import useTheme from '@/common/hooks/useTheme';
 import { ThemeSpacing } from '@/theme/spacing';
+import { useLoginController } from '../controller';
+import { scale } from '@/theme/scale';
+import { ThemeLayout } from '@/theme/layout';
 
 interface LoginFormProps {
-  email?: string;
-  password?: string;
-  onEmailChange?: (email: string) => void;
-  onPasswordChange?: (password: string) => void;
+  // email?: string;
+  // password?: string;
+  // onEmailChange?: (email: string) => void;
+  // onPasswordChange?: (password: string) => void;
 }
-const LoginForm: React.FC<LoginFormProps> = ({
-  email,
-  password,
-  onEmailChange,
-  onPasswordChange,
-}) => {
-  const { Colors, Fonts, Spacing } = useTheme();
+const LoginForm: React.FC<LoginFormProps> = (
+  {
+    // email,
+    // password,
+    // onEmailChange,
+    // onPasswordChange,
+  },
+) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { handleLogin } = useLoginController();
+  const onSubmit = useCallback(() => {
+    handleLogin(email, password);
+  }, [email, password, handleLogin]);
+
+  const { Colors, Fonts, Spacing, Layout } = useTheme();
   const styles = React.useMemo(
-    () => stylesFn(Colors, Fonts, Spacing),
-    [Colors, Fonts, Spacing],
+    () => stylesFn(Colors, Fonts, Spacing, Layout),
+    [Colors, Fonts, Spacing, Layout],
   );
+
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.welcomeText}>Hey! Welcome back</Text>
       <Text style={styles.subSignInText}>Sign In to your account</Text>
 
@@ -32,20 +45,22 @@ const LoginForm: React.FC<LoginFormProps> = ({
         label="Email"
         value={email}
         placeholder="Enter your email"
-        onChangeText={onEmailChange}
+        onChangeText={setEmail}
       />
 
       <InputField
         label="Password"
         value={password}
         secureTextEntry
-        onChangeText={onPasswordChange}
+        onChangeText={setPassword}
         placeholder="Enter your password"
       />
 
       <Text style={styles.termsConditionsText}>
         After continuing, I accept all Terms & Conditions and Privacy Policy
       </Text>
+
+      <Button style={styles.formButton} title="Continue" onPress={onSubmit} />
     </View>
   );
 };
@@ -54,8 +69,13 @@ const stylesFn = (
   Colors: ThemeColors,
   Fonts: ThemeFonts,
   Spacing: ThemeSpacing,
+  Layout: ThemeLayout,
 ) =>
   StyleSheet.create({
+    container: {
+      flex: 1,
+      ...Layout.justifyCenter,
+    },
     welcomeText: {
       ...Fonts.font700,
       ...Fonts.sz22,
@@ -71,6 +91,11 @@ const stylesFn = (
       ...Fonts.sz10,
       ...Colors.textSecondary,
       // ...Spacing.mt2,
+    },
+    formButton: {
+      width: '100%',
+      bottom: scale(16),
+      position: 'absolute',
     },
   });
 

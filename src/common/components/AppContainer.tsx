@@ -25,9 +25,7 @@ const AppContainer = ({
   screenHeading,
   onCloseOverlay,
   modalComponent,
-  backgroundColor,
   isOverlayVisible,
-  noPadding = false,
   buttonLabel = null,
   bottomSheetComponent,
   bottomSheetSnapPoint,
@@ -37,8 +35,14 @@ const AppContainer = ({
 
   const styles = useMemo(
     () => stylesFn(Colors, Layout, Spacing),
-    [Colors, Layout, Spacing, noPadding, backgroundColor],
+    [Colors, Layout, Spacing],
   );
+
+  //  optimization 1
+  // use this
+  const noop = React.useCallback(() => {}, []);
+  // instead of this
+  //  onPress={onButtonPress ? onButtonPress : () => {}}
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -63,8 +67,8 @@ const AppContainer = ({
           {buttonLabel ? (
             <Button
               title={buttonLabel}
-              onPress={onButtonPress ? onButtonPress : () => {}}
               style={styles.buttonStyle}
+              onPress={onButtonPress ?? noop}
             />
           ) : null}
 
@@ -87,7 +91,7 @@ const AppContainer = ({
             <BottomSheet
               isVisible
               snapPoint={bottomSheetSnapPoint}
-              onClose={onCloseOverlay ?? (() => {})}
+              onClose={onCloseOverlay ?? noop}
             >
               {bottomSheetComponent}
             </BottomSheet>
@@ -132,4 +136,4 @@ const stylesFn = (
     },
   });
 
-export default AppContainer;
+export default React.memo(AppContainer);

@@ -1,28 +1,20 @@
 import { useAppDispatch } from "@/store/hooks"
-import { useState } from "react"
+import { useCallback } from "react"
 import { login } from "../store/auth.slice"
 
 const useLoginController = () => {
-    const [email, setEmail] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
     const dispatch = useAppDispatch();
 
-    const handleLogin = () => {
+    const handleLogin = useCallback((email: string, password: string) => {
         dispatch(login({
             id: "1",
             name: "Ashish",
-            email: 'ashish@gmail.com',
+            email,
             token: "dummy-jwt-token",
         }))
-    }
+    }, [dispatch])
 
-    return {
-        email,
-        setEmail,
-        password,
-        setPassword,
-        handleLogin
-    }
+    return { handleLogin }
 }
 
 export default useLoginController
