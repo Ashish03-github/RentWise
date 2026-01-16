@@ -44,6 +44,7 @@ const AppContainer = ({
     <SafeAreaView style={styles.safeArea}>
       <KeyboardAvoidingView
         style={styles.flex}
+        keyboardVerticalOffset={60}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
         <>
@@ -51,6 +52,7 @@ const AppContainer = ({
 
           <ScrollView
             style={styles.flex}
+            automaticallyAdjustKeyboardInsets
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
             contentContainerStyle={[styles.container, style]}

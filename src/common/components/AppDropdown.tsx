@@ -110,7 +110,7 @@ const AppDropdown = <T,>({
             <AppCalendar
               selectedDate={value as string}
               onDateSelect={date => {
-                onChange(date);
+                onChange && onChange(date);
                 dropdownRef.current?.closeDropdown();
               }}
             />
@@ -154,7 +154,7 @@ const AppDropdown = <T,>({
         showsVerticalScrollIndicator={false}
         onSelect={item => {
           if (!isDatePicker && !item.__emptyMessage) {
-            onChange(item.value);
+            onChange && onChange(item.value);
           }
         }}
       />

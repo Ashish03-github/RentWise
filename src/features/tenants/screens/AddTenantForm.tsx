@@ -1,133 +1,109 @@
-import React, { useState } from 'react';
-import { Container, Dropdown, FormInput } from '@/common/components';
 import {
   propertyStatusItems,
   propertyTypeItems,
   rentRecurrenceItems,
 } from '@/features/property/constants/properties.dummy.data';
+import { useAddTenantFormController } from '../controller';
+import { Container, RHFInput, RHFDropdown } from '@/common/components';
+
 const AddTenantForm = () => {
-  const [tenantName, setTenantName] = useState<string | undefined>('');
-  const [email, setEmail] = useState<string | undefined>('');
-  const [phone, setPhone] = useState<string | undefined>('');
-
-  const [property, setProperty] = useState<string | undefined>('');
-  const [deposite, setDeposite] = useState<string>('');
-  const [rent, setRent] = useState<string>('');
-
-  const [leaseStartDate, setLeaseStartDate] = useState<string | undefined>('');
-  const [leaseEndDate, setLeaseEndDate] = useState<string | undefined>('');
-
-  const [propertyType, setPropertyType] = useState<string>();
-  const [rentRecurrence, setRentRecurrence] = useState<string>();
-
-  const onSubmit = () => {
-    const payload = {
-      tenantName,
-      email,
-      phone,
-      rent,
-      property,
-      deposite,
-      leaseStartDate,
-      leaseEndDate,
-      propertyType,
-      rentRecurrence,
-    };
-
-    console.log('PAYLOAD =>', payload);
-  };
+  const { control, errors, handleSubmit, onSubmit } =
+    useAddTenantFormController();
 
   return (
     <Container
-      buttonLabel={'Add Tenant'}
-      onButtonPress={onSubmit}
       screenHeading="Add Tenant"
+      buttonLabel="Add Tenant"
+      onButtonPress={handleSubmit(onSubmit)}
     >
-      {/* Tenant Name */}
-      <FormInput
-        type="Personal-Details-Field"
+      <RHFInput
+        name="tenantName"
         label="Tenant Name"
         placeholder="Enter tenant name"
-        value={tenantName}
-        onChangeText={setTenantName}
+        control={control}
+        errors={errors}
+        type="Personal-Details-Field"
       />
 
-      {/* Email */}
-      <FormInput
-        type="Personal-Details-Field"
+      <RHFInput
+        name="email"
         label="Email Address"
         placeholder="Enter email address"
-        value={email}
-        onChangeText={setEmail}
-      />
-
-      {/* Phone */}
-      <FormInput
+        control={control}
+        errors={errors}
         type="Personal-Details-Field"
-        label="Phone Number"
-        placeholder="Enter phone number"
-        value={phone}
-        onChangeText={setPhone}
       />
 
-      <Dropdown
+      <RHFInput
+        name="phone"
+        label="Phone Number"
+        keyboardType="number-pad"
+        maxLength={10}
+        control={control}
+        errors={errors}
+        placeholder="Enter phone number"
+        type="Personal-Details-Field"
+      />
+
+      <RHFDropdown
+        name="property"
         label="Select Property"
         items={propertyStatusItems}
-        value={property}
-        onChange={setProperty}
+        control={control}
+        errors={errors}
       />
 
-      {/* Property Type */}
-      <Dropdown
+      <RHFDropdown
+        name="propertyType"
         label="Property Type"
         items={propertyTypeItems}
-        value={propertyType}
-        onChange={setPropertyType}
+        control={control}
+        errors={errors}
       />
 
-      <FormInput
-        type="Personal-Details-Field"
-        label="Property Deposite"
-        placeholder="Enter deposite amount"
+      <RHFInput
+        name="deposit"
+        label="Property Deposit"
         keyboardType="number-pad"
-        value={deposite}
-        onChangeText={setDeposite}
+        placeholder="Enter deposit amount"
+        control={control}
+        errors={errors}
+        type="Personal-Details-Field"
       />
 
-      <FormInput
-        type="Personal-Details-Field"
+      <RHFInput
+        name="rent"
         label="Property Rent"
-        placeholder="Enter rent amount"
-        value={rent}
         keyboardType="number-pad"
-        onChangeText={setRent}
+        placeholder="Enter rent amount"
+        control={control}
+        errors={errors}
+        type="Personal-Details-Field"
       />
 
-      {/* Lease Start Date */}
-      <Dropdown
+      <RHFDropdown
+        name="leaseStartDate"
         label="Lease Start Date"
         isDatePicker
-        value={leaseStartDate}
-        onChange={setLeaseStartDate}
+        control={control}
+        errors={errors}
       />
 
-      {/* Lease End Date */}
-      <Dropdown
+      <RHFDropdown
+        name="leaseEndDate"
         label="Lease End Date"
         isDatePicker
-        value={leaseEndDate}
-        onChange={setLeaseEndDate}
+        control={control}
+        errors={errors}
       />
 
-      {/* Rent Recurrence */}
-      <Dropdown
+      <RHFDropdown
+        name="rentRecurrence"
         label="Rent Recurrence"
         items={rentRecurrenceItems}
-        value={rentRecurrence}
-        onChange={setRentRecurrence}
+        control={control}
+        errors={errors}
       />
-
-      {/* <Button title="Add Tenant" style={styles.button} onPress={onSubmit} /> */}
     </Container>
   );
 };

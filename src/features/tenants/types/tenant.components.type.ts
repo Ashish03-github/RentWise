@@ -9,3 +9,16 @@ export interface TenantItem extends PropertyItem {
     leaseEndDate: string;
     propertyRent: number,
 }
+
+export type AddTenantFormState = {
+    tenantName: string;
+    email: string;
+    phone: string;
+    property: string;
+    deposit: string;
+    rent: string;
+    leaseStartDate: string;
+    leaseEndDate: string;
+    propertyType: string;
+    rentRecurrence: string;
+};

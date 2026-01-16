@@ -45,7 +45,7 @@ export interface AppDropdownProps<T> {
     placeholder?: string;
     items?: DropdownItem<T>[];
     value?: T;
-    onChange: Dispatch<SetStateAction<string | undefined>>;
+    onChange?: Dispatch<SetStateAction<string | undefined>>;
     error?: string;
     disabled?: boolean;
     iconSize?: number,

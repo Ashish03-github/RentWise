@@ -1,0 +1,1 @@
+export { default as useAddTenantFormController } from './useAddTenantFormController'
