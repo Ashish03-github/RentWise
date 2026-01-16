@@ -181,3 +181,16 @@ export const rentStatusItems = [
     { label: "Pending", value: "Pending" },
     { label: "Partial", value: "Partial" },
 ];
+
+
+export const ADD_PAYMENT_FORM_VALUES = {
+    tenantName: '',
+    propertyName: '',
+    fromDate: '',
+    toDate: '',
+    paidAmount: '',
+    remainingAmount: '',
+    rentStatus: '',
+    paymentType: '',
+    note: ''
+}
