@@ -1,24 +1,23 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
-import { scale } from '@/theme/scale';
 import useTheme from '@/common/hooks/useTheme';
+import { AppImage } from '@/common/components';
+import { formatDate } from '@/utils/utils.helper';
 import { ThemeColors } from '@/theme/colors';
 import { ThemeFonts } from '@/theme/fonts';
 import { ThemeLayout } from '@/theme/layout';
-import { AppImage } from '@/common/components';
 import { ThemeSpacing } from '@/theme/spacing';
-import { TenantItem as Tenant } from '../types/tenant.components.type';
-import { formatDate } from '@/utils/utils.helper';
+import { scale } from '@/theme/scale';
+import { TenantItem } from '@/features/tenants/types/tenant.components.type';
 
 type TenantItemProps = {
-  item: Tenant;
+  item: TenantItem;
   key: number;
 };
 
-const TenantItem: React.FC<TenantItemProps> = ({ item }) => {
+const HistoryItem: React.FC<TenantItemProps> = ({ item }) => {
   const {
     tenantName,
-    propertyName,
     leaseStartDate,
     leaseEndDate,
     propertyStatus,
@@ -30,7 +29,6 @@ const TenantItem: React.FC<TenantItemProps> = ({ item }) => {
     () => stylesFn(Colors, Fonts, Layout, Spacing),
     [Colors, Fonts, Layout, Spacing],
   );
-
   return (
     <View style={styles.tenantItemContainer}>
       <View style={styles.tenantImageContainer}>
@@ -43,9 +41,6 @@ const TenantItem: React.FC<TenantItemProps> = ({ item }) => {
       <View style={styles.tenantDetailsContainer}>
         <Text style={styles.tenantName} numberOfLines={1}>
           {tenantName}
-        </Text>
-        <Text style={styles.propertyName} numberOfLines={1}>
-          {propertyName}
         </Text>
         <View style={styles.leaseDateContainer}>
           <Text style={styles.leaseDateText}>
@@ -95,24 +90,24 @@ const stylesFn = (
       ...Colors.primaryLight2,
     },
     tenantImageContainer: {
-      width: scale(50),
-      height: scale(50),
-      borderRadius: scale(10),
+      width: scale(36),
+      height: scale(36),
+      borderRadius: scale(6),
       overflow: 'hidden',
       marginRight: scale(12),
     },
     imageStyle: {
-      width: '100%',
-      height: '100%',
-      borderRadius: scale(10),
+      ...Layout.fullWidth,
+      ...Layout.fullHeight,
+      ...Layout.roundedLg,
     },
     tenantDetailsContainer: {
-      flex: 1,
-      justifyContent: 'center',
+      ...Layout.flex,
+      ...Layout.justifyCenter,
     },
     tenantName: {
-      ...Fonts.font600,
-      ...Fonts.sz12,
+      ...Fonts.font500,
+      ...Fonts.sz10,
       ...Colors.textBlack,
       marginBottom: scale(2),
     },
@@ -123,8 +118,8 @@ const stylesFn = (
       marginBottom: scale(4),
     },
     leaseDateContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
+      ...Layout.flexRow,
+      ...Layout.alignCenter,
       marginTop: scale(2),
     },
     leaseDateText: {
@@ -138,7 +133,7 @@ const stylesFn = (
       minWidth: scale(70),
     },
     statusBadge: {
-      ...Spacing.px4,
+      ...Spacing.px5,
       ...Spacing.py1,
       borderRadius: scale(12),
       ...Layout.center,
@@ -151,7 +146,7 @@ const stylesFn = (
     },
     statusText: {
       ...Fonts.font500,
-      ...Fonts.sz9,
+      ...Fonts.sz8,
     },
     occupiedText: {
       color: '#22C55E',
@@ -161,4 +156,4 @@ const stylesFn = (
     },
   });
 
-export default TenantItem;
+export default HistoryItem;

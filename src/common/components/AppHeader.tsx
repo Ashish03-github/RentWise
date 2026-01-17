@@ -57,8 +57,9 @@ const stylesFn = (
   StyleSheet.create({
     headerContainer: {
       ...Spacing.px4,
-      ...Layout.justifyCenter,
-      height: scaleVertical(60),
+      ...Layout.justifyEnd,
+      height: scaleVertical(50),
+      // backgroundColor: 'red',
     },
     logoText: {
       ...Fonts.font600,
@@ -66,8 +67,8 @@ const stylesFn = (
       ...Colors.textPrimary,
     },
     screenHeadingText: {
-      ...Fonts.sz20,
-      ...Fonts.font500,
+      ...Fonts.sz18,
+      ...Fonts.font600,
       ...Colors.textBlack,
       ...Spacing.ml3,
     },

@@ -147,8 +147,8 @@ const stylesFn = (
       marginRight: scale(12),
     },
     imageStyle: {
-      width: '100%',
-      height: '100%',
+      ...Layout.fullWidth,
+      ...Layout.fullHeight,
       borderRadius: scale(10),
     },
     propertyDetailsContainer: {

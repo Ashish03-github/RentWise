@@ -14,3 +14,4 @@ export { default as Calendar } from './AppCalendar'
 export { default as RHFInput } from "./RHFInput"
 export { default as RHFDropdown } from "./RHFDropdown"
 export { default as StatusBar } from "./AppStatusBar"
+export { default as AppTabs } from "./AppTabs"
