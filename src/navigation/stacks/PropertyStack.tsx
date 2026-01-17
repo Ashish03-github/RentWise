@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { PropertyRoutes } from '../routes';
 import {
   AddPropertyFormScreen,
+  PropertyDetailsScreen,
   PropertyScreen,
 } from '@/features/property/screens';
 
@@ -14,6 +15,10 @@ export default function PropertyStack() {
       <Stack.Screen
         name={PropertyRoutes.addProperty}
         component={AddPropertyFormScreen}
+      />
+      <Stack.Screen
+        name={PropertyRoutes.propertyDetails}
+        component={PropertyDetailsScreen}
       />
     </Stack.Navigator>
   );

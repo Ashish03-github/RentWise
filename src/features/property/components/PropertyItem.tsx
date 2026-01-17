@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet } from 'react-native';
-import React from 'react';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
+import React, { useCallback } from 'react';
 import { scale } from '@/theme/scale';
 import useTheme from '@/common/hooks/useTheme';
 import { ThemeColors } from '@/theme/colors';
@@ -8,6 +8,8 @@ import { ThemeLayout } from '@/theme/layout';
 import { AppIcon, AppImage } from '@/common/components';
 import { ThemeSpacing } from '@/theme/spacing';
 import { PropertyItem as Property } from '../types/proprty.type';
+import { useNavigation } from '@react-navigation/native';
+import { PropertyRoutes } from '@/navigation/routes';
 
 type PropertyItemProps = {
   item: Property;
@@ -24,13 +26,19 @@ const PropertyItem: React.FC<PropertyItemProps> = ({ item, key }) => {
     propertyType,
     propertyRentRecurrence,
   } = item;
+
+  const navigation = useNavigation();
+  const navigateTo = useCallback(() => {
+    navigation.navigate(PropertyRoutes.propertyDetails);
+  }, []);
+
   const { Colors, Fonts, Layout, Spacing } = useTheme();
   const styles = React.useMemo(
     () => stylesFn(Colors, Fonts, Layout, Spacing),
     [Colors, Fonts, Layout],
   );
   return (
-    <View key={key} style={styles.propertyItemContainer}>
+    <Pressable onPress={navigateTo} style={styles.propertyItemContainer}>
       <View style={styles.propertyImageContainer}>
         <AppImage
           uri={image}
@@ -85,7 +93,7 @@ const PropertyItem: React.FC<PropertyItemProps> = ({ item, key }) => {
           </Text>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

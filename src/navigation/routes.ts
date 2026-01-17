@@ -42,5 +42,6 @@ export const TenantRoutes = {
 export const PropertyRoutes = {
     property: 'Property',
     addProperty: 'AddProperty',
+    propertyDetails: "PropertyDetails",
     editProperty: 'EditProperty',
 }

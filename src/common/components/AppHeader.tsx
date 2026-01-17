@@ -58,7 +58,7 @@ const stylesFn = (
     headerContainer: {
       ...Spacing.px4,
       ...Layout.justifyCenter,
-      height: scaleVertical(40),
+      height: scaleVertical(60),
     },
     logoText: {
       ...Fonts.font600,
