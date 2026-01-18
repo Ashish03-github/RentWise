@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet } from 'react-native';
-import React from 'react';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
+import React, { useCallback } from 'react';
 import { scale } from '@/theme/scale';
 import useTheme from '@/common/hooks/useTheme';
 import { ThemeColors } from '@/theme/colors';
@@ -9,6 +9,8 @@ import { AppImage } from '@/common/components';
 import { ThemeSpacing } from '@/theme/spacing';
 import { TenantItem as Tenant } from '../types/tenant.components.type';
 import { formatDate } from '@/utils/utils.helper';
+import { useNavigation } from '@react-navigation/native';
+import { TenantRoutes } from '@/navigation/routes';
 
 type TenantItemProps = {
   item: Tenant;
@@ -25,14 +27,18 @@ const TenantItem: React.FC<TenantItemProps> = ({ item }) => {
     tenantImage,
   } = item;
 
+  const navigation = useNavigation();
   const { Colors, Fonts, Layout, Spacing } = useTheme();
   const styles = React.useMemo(
     () => stylesFn(Colors, Fonts, Layout, Spacing),
     [Colors, Fonts, Layout, Spacing],
   );
 
+  const navigateTo = useCallback(() => {
+    navigation.navigate(TenantRoutes.tenantDetails);
+  }, []);
   return (
-    <View style={styles.tenantItemContainer}>
+    <Pressable onPress={navigateTo} style={styles.tenantItemContainer}>
       <View style={styles.tenantImageContainer}>
         <AppImage
           uri={tenantImage}
@@ -74,7 +80,7 @@ const TenantItem: React.FC<TenantItemProps> = ({ item }) => {
           </Text>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -92,7 +98,7 @@ const stylesFn = (
       borderRadius: scale(12),
       ...Spacing.p3,
       ...Spacing.mb3,
-      ...Colors.primaryLight2,
+      ...Colors.white,
     },
     tenantImageContainer: {
       width: scale(50),

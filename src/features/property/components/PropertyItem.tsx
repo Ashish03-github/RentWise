@@ -109,7 +109,7 @@ const stylesFn = (
       ...Layout.flexRow,
       ...Spacing.p2,
       ...Spacing.mb3,
-      ...Colors.primaryLight2,
+      ...Colors.white,
       borderRadius: scale(10),
       // ...Spacing.mb4,
     },
@@ -121,7 +121,7 @@ const stylesFn = (
       ...Colors.primaryLight1,
       ...Layout.justifyCenter,
       ...Layout.flexRow,
-      ...Colors.white,
+      ...Colors.primaryLight1,
       ...Spacing.mt2,
     },
     propertyName: {

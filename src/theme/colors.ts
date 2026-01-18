@@ -3,7 +3,7 @@ const colors = {
         primary: { backgroundColor: "#1F75EC" },
         primaryLight1: { backgroundColor: "#EDF6FF" },
         primaryLight2: { backgroundColor: "#BCDFFF2E" },
-        background: { backgroundColor: "#dbd2f1" },
+        background: { backgroundColor: "#F7F7F7" },
 
         red: { backgroundColor: "#D64252" },
         lightRed: { backgroundColor: "#DB566A24" },
@@ -42,7 +42,7 @@ const colors = {
         primary: { backgroundColor: "#1F75EC" },
         primaryLight1: { backgroundColor: "#EDF6FF" },
         primaryLight2: { backgroundColor: "#BCDFFF2E" },
-        background: { backgroundColor: "#dbd2f1" },
+        background: { backgroundColor: "#F7F7F7" },
 
         red: { backgroundColor: "#D64252" },
         lightRed: { backgroundColor: "#DB566A24" },

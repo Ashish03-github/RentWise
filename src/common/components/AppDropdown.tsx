@@ -192,7 +192,7 @@ const stylesFn = (
       minHeight: scale(50),
       borderBottomWidth: scale(1),
       borderColor: Colors.lightGrayPure,
-      ...Colors.white,
+      // ...Colors.white,
     },
 
     text: {
@@ -223,7 +223,7 @@ const stylesFn = (
 
     dropdown: {
       borderRadius: 12,
-      backgroundColor: Colors.white.backgroundColor,
+      // backgroundColor: Colors.white.backgroundColor,
     },
 
     item: {

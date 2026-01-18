@@ -108,7 +108,7 @@ const stylesFn = (
       borderRadius: scale(12),
       ...Spacing.p3,
       ...Spacing.mb3,
-      ...Colors.primaryLight2,
+      ...Colors.white,
     },
     paymentImageContainer: {
       width: scale(50),

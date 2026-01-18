@@ -110,7 +110,7 @@ const stylesFn = (
   StyleSheet.create({
     safeArea: {
       ...Layout.flex,
-      ...Colors.white,
+      ...Colors.background,
       paddingBottom: scale(-20),
     },
     flex: {

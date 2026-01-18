@@ -58,16 +58,18 @@ const stylesFn = (
 ) =>
   StyleSheet.create({
     container: {
-      //   ...Colors.red,
+      ...Colors.white,
       ...Spacing.my1,
       ...Layout.fullWidth,
-      ...Layout.rounded,
+      ...Layout.roundedXl,
       ...Layout.flexRow,
+      ...Spacing.px3,
       minHeight: scaleVertical(48),
     },
     serviceIconContainer: {
-      flex: 0.15,
+      flex: 0.1,
       ...Layout.center,
+      // backgroundColor: 'red',
     },
     serviceIcon: {
       width: scale(34),
@@ -77,8 +79,8 @@ const stylesFn = (
       ...Layout.center,
     },
     serviceNameContainer: {
-      flex: 0.75,
-      ...Spacing.pl1,
+      flex: 0.8,
+      ...Spacing.pl3,
       ...Layout.justifyCenter,
     },
     serviceName: {
@@ -87,7 +89,9 @@ const stylesFn = (
     },
     serviceArrowContainer: {
       flex: 0.1,
-      ...Layout.center,
+      ...Layout.justifyCenter,
+      ...Layout.alignEnd,
+      // backgroundColor: 'red',
     },
   });
 
