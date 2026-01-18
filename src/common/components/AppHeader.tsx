@@ -75,7 +75,7 @@ const stylesFn = (
     dashboardHeadingWithIcon: {
       ...Layout.flexRow,
       ...Layout.justifyBetween,
-      ...Layout.alignCenter,
+      ...Layout.center,
       ...Spacing.pr3,
     },
     headingWithIconContainer: {
