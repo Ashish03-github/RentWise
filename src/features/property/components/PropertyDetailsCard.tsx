@@ -10,6 +10,8 @@ import HistoryList from './HistoryList';
 import HistoryItem from './HistoryItem';
 import { AppTabs } from '@/common/components';
 import { TenantItem } from '@/features/tenants/types/tenant.components.type';
+import { payments } from '@/features/payments/constants/payments.dummy.data';
+import PaymentHistoryItem from '@/features/payments/components/PaymentHistoryItem';
 
 const TABS = ['Overview', 'Tenant', 'Tenant History', 'Rent History'];
 
@@ -56,7 +58,13 @@ const PropertyDetailsCard = () => {
         activeComponent = <HistoryList />;
         break;
       case 'Rent History':
-        activeComponent = <HistoryList />;
+        activeComponent = (
+          <>
+            {payments.map(payment => (
+              <PaymentHistoryItem key={payment.id} payment={payment} />
+            ))}
+          </>
+        );
         break;
 
       default:

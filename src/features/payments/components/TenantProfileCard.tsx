@@ -50,10 +50,10 @@ const stylesFn = (
   StyleSheet.create({
     container: {
       ...Layout.flexRow,
-      paddingVertical: 24,
+      ...Spacing.py6,
       ...Colors.white,
-      borderRadius: 12,
-      marginBottom: 12,
+      ...Layout.roundedXl,
+      // marginBottom: 12,
     },
     imageWrapper: {
       flex: 0.3,

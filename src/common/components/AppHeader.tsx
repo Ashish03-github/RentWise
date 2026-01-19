@@ -27,12 +27,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ heading, isDashboard }) => {
       {isDashboard ? (
         <View style={styles.dashboardHeadingWithIcon}>
           <Text style={styles.logoText}>RentWise</Text>
-          <AppIcon
-            onPress={() => navigation.goBack()}
-            type="octicons"
-            name={ICONS.BELL}
-            size={scale(20)}
-          />
+          <AppIcon type="octicons" name={ICONS.BELL} size={scale(20)} />
         </View>
       ) : (
         <View style={styles.headingWithIconContainer}>

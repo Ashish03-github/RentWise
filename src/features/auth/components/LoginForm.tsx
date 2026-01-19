@@ -11,7 +11,7 @@ import { ThemeLayout } from '@/theme/layout';
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { handleLogin } = useLoginController();
+  const { handleLogin, navigateTo } = useLoginController();
   const onSubmit = useCallback(() => {
     handleLogin(email, password);
   }, [email, password, handleLogin]);
@@ -42,8 +42,15 @@ const LoginForm = () => {
         placeholder="Enter your password"
       />
 
-      <Text style={styles.termsConditionsText}>
+      {/* <Text style={styles.termsConditionsText}>
         After continuing, I accept all Terms & Conditions and Privacy Policy
+      </Text> */}
+
+      <Text style={styles.registerText}>
+        Don’t have an account?{' '}
+        <Text onPress={navigateTo} style={styles.primaryText}>
+          Register
+        </Text>
       </Text>
 
       <Button style={styles.formButton} title="Continue" onPress={onSubmit} />
@@ -76,12 +83,21 @@ const stylesFn = (
       ...Fonts.font400,
       ...Fonts.sz10,
       ...Colors.textSecondary,
-      // ...Spacing.mt2,
     },
     formButton: {
       width: '100%',
       bottom: scale(16),
       position: 'absolute',
+    },
+    registerText: {
+      ...Fonts.font400,
+      ...Fonts.sz11,
+      ...Colors.textSecondary,
+    },
+    primaryText: {
+      ...Fonts.font600,
+      ...Fonts.sz12,
+      ...Colors.textPrimary,
     },
   });
 

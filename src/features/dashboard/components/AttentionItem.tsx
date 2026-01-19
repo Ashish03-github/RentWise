@@ -9,6 +9,7 @@ import { ThemeLayout } from '@/theme/layout';
 import { AppIcon } from '@/common/components';
 import { Dashboard_Icons } from '../assets/icons';
 import { AttentionItemProps } from '../types/components.type';
+import { commonIcons } from '@/common/constants/commonIcons';
 
 const AttentionItem: React.FC<AttentionItemProps> = ({ data, key }) => {
   const { tenantName, attentionReason, amount } = data;
@@ -34,12 +35,9 @@ const AttentionItem: React.FC<AttentionItemProps> = ({ data, key }) => {
           <Text style={styles.propertyName}>{attentionReason}</Text>
         </View>
         <View style={styles.propertyRentContainer}>
-          <AppIcon
-            size={12}
-            type={'fontAwesome6'}
-            name={Dashboard_Icons.rupee}
-          />
-          <Text style={styles.propertyRent}>{amount}</Text>
+          <Text style={styles.propertyRent}>
+            {commonIcons.rupees} {amount}
+          </Text>
         </View>
       </View>
     </View>

@@ -10,6 +10,7 @@ import { AppIcon } from '@/common/components';
 import { PaymentStatus, TenantRentItemProps } from '../types/components.type';
 import { Dashboard_Icons } from '../assets/icons';
 import { STATUS_UI_MAP } from '../constants/dummyData';
+import { commonIcons } from '@/common/constants/commonIcons';
 
 const TenantRentItem: React.FC<TenantRentItemProps> = ({ data, key }) => {
   const { Spacing, Fonts, Colors, Layout } = useTheme();
@@ -42,12 +43,9 @@ const TenantRentItem: React.FC<TenantRentItemProps> = ({ data, key }) => {
           <Text style={styles.propertyName}>{propertyName}</Text>
         </View>
         <View style={styles.propertyRentContainer}>
-          <AppIcon
-            size={12}
-            type={'fontAwesome6'}
-            name={Dashboard_Icons.rupee}
-          />
-          <Text style={styles.propertyRent}>{propertyRent}</Text>
+          <Text style={styles.propertyRent}>
+            {commonIcons.rupees} {propertyRent}
+          </Text>
         </View>
       </View>
       <View style={styles.tenantRentStatusButtonContainer}>

@@ -6,6 +6,7 @@ import { ThemeLayout } from '@/theme/layout';
 import { ThemeSpacing } from '@/theme/spacing';
 import { commonIcons } from '@/common/constants/commonIcons';
 import useTheme from '@/common/hooks/useTheme';
+import { scale } from '@/theme/scale';
 
 const PaymentHistoryCard = React.memo(() => {
   const { Colors, Fonts, Layout, Spacing } = useTheme();
@@ -126,7 +127,7 @@ const stylesFn = (
     paymentAmount: {
       ...Fonts.sz11,
       ...Fonts.font500,
-      ...Colors.textBlack,
+      color: '#4CAF50',
       ...Spacing.ml3,
     },
     paymentMethod: {
@@ -134,10 +135,12 @@ const stylesFn = (
       ...Fonts.font500Italic,
       ...Colors.textBlack,
       backgroundColor: '#F0F0F0',
-      ...Spacing.px4,
+      width: scale(70),
       ...Spacing.mx1,
       ...Spacing.py0,
       ...Layout.rounded,
+      paddingVertical: scale(2),
+      textAlign: 'center',
     },
     paymentDate: {
       ...Fonts.sz10,

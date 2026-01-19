@@ -207,7 +207,8 @@ export const tenant = {
 };
 
 export const currentRent = {
-    month: 'Mar 2025',
+    fromDate: '01 Mar 2025',
+    toDate: "01 April 2026",
     amount: '15,000',
     dueDate: 'May 5, 2025',
     status: 'Pending',

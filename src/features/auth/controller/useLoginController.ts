@@ -1,8 +1,11 @@
 import { useAppDispatch } from "@/store/hooks"
 import { useCallback } from "react"
 import { login } from "../store/auth.slice"
+import { useNavigation } from "@react-navigation/native"
+import { AuthRoutes } from "@/navigation/routes"
 
 const useLoginController = () => {
+    const navigation = useNavigation()
     const dispatch = useAppDispatch();
 
     const handleLogin = useCallback((email: string, password: string) => {
@@ -14,7 +17,11 @@ const useLoginController = () => {
         }))
     }, [dispatch])
 
-    return { handleLogin }
+    const navigateTo = useCallback(() => {
+        navigation.navigate(AuthRoutes.register)
+    }, [])
+
+    return { handleLogin, navigateTo }
 }
 
 export default useLoginController

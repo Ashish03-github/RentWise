@@ -8,6 +8,7 @@ import { ThemeSpacing } from '@/theme/spacing';
 import { scale } from '@/theme/scale';
 import { AppIcon, AppImage } from '@/common/components';
 import { BUILDING_IMAGE } from '../constants/properties.dummy.data';
+import { commonIcons } from '@/common/constants/commonIcons';
 
 const PropertyCard = () => {
   const { Colors, Fonts, Layout, Spacing } = useTheme();
@@ -33,8 +34,9 @@ const PropertyCard = () => {
             </Text>
           </View>
           <View style={styles.propertyRentContainer}>
-            <AppIcon size={12} name="currency-rupee" />
-            <Text style={styles.propertyRentText}>4,000 / Month</Text>
+            <Text style={styles.propertyRentText}>
+              {commonIcons.rupees} 4,000 / Month
+            </Text>
           </View>
         </View>
         <Text style={styles.propertyAddress}>

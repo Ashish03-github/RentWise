@@ -56,6 +56,7 @@ const stylesFn = (
       ...Colors.white,
       ...Layout.roundedXl,
       ...Spacing.p4,
+      ...Spacing.mt0,
       ...Spacing.my2,
     },
     title: {

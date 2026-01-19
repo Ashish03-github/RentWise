@@ -10,6 +10,7 @@ import { ThemeSpacing } from '@/theme/spacing';
 import { PropertyItem as Property } from '../types/proprty.type';
 import { useNavigation } from '@react-navigation/native';
 import { PropertyRoutes } from '@/navigation/routes';
+import { commonIcons } from '@/common/constants/commonIcons';
 
 type PropertyItemProps = {
   item: Property;
@@ -87,9 +88,8 @@ const PropertyItem: React.FC<PropertyItemProps> = ({ item, key }) => {
           </Text>
         </View>
         <View style={styles.propertyRentContainer}>
-          <AppIcon size={12} name="currency-rupee" />
           <Text style={styles.propertyRentText}>
-            {propertyRent}/{propertyRentRecurrence}
+            {commonIcons.rupees} {propertyRent}/{propertyRentRecurrence}
           </Text>
         </View>
       </View>

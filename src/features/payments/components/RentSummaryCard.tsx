@@ -6,9 +6,13 @@ import { ThemeColors } from '@/theme/colors';
 import { ThemeFonts } from '@/theme/fonts';
 import { ThemeLayout } from '@/theme/layout';
 import { ThemeSpacing } from '@/theme/spacing';
+import { STATUS_UI_MAP } from '@/features/dashboard/constants/dummyData';
+import { PaymentStatus } from '../types/payments.components.type';
+import { scale } from '@/theme/scale';
 
 type Rent = {
-  month: string;
+  fromDate: string;
+  toDate: string;
   amount: string;
   dueDate: string;
   status: string;
@@ -24,25 +28,26 @@ const RentSummaryCard = ({ rent }: { rent: Rent }) => {
     [Colors, Fonts, Layout, Spacing],
   );
 
+  const statusConfig =
+    STATUS_UI_MAP[rent.status as PaymentStatus] ?? STATUS_UI_MAP.Pending;
   return (
     <View style={styles.section}>
       <Text style={styles.title}>Rent Summary</Text>
 
       <View style={styles.card}>
         <View style={styles.header}>
-          <Text style={styles.month}>Rent for: {rent.month}</Text>
+          <Text style={styles.month}>
+            Rent for: {rent.fromDate} - {rent.toDate}
+          </Text>
           <Text style={styles.amount}>₹ {rent.amount}</Text>
         </View>
 
         <View style={styles.row}>
-          <Text>Due Date: {rent.dueDate}</Text>
-          <View
-            style={[
-              styles.badge,
-              rent.status === 'Paid' ? styles.paid : styles.pending,
-            ]}
-          >
-            <Text style={styles.badgeText}>{rent.status}</Text>
+          <Text style={styles.month}>Due Date: {rent.dueDate}</Text>
+          <View style={[styles.statusBadge, statusConfig.badgeStyle]}>
+            <Text style={[styles.statusText, statusConfig.textStyle]}>
+              {statusConfig.label}
+            </Text>
           </View>
         </View>
 
@@ -110,7 +115,7 @@ const stylesFn = (
     badge: {
       ...Spacing.px4,
       ...Spacing.py1,
-      ...Layout.rounded,
+      ...Layout.rounded3xl,
     },
     paid: {
       backgroundColor: 'rgba(34,197,94,0.1)',
@@ -136,5 +141,15 @@ const stylesFn = (
       ...Fonts.font500,
       ...Colors.textRed,
       ...Spacing.ml2,
+    },
+    statusBadge: {
+      minWidth: scale(70),
+      ...Spacing.py1,
+      borderRadius: scale(12),
+      ...Layout.center,
+    },
+    statusText: {
+      ...Fonts.font500,
+      ...Fonts.sz8,
     },
   });

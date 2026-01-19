@@ -14,7 +14,7 @@ import { ThemeLayout } from '@/theme/layout';
 import { ThemeSpacing } from '@/theme/spacing';
 import { scale } from '@/theme/scale';
 import { CardType, SummaryCardProps } from '../types/components.type';
-import { Dashboard_Icons } from '../assets/icons';
+import { commonIcons } from '@/common/constants/commonIcons';
 
 const SummaryCard: React.FC<SummaryCardProps> = ({ cardType, cardItem }) => {
   const { Colors, Fonts, Layout, Spacing } = useTheme();
@@ -45,16 +45,9 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ cardType, cardItem }) => {
       <View style={styles.cardDetailsContainer}>
         <Text style={styles.cardHeading}>{cardItem.cardHeading}</Text>
         <View style={styles.amountContainer}>
-          {cardItem.isAmount && (
-            <AppIcon
-              size={18}
-              type="fontAwesome6"
-              name={Dashboard_Icons.rupee}
-              color={Colors.whitePure}
-              style={{ ...Spacing.mr1 }}
-            />
-          )}
-          <Text style={styles.cardText}>{cardItem.cardText}</Text>
+          <Text style={styles.cardText}>
+            {cardItem.isAmount && commonIcons.rupees} {cardItem.cardText}
+          </Text>
         </View>
         <Text style={styles.cardSubText}>{cardItem.cardSubText}</Text>
       </View>
