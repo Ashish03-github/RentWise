@@ -1,7 +1,10 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { PaymentScreen } from '@/features/payments/screens';
+import {
+  AddPaymentScreen,
+  PaymentDetailsScreen,
+  PaymentScreen,
+} from '@/features/payments/screens';
 import { PaymentRoutes } from '../routes';
-import AddPaymentForm from '@/features/payments/screens/AddPaymentForm';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,7 +17,11 @@ export default function PaymentStack() {
       />
       <Stack.Screen
         name={PaymentRoutes.addPayment}
-        component={AddPaymentForm}
+        component={AddPaymentScreen}
+      />
+      <Stack.Screen
+        name={PaymentRoutes.paymentDetails}
+        component={PaymentDetailsScreen}
       />
     </Stack.Navigator>
   );

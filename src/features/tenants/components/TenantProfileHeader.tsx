@@ -17,17 +17,17 @@ const TenantProfileHeader = React.memo(() => {
 
   return (
     <View style={styles.profileSection}>
-      <View style={{ flexDirection: 'row' }}>
-        <View style={{ flex: 0.3, ...Layout.center }}>
+      <View style={styles.profileDetailsContainer}>
+        <View style={styles.profileImageWrapper}>
           <View style={styles.profileImage}>
             <Text style={styles.profileInitial}>RS</Text>
           </View>
         </View>
 
-        <View style={{ flex: 0.7, justifyContent: 'center' }}>
+        <View style={styles.profileDetails}>
           <Text style={styles.tenantName}>Rahul Sharma</Text>
-          <Text style={styles.leaseDuration}>Mar 1, 2024 - Feb 28, 2025</Text>
           <Text style={styles.propertyName}>Greenwood Apartments</Text>
+          <Text style={styles.leaseDuration}>Mar 1, 2024 - Feb 28, 2025</Text>
         </View>
       </View>
 
@@ -48,6 +48,7 @@ const stylesFn = (
     profileSection: {
       ...Layout.alignCenter,
       ...Spacing.py3,
+      ...Spacing.pb2,
       ...Colors.white,
       //   ...Spacing.mb3,
       ...Layout.roundedMd,
@@ -64,6 +65,17 @@ const stylesFn = (
       ...Fonts.sz26,
       ...Fonts.font600,
       ...Colors.textWhite,
+    },
+    profileImageWrapper: {
+      flex: 0.3,
+      ...Layout.center,
+    },
+    profileDetailsContainer: {
+      ...Layout.flexRow,
+    },
+    profileDetails: {
+      flex: 0.7,
+      ...Layout.justifyCenter,
     },
     tenantName: {
       ...Fonts.sz14,

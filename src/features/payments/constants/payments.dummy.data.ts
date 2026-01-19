@@ -194,3 +194,122 @@ export const ADD_PAYMENT_FORM_VALUES = {
     paymentType: '',
     note: ''
 }
+
+
+
+// Mock data - replace with actual data from your state/API
+export const tenant = {
+    name: 'Rahul Sharma',
+    property: 'Greenwood Apartments',
+    leaseStart: 'Mar 1, 2024',
+    leaseEnd: 'Feb 28, 2025',
+    profileImage: 'https://randomuser.me/api/portraits/men/1.jpg',
+};
+
+export const currentRent = {
+    month: 'Mar 2025',
+    amount: '15,000',
+    dueDate: 'May 5, 2025',
+    status: 'Pending',
+    isLate: true,
+    daysLate: 4,
+};
+
+export const payments = [
+    {
+        id: '1',
+        amount: '20,000',
+        method: 'UPI',
+        type: 'Deposite',
+        date: 'May 1, 2024',
+        isDecuted: false,
+    },
+    {
+        id: '2',
+        amount: '20,000',
+        method: 'Cash',
+        type: 'Rent',
+        date: 'Feb 28, 2024',
+        isDecuted: false,
+    },
+    {
+        id: '3',
+        amount: '20,000',
+        method: 'UPI',
+        type: 'Deposite',
+        date: 'May 1, 2024',
+        isDecuted: false,
+    },
+    {
+        id: '4',
+        amount: '20,000',
+        method: 'Cash',
+        type: 'Rent',
+        date: 'Feb 28, 2024',
+        isDecuted: true,
+    },
+    {
+        id: '5',
+        amount: '20,000',
+        method: 'UPI',
+        type: 'Deposite',
+        date: 'May 1, 2024',
+        isDecuted: false,
+    },
+    {
+        id: '6',
+        amount: '20,000',
+        method: 'Cash',
+        type: 'Rent',
+        date: 'Feb 28, 2024',
+        isDecuted: false,
+    },
+    {
+        id: '7',
+        amount: '20,000',
+        method: 'Cash',
+        type: 'Rent',
+        date: 'Feb 28, 2024',
+        isDecuted: true,
+    },
+    {
+        id: '8',
+        amount: '20,000',
+        method: 'Cash',
+        type: 'Rent',
+        date: 'Feb 28, 2024',
+        isDecuted: false,
+    },
+    {
+        id: '9',
+        amount: '20,000',
+        method: 'Cash',
+        type: 'Rent',
+        date: 'Feb 28, 2024',
+        isDecuted: true,
+    },
+    {
+        id: '10',
+        amount: '20,000',
+        method: 'Cash',
+        type: 'Rent',
+        date: 'Feb 28, 2024',
+        isDecuted: false,
+    },
+    {
+        id: '11',
+        amount: '20,000',
+        method: 'Cash',
+        type: 'Rent',
+        date: 'Feb 28, 2024',
+        isDecuted: false,
+    },
+    {
+        id: '12',
+        amount: '20,000',
+        method: 'Cash',
+        type: 'Rent',
+        date: 'Feb 28, 2024',
+        isDecuted: false,
+    },
+];

@@ -25,7 +25,7 @@ export const DashboardRoutes = {
 export const PaymentRoutes = {
     paymentHome: 'PaymentMethod',
     addPayment: "AddPayment",
-    paymentSummary: 'PaymentSummary',
+    paymentDetails: 'PaymentDetails',
 }
 
 export const ProfileRoutes = {

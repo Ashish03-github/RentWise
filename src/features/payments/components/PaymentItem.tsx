@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet } from 'react-native';
-import React, { useMemo } from 'react';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
+import React, { useCallback, useMemo } from 'react';
 import { scale } from '@/theme/scale';
 import { ThemeColors } from '@/theme/colors';
 import { ThemeFonts } from '@/theme/fonts';
@@ -13,6 +13,8 @@ import {
 } from '../types/payments.components.type';
 import { AppImage } from '@/common/components';
 import { STATUS_UI_MAP } from '../constants/payments.dummy.data';
+import { useNavigation } from '@react-navigation/native';
+import { PaymentRoutes } from '@/navigation/routes';
 
 const PaymentItem: React.FC<PaymentItemProps> = ({ item, index }) => {
   const {
@@ -24,8 +26,8 @@ const PaymentItem: React.FC<PaymentItemProps> = ({ item, index }) => {
     paymentstatus,
   } = item;
 
+  const navigation = useNavigation();
   const { Colors, Fonts, Layout, Spacing } = useTheme();
-
   const styles = useMemo(
     () => stylesFn(Colors, Fonts, Layout, Spacing),
     [Colors, Fonts, Layout, Spacing],
@@ -34,8 +36,15 @@ const PaymentItem: React.FC<PaymentItemProps> = ({ item, index }) => {
   const statusConfig =
     STATUS_UI_MAP[paymentstatus as PaymentStatus] ?? STATUS_UI_MAP.Pending;
 
+  const navigateTo = useCallback(() => {
+    navigation.navigate(PaymentRoutes.paymentDetails);
+  }, []);
   return (
-    <View key={index} style={styles.paymentItemContainer}>
+    <Pressable
+      onPress={navigateTo}
+      key={index}
+      style={styles.paymentItemContainer}
+    >
       <View style={styles.paymentImageContainer}>
         <AppImage
           uri={tenantImage}
@@ -88,7 +97,7 @@ const PaymentItem: React.FC<PaymentItemProps> = ({ item, index }) => {
           </View>
         )} */}
       </View>
-    </View>
+    </Pressable>
   );
 };
 
