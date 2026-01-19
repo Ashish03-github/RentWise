@@ -55,9 +55,11 @@ const stylesFn = (
     depositLabel: {
       ...Fonts.sz11,
       ...Fonts.font500,
+      // ...Colors.textSecondary,
     },
     depositAmount: {
       ...Fonts.sz11,
       ...Fonts.font600,
+      // ...Colors.textSecondary,
     },
   });

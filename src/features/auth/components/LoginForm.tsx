@@ -8,21 +8,7 @@ import { ThemeSpacing } from '@/theme/spacing';
 import { useLoginController } from '../controller';
 import { scale } from '@/theme/scale';
 import { ThemeLayout } from '@/theme/layout';
-
-interface LoginFormProps {
-  // email?: string;
-  // password?: string;
-  // onEmailChange?: (email: string) => void;
-  // onPasswordChange?: (password: string) => void;
-}
-const LoginForm: React.FC<LoginFormProps> = (
-  {
-    // email,
-    // password,
-    // onEmailChange,
-    // onPasswordChange,
-  },
-) => {
+const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { handleLogin } = useLoginController();
