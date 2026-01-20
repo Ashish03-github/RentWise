@@ -43,4 +43,4 @@ const AppCalendar = ({
   );
 };
 
-export default AppCalendar;
+export default React.memo(AppCalendar);

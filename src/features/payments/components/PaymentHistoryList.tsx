@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import useTheme from '@/common/hooks/useTheme';
-import EmptyState from './EmptyState';
+import { EmptyState } from '../../../common/components';
 import PaymentHistoryItem from './PaymentHistoryItem';
 import { ThemeColors } from '@/theme/colors';
 import { ThemeFonts } from '@/theme/fonts';

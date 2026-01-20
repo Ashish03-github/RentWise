@@ -1,21 +1,32 @@
 import React, { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import useTheme from '@/common/hooks/useTheme';
+import AppIcon from './AppIcon';
 
-const EmptyState = ({ message }: { message: string }) => {
-  const { Fonts, Layout, Colors } = useTheme();
+type EmptyStateProps = {
+  message: string;
+  icon: string;
+  color?: string;
+};
+const EmptyState = ({
+  message,
+  color = '#1F75EC',
+  icon = 'question',
+}: EmptyStateProps) => {
+  const { Fonts, Layout, Colors, Spacing } = useTheme();
 
   const styles = useMemo(
     () =>
       StyleSheet.create({
         container: {
+          ...Layout.flex,
           ...Layout.center,
-          paddingVertical: 32,
         },
         text: {
-          ...Fonts.sz10,
-          ...Fonts.font400,
-          ...Colors.textSecondary,
+          ...Fonts.sz11,
+          ...Fonts.font500,
+          ...Colors.textBlack,
+          ...Spacing.mt3,
         },
       }),
     [Fonts, Layout, Colors],
@@ -23,6 +34,7 @@ const EmptyState = ({ message }: { message: string }) => {
 
   return (
     <View style={styles.container}>
+      <AppIcon type="fontAwesome6" name={icon} color={color} />
       <Text style={styles.text}>{message}</Text>
     </View>
   );

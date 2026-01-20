@@ -11,7 +11,6 @@ const TenantScreen = () => {
     <Container screenHeading={'Tenants'}>
       <View style={styles.container}>
         <TenantsList />
-
         <CircularButton nextToScreen={TenantRoutes.addTenant} />
       </View>
     </Container>

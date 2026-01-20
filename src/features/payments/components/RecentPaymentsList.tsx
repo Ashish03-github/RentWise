@@ -8,7 +8,7 @@ import PaymentItem from './PaymentItem';
 import { ThemeSpacing } from '@/theme/spacing';
 import { ThemeFonts } from '@/theme/fonts';
 import useTheme from '@/common/hooks/useTheme';
-import { Dropdown } from '@/common/components';
+import { Dropdown, EmptyState } from '@/common/components';
 import { scale, scaleVertical } from '@/theme/scale';
 import { RecentPayment } from '../types/payments.components.type';
 
@@ -71,13 +71,22 @@ const RecentPaymentsList = () => {
         />
       </View>
 
-      <FlatList
-        data={recentPaymentsData}
-        keyExtractor={(_, i) => i.toString()}
-        initialNumToRender={10}
-        renderItem={renderItem}
-        removeClippedSubviews={true}
-      />
+      <View style={styles.listContainerStyle}>
+        <FlatList
+          data={recentPaymentsData}
+          initialNumToRender={10}
+          renderItem={renderItem}
+          removeClippedSubviews={true}
+          keyExtractor={(_, i) => i.toString()}
+          contentContainerStyle={styles.listContentContainer}
+          ListEmptyComponent={
+            <EmptyState
+              icon="circle-exclamation"
+              message="No payment history found."
+            />
+          }
+        />
+      </View>
     </View>
   );
 };
@@ -85,10 +94,12 @@ const RecentPaymentsList = () => {
 const stylesFn = (Spacing: ThemeSpacing, Fonts: ThemeFonts) =>
   StyleSheet.create({
     container: {
-      marginTop: scale(16),
+      flex: 1,
+      // marginTop: scale(16),
     },
 
     headerRow: {
+      flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -97,32 +108,13 @@ const stylesFn = (Spacing: ThemeSpacing, Fonts: ThemeFonts) =>
     sectionHeading: {
       ...Fonts.sz14,
       ...Fonts.font600,
-      ...Spacing.my2,
+      // ...Spacing.my2,
     },
-
-    dropdownContainer: {
-      width: scale(120),
-      minHeight: scaleVertical(26),
-      borderRadius: scale(16),
-      ...Spacing.pr2,
-      ...Spacing.pl4,
-      backgroundColor: 'red',
-      // zIndex: 100000,
+    listContainerStyle: {
+      flex: 9,
     },
-
-    dropdown: {
-      backgroundColor: 'red',
-      width: scale(100),
-      // zIndex: 1000,
-    },
-
-    dropdownText: {
-      ...Fonts.sz10,
-      ...Fonts.font500,
-    },
-
-    dropdownLabel: {
-      color: 'purple',
+    listContentContainer: {
+      flex: 1,
     },
   });
 
