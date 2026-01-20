@@ -1,33 +1,24 @@
-import { View, Text, StyleSheet } from 'react-native';
-import React, { useCallback, useState } from 'react';
-import { Button, InputField } from '@/common/components';
-import useTheme from '@/common/hooks/useTheme';
-import { ThemeColors } from '@/theme/colors';
-import { ThemeFonts } from '@/theme/fonts';
-import { ThemeSpacing } from '@/theme/spacing';
-import { AuthRoutes } from '@/navigation/routes';
-import { useNavigation } from '@react-navigation/native';
 import { scale } from '@/theme/scale';
+import React from 'react';
+import { ThemeFonts } from '@/theme/fonts';
+import { ThemeColors } from '@/theme/colors';
+import useTheme from '@/common/hooks/useTheme';
+import { ThemeSpacing } from '@/theme/spacing';
+import { View, Text, StyleSheet } from 'react-native';
+import { Button, RHFInput } from '@/common/components';
+import useRegistrationController from '../controller/useRegistrationController';
 
 interface RegisterFormProps {}
 
 const RegisterForm: React.FC<RegisterFormProps> = ({}) => {
-  const navigation = useNavigation();
-  const navigateTo = useCallback(() => {
-    navigation.navigate(AuthRoutes.login);
-  }, []);
-
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [mobile, setMobile] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPass, setConfirmPass] = useState('');
-
   const { Colors, Fonts, Spacing } = useTheme();
   const styles = React.useMemo(
     () => stylesFn(Colors, Fonts, Spacing),
     [Colors, Fonts, Spacing],
   );
+
+  const { control, errors, handleSubmit, onSubmit, navigateTo } =
+    useRegistrationController();
 
   return (
     <View style={{ flex: 1 }}>
@@ -36,42 +27,44 @@ const RegisterForm: React.FC<RegisterFormProps> = ({}) => {
         Please fill all the details given below
       </Text>
 
-      <InputField
+      <RHFInput
         label="Name"
-        value={name}
+        name="name"
+        control={control}
+        errors={errors}
         placeholder="Enter your name"
-        onChangeText={setName}
       />
 
-      <InputField
-        label="Email"
-        value={email}
-        placeholder="Enter your email"
-        onChangeText={setEmail}
+      <RHFInput
+        name="email"
+        label="Email Address"
+        control={control}
+        errors={errors}
+        placeholder="Enter your email address"
       />
 
-      <InputField
+      <RHFInput
         label="Mobile Number"
-        value={mobile}
-        secureTextEntry
-        onChangeText={setMobile}
+        name="phone"
+        control={control}
+        errors={errors}
         placeholder="Enter your mobile number"
       />
 
-      <InputField
+      <RHFInput
         label="Password"
-        value={password}
-        secureTextEntry
-        onChangeText={setPassword}
-        placeholder="Enter your password"
+        name="password"
+        control={control}
+        errors={errors}
+        placeholder="Enter your password."
       />
 
-      <InputField
+      <RHFInput
         label="Confirm Password"
-        value={confirmPass}
-        secureTextEntry
-        onChangeText={setConfirmPass}
-        placeholder="Enter confirm your password"
+        name="cnf_password"
+        control={control}
+        errors={errors}
+        placeholder="Confirm your password"
       />
 
       <Text style={styles.registerText}>
@@ -81,7 +74,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({}) => {
         </Text>
       </Text>
 
-      <Button style={styles.formButton} title="Continue" onPress={() => {}} />
+      <Button
+        title="Continue"
+        style={styles.formButton}
+        onPress={handleSubmit(onSubmit)}
+      />
     </View>
   );
 };
@@ -114,7 +111,7 @@ const stylesFn = (
       ...Fonts.font400,
       ...Fonts.sz11,
       ...Colors.textSecondary,
-      // ...Spacing.mb8,
+      ...Spacing.mt8,
     },
     primaryText: {
       ...Fonts.font600,

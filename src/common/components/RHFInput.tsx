@@ -15,6 +15,7 @@ const RHFInput = ({ name, control, errors, ...props }: Props) => {
       render={({ field }) => (
         <FormInput
           {...props}
+          type="Personal-Details-Field"
           value={field.value}
           error={errors?.[name]?.message}
           onChangeText={field.onChange}
