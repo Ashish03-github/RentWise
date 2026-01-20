@@ -1,6 +1,6 @@
 import { useAppDispatch } from "@/store/hooks"
 import { useCallback } from "react"
-import { login } from "../store/auth.slice"
+import { setSession } from "../store/auth.slice"
 import { useNavigation } from "@react-navigation/native"
 import { AuthRoutes } from "@/navigation/routes"
 
@@ -9,10 +9,12 @@ const useLoginController = () => {
     const dispatch = useAppDispatch();
 
     const handleLogin = useCallback((email: string, password: string) => {
-        dispatch(login({
-            id: "1",
-            name: "Ashish",
-            email,
+        dispatch(setSession({
+            user: {
+                id: "123",
+                name: "Ashish Yadav",
+                email: email,
+            },
             token: "dummy-jwt-token",
         }))
     }, [dispatch])

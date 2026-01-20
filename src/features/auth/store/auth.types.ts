@@ -1,6 +1,6 @@
 
 export interface User {
-    id: string; name: string; email: string, token: string
+    id: string; name: string; email: string
 }
 export interface AuthState {
     isAuthenticated: boolean;
@@ -13,6 +13,6 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-    token: string;
     user: User;
+    token: string
 }
