@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React, { useCallback, useState } from 'react';
-import { Button, InputField } from '@/common/components';
+import React from 'react';
+import { Button, RHFInput } from '@/common/components';
 import { ThemeColors } from '@/theme/colors';
 import { ThemeFonts } from '@/theme/fonts';
 import useTheme from '@/common/hooks/useTheme';
@@ -9,12 +9,8 @@ import { useLoginController } from '../controller';
 import { scale } from '@/theme/scale';
 import { ThemeLayout } from '@/theme/layout';
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const { handleLogin, navigateTo } = useLoginController();
-  const onSubmit = useCallback(() => {
-    handleLogin(email, password);
-  }, [email, password, handleLogin]);
+  const { handleLogin, navigateTo, control, errors, handleSubmit } =
+    useLoginController();
 
   const { Colors, Fonts, Spacing, Layout } = useTheme();
   const styles = React.useMemo(
@@ -27,24 +23,22 @@ const LoginForm = () => {
       <Text style={styles.welcomeText}>Hey! Welcome back</Text>
       <Text style={styles.subSignInText}>Sign In to your account</Text>
 
-      <InputField
+      <RHFInput
+        name="email"
         label="Email"
-        value={email}
+        control={control}
+        errors={errors}
         placeholder="Enter your email"
-        onChangeText={setEmail}
       />
 
-      <InputField
+      <RHFInput
         label="Password"
-        value={password}
+        name="password"
+        control={control}
+        errors={errors}
         secureTextEntry
-        onChangeText={setPassword}
         placeholder="Enter your password"
       />
-
-      {/* <Text style={styles.termsConditionsText}>
-        After continuing, I accept all Terms & Conditions and Privacy Policy
-      </Text> */}
 
       <Text style={styles.registerText}>
         Don’t have an account?{' '}
@@ -53,7 +47,11 @@ const LoginForm = () => {
         </Text>
       </Text>
 
-      <Button style={styles.formButton} title="Continue" onPress={onSubmit} />
+      <Button
+        style={styles.formButton}
+        title="Continue"
+        onPress={handleSubmit(handleLogin)}
+      />
     </View>
   );
 };

@@ -6,3 +6,8 @@ export const REGISTRATION_FORM_INITIAL_VALUES = {
     password: '',
     cnf_password: '',
 }
+
+export const LOGIN_INITIAL_VALUES = {
+    email: "",
+    password: ""
+}
