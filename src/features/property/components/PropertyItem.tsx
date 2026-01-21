@@ -7,10 +7,13 @@ import { ThemeFonts } from '@/theme/fonts';
 import { ThemeLayout } from '@/theme/layout';
 import { AppIcon, AppImage } from '@/common/components';
 import { ThemeSpacing } from '@/theme/spacing';
-import { PropertyItem as Property } from '../types/proprty.type';
+import { Property } from '../types/proprty.type';
 import { useNavigation } from '@react-navigation/native';
 import { PropertyRoutes } from '@/navigation/routes';
 import { commonIcons } from '@/common/constants/commonIcons';
+import { BUILDING_IMAGE } from '../constants/properties.dummy.data';
+import { useAppDispatch } from '@/store/hooks';
+import { getPropertyById } from '../store/properties.slice';
 
 type PropertyItemProps = {
   item: Property;
@@ -25,11 +28,13 @@ const PropertyItem: React.FC<PropertyItemProps> = ({ item, key }) => {
     propertyRent,
     propertyStatus,
     propertyType,
-    propertyRentRecurrence,
+    rentRecurrence,
   } = item;
 
+  const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const navigateTo = useCallback(() => {
+    // dispatch(getPropertyById({ id: item.id }));
     navigation.navigate(PropertyRoutes.propertyDetails);
   }, []);
 
@@ -42,7 +47,7 @@ const PropertyItem: React.FC<PropertyItemProps> = ({ item, key }) => {
     <Pressable onPress={navigateTo} style={styles.propertyItemContainer}>
       <View style={styles.propertyImageContainer}>
         <AppImage
-          uri={image}
+          uri={image || BUILDING_IMAGE}
           resizeMode="cover"
           imageStyle={styles.imageStyle}
         />
@@ -64,7 +69,9 @@ const PropertyItem: React.FC<PropertyItemProps> = ({ item, key }) => {
         </Text>
         <View style={styles.propertyTypeContainer}>
           <AppIcon name="house" size={12} />
-          <Text style={styles.propertyType}>{propertyType}</Text>
+          <Text numberOfLines={1} style={styles.propertyType}>
+            {propertyType}
+          </Text>
         </View>
       </View>
       <View style={styles.propertyStatusAndAmountContainer}>
@@ -89,7 +96,7 @@ const PropertyItem: React.FC<PropertyItemProps> = ({ item, key }) => {
         </View>
         <View style={styles.propertyRentContainer}>
           <Text style={styles.propertyRentText}>
-            {commonIcons.rupees} {propertyRent}/{propertyRentRecurrence}
+            {commonIcons.rupees} {propertyRent}/{rentRecurrence}
           </Text>
         </View>
       </View>
@@ -114,10 +121,10 @@ const stylesFn = (
       // ...Spacing.mb4,
     },
     propertyTypeContainer: {
-      width: scale(60),
-      paddingHorizontal: scale(6),
-      paddingVertical: scale(3),
-      borderRadius: scale(6),
+      width: scale(90),
+      ...Spacing.px3,
+      ...Spacing.py1,
+      ...Layout.roundedMd,
       ...Colors.primaryLight1,
       ...Layout.justifyCenter,
       ...Layout.flexRow,

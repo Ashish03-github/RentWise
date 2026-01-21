@@ -1,0 +1,1 @@
+export { default as propertyReducer } from "./properties.slice"

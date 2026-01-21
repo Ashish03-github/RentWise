@@ -1,26 +1,40 @@
 import { FlatList } from 'react-native';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { propertiesData } from '../constants/properties.dummy.data';
-import { PropertyItem as PropertyItemProps } from '../types/proprty.type';
+import { Property } from '../types/proprty.type';
 import PropertyItem from './PropertyItem';
 import { EmptyState } from '@/common/components';
+import { useAppSelector } from '@/store/hooks';
+import { selectProperties } from '../store/properties.selectors';
 
 const PropertyList = () => {
-  const renderItem = React.useMemo(
-    () =>
-      ({ item, index }: { item: PropertyItemProps; index: number }) => {
-        return <PropertyItem item={item} key={index} />;
-      },
+  const properties = useAppSelector(selectProperties);
+
+  const renderItem = useCallback(
+    ({ item, index }: { item: Property; index: number }) => {
+      return <PropertyItem item={item} key={index} />;
+    },
     [],
   );
+
+  // const getItemLayout = useCallback(
+  //   (item: any, index: number) => ({
+  //     length: 100,
+  //     offset: 100 * index,
+  //     index,
+  //   }),
+  //   [],
+  // );
+
   return (
     <FlatList
-      data={propertiesData}
+      data={properties}
       renderItem={renderItem}
       initialNumToRender={10}
       removeClippedSubviews={true}
       contentContainerStyle={{ flex: 1 }}
-      keyExtractor={(_, i) => i.toString()}
+      keyExtractor={item => item.id}
+      // getItemLayout={getItemLayout}
       ListEmptyComponent={
         <EmptyState
           icon="building-circle-xmark"

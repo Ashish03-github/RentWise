@@ -5,8 +5,11 @@ import {
 } from '../utils/add.property.form.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ADD_PROPERTY_FORM_DEFAULT_VALUES } from '../constants/properties.dummy.data';
+import { useAppDispatch } from '@/store/hooks';
+import { addProperty } from '../store/properties.slice';
 
 const useAddPropertyFormController = () => {
+  const dispatch = useAppDispatch();
   const {
     control,
     handleSubmit,
@@ -17,7 +20,7 @@ const useAddPropertyFormController = () => {
   });
 
   const onSubmit = (data: AddPropertyFormValues) => {
-    console.log('Property Details =>', data);
+    dispatch(addProperty({ ...data, id: Math.random().toString() }));
   };
   return { control, handleSubmit, errors, onSubmit };
 };
