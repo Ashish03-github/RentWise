@@ -8,7 +8,6 @@ import { ThemeSpacing } from '@/theme/spacing';
 import { scale } from '@/theme/scale';
 import { AppIcon, AppImage } from '@/common/components';
 import { DUMMY_USER } from '../constants/tenants.dummy.data';
-import { BUILDING_IMAGE } from '@/features/property/constants/properties.dummy.data';
 import { commonIcons } from '@/common/constants/commonIcons';
 import { useAppSelector } from '@/store/hooks';
 import { selectActiveTenant } from '../store/tenants.selectors';
@@ -46,7 +45,7 @@ const TenantCard = () => {
   return (
     <View style={styles.tenantCardContainer}>
       <View style={styles.imageWrapper}>
-        {tenant?.tenantImage ? (
+        {true ? (
           <AppImage
             resizeMode="cover"
             uri={tenant.tenantImage || DUMMY_USER}
@@ -102,16 +101,16 @@ const TenantCard = () => {
         <Text style={styles.propertyName}>{tenant?.propertyName || ''}</Text>
         <Text style={styles.leaseDates}>
           {tenant?.leaseStartDate && tenant?.leaseEndDate
-            ? `${formatDate(tenant.leaseStartDate)} - ${formatDate(tenant.leaseEndDate)}`
+            ? `${formatDate(tenant.leaseStartDate)} - ${formatDate(
+                tenant.leaseEndDate,
+              )}`
             : ''}
         </Text>
 
         <View style={styles.tenantInfoWrapper}>
           <View style={styles.infoItem}>
             <AppIcon name="house" size={15} />
-            <Text style={styles.infoText}>
-              {tenant?.propertyType || ''}
-            </Text>
+            <Text style={styles.infoText}>{tenant?.propertyType || ''}</Text>
           </View>
 
           <View style={styles.infoItem}>
@@ -156,7 +155,7 @@ const stylesFn = (
       ...Layout.roundedXl,
     },
     initialText: {
-      ...Fonts.sz32,
+      ...Fonts.sz30,
       ...Fonts.font600,
       ...Colors.textWhite,
     },
@@ -250,4 +249,3 @@ const stylesFn = (
   });
 
 export default TenantCard;
-

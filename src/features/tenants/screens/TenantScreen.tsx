@@ -11,7 +11,6 @@ import { ThemeColors } from '@/theme/colors';
 import { ThemeFonts } from '@/theme/fonts';
 import { ThemeLayout } from '@/theme/layout';
 import { ThemeSpacing } from '@/theme/spacing';
-import { scale } from '@/theme/scale';
 
 const TenantScreen = () => {
   const navigation = useNavigation<any>();

@@ -1,7 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigation } from '@react-navigation/native';
 import { nanoid } from '@reduxjs/toolkit';
 
 import {
@@ -9,15 +8,15 @@ import {
     AddTenantFormValues,
 } from '../utils/addTenant.schema';
 
-import { INITIAL_ADD_TENANT_FORM_STATE } from '../constants/tenants.dummy.data';
+import { DUMMY_USER, INITIAL_ADD_TENANT_FORM_STATE } from '../constants/tenants.dummy.data';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { addTenant, updateTenant, clearActiveTenantId } from '../store/tenants.slice';
 import { selectActiveTenant } from '../store/tenants.selectors';
 import { TenantItem } from '../types/tenant.components.type';
+import { BUILDING_IMAGE } from '@/features/property/constants/properties.dummy.data';
 
 const useAddTenantFormController = () => {
     const dispatch = useAppDispatch();
-    const navigation = useNavigation<any>();
     const activeTenant = useAppSelector(selectActiveTenant);
 
     const isEditMode = !!activeTenant && !(activeTenant as any)?._isRemoved;
@@ -47,18 +46,16 @@ const useAddTenantFormController = () => {
         control,
         handleSubmit,
         reset,
-        formState: { errors, dirtyFields },
+        formState: { errors },
     } = useForm<AddTenantFormValues>({
         resolver: zodResolver(addTenantSchema),
         defaultValues,
     });
 
-    // Reset when edit mode loads
     useEffect(() => {
         reset(defaultValues);
     }, [defaultValues, reset]);
 
-    // Clear active tenant on unmount
     useEffect(() => {
         return () => {
             dispatch(clearActiveTenantId());
@@ -67,7 +64,6 @@ const useAddTenantFormController = () => {
 
     const onSubmit = (data: AddTenantFormValues) => {
         if (isEditMode && activeTenant) {
-            // Update existing tenant
             const updatedTenant: TenantItem = {
                 ...activeTenant,
                 tenantName: data.tenantName,
@@ -99,8 +95,8 @@ const useAddTenantFormController = () => {
                 rentRecurrence: data.rentRecurrence as any,
                 leaseStartDate: data.leaseStartDate,
                 leaseEndDate: data.leaseEndDate,
-                tenantImage: '', // Default empty
-                image: '', // Default empty
+                tenantImage: DUMMY_USER, // Default empty
+                image: BUILDING_IMAGE,// Default empty
                 email: data.email,
                 phone: data.phone,
                 note: data.note,
@@ -109,7 +105,7 @@ const useAddTenantFormController = () => {
             dispatch(addTenant(newTenant));
         }
 
-        navigation.goBack();
+        // navigation.goBack();
     };
 
     return {

@@ -6,23 +6,21 @@ export const selectTenants = (state: RootState) =>
 export const selectActiveTenant = (state: RootState) => {
     const id = state.tenants.activeTenantId;
     if (!id) return null;
-    
-    // First check active tenants
+
     const activeTenant = state.tenants.tenants.find(t => t.id === id);
     if (activeTenant) return activeTenant;
-    
-    // If not found, check removed tenants from history
+
     const removedHistory = state.tenants.history
         .filter(h => h.action === 'DELETED' && h.tenantId === id)
         .sort((a, b) => b.timestamp - a.timestamp);
-    
+
     if (removedHistory.length > 0) {
         // Return the snapshot with "Removed" status
         const removedTenant = { ...removedHistory[0].snapshot };
         // Mark as removed for UI purposes
         return { ...removedTenant, _isRemoved: true } as any;
     }
-    
+
     return null;
 };
 

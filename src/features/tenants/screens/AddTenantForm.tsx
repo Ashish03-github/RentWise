@@ -46,12 +46,20 @@ const AddTenantForm = () => {
       />
 
       <RHFDropdown
-        items={propertyStatusItems}
         name="property"
         label="Select Property"
-        errors={errors}
+        items={propertyStatusItems}
         control={control}
+        errors={errors}
         placeholder="Select property"
+      />
+
+      <RHFInput
+        name="propertyAddress"
+        label="Property Address"
+        placeholder="Enter property address"
+        control={control}
+        errors={errors}
       />
 
       <RHFDropdown

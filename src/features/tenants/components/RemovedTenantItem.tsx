@@ -6,7 +6,7 @@ import { ThemeFonts } from '@/theme/fonts';
 import { ThemeLayout } from '@/theme/layout';
 import { ThemeSpacing } from '@/theme/spacing';
 import { scale } from '@/theme/scale';
-import { AppIcon, AppImage } from '@/common/components';
+import { AppImage } from '@/common/components';
 import { BUILDING_IMAGE } from '@/features/property/constants/properties.dummy.data';
 import { TenantHistoryItem } from '../store/tenants.slice';
 import { formatDate } from '@/utils/utils.helper';
@@ -53,7 +53,8 @@ const RemovedTenantItem: React.FC<RemovedTenantItemProps> = ({ item }) => {
         </Text>
         <View style={styles.leaseDateContainer}>
           <Text style={styles.leaseDateText}>
-            {formatDate(tenant.leaseStartDate)} - {formatDate(tenant.leaseEndDate)}
+            {formatDate(tenant.leaseStartDate)} -{' '}
+            {formatDate(tenant.leaseEndDate)}
           </Text>
         </View>
       </View>
@@ -137,4 +138,3 @@ const stylesFn = (
   });
 
 export default RemovedTenantItem;
-

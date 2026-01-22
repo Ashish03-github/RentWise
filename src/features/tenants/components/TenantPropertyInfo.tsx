@@ -32,8 +32,9 @@ const TenantPropertyInfo = React.memo(() => {
         </View>
 
         <View style={styles.propertyTextContainer}>
-          <Text style={styles.propertyLabel}>Address</Text>
+          <Text style={styles.propertyLabel}>Address: </Text>
           <Text style={styles.propertyName}>
+            {' '}
             {tenant?.propertyAddress || 'Not provided'}
           </Text>
         </View>
@@ -50,8 +51,9 @@ const TenantPropertyInfo = React.memo(() => {
         </View>
 
         <View style={styles.propertyTextContainer}>
-          <Text style={styles.propertyLabel}>Rent</Text>
+          <Text style={styles.propertyLabel}>Rent: </Text>
           <Text style={styles.rentText}>
+            {' '}
             {commonIcons.rupees} {tenant?.propertyRent || 0}/
             {tenant?.rentRecurrence || 'month'}
           </Text>
@@ -94,7 +96,7 @@ const stylesFn = (
     propertyTextContainer: {
       ...Layout.flex,
       ...Layout.flexRow,
-      ...Layout.justifyBetween,
+      // ...Layout.justifyBetween,
     },
     propertyLabel: {
       ...Fonts.sz11,

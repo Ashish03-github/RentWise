@@ -62,7 +62,7 @@ const PaymentHistoryCard = React.memo(() => {
 
   return (
     <View style={styles.card}>
-      <Text style={styles.sectionTitle}>Payment History</Text>
+      {/* <Text style={styles.sectionTitle}>Payment History</Text> */}
       {payments.map(payment => (
         <View key={payment.id} style={styles.paymentItem}>
           <Text style={styles.paymentDate}>{payment.date}</Text>

@@ -18,7 +18,7 @@ const SecurityDepositCard = React.memo(() => {
   );
 
   const totalDeposit = tenant?.propertyDeposit || '0';
-  const paidAmount = '0'; // TODO: Calculate from payment history
+  const paidAmount = '0';
   const remaining = String(Number(totalDeposit) - Number(paidAmount));
 
   const DepositRow = ({ label, value, color }: any) => (
@@ -32,7 +32,7 @@ const SecurityDepositCard = React.memo(() => {
 
   return (
     <View style={styles.card}>
-      <Text style={styles.sectionTitle}>Security Deposit</Text>
+      {/* <Text style={styles.sectionTitle}>Security Deposit</Text> */}
 
       <DepositRow label="Total" value={totalDeposit} />
       <DepositRow label="Paid Amount" value={paidAmount} color="#4CAF50" />

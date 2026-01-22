@@ -17,11 +17,11 @@ const ContactDetailsCard = React.memo(() => {
   );
   return (
     <View style={styles.card}>
-      <Text style={styles.sectionTitle}>Contact Details</Text>
+      {/* <Text style={styles.sectionTitle}>Contact Details</Text> */}
       <View style={styles.depositRow}>
         <Text style={styles.depositLabel}>Phone Number:</Text>
         <Text style={styles.depositAmount}>
-          {tenant?.phone || 'Not provided'}
+          +91 {tenant?.phone || 'Not provided'}
         </Text>
       </View>
       <View style={styles.depositRow}>
