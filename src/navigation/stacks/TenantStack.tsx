@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { TenantRoutes } from '../routes';
 import { AddTenantFormScreen, TenantScreen } from '@/features/tenants/screens';
 import TenantDetailsScreen from '@/features/tenants/screens/TenantDetailsScreen';
+import TenantHistory from '@/features/tenants/screens/TenantHistory';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,14 @@ export default function TenantStack() {
       />
       <Stack.Screen
         name={TenantRoutes.addTenant}
+        component={AddTenantFormScreen}
+      />
+      <Stack.Screen
+        name={TenantRoutes.tenantHistory}
+        component={TenantHistory}
+      />
+      <Stack.Screen
+        name={TenantRoutes.editTenant}
         component={AddTenantFormScreen}
       />
     </Stack.Navigator>

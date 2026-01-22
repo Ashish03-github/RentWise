@@ -7,7 +7,10 @@ export interface TenantItem extends Property {
     tenantImage: string;
     leaseStartDate: string;
     leaseEndDate: string;
-    propertyRent: number,
+    propertyRent: number;
+    email?: string;
+    phone?: string;
+    note?: string;
 }
 
 export type AddTenantFormState = {
@@ -21,4 +24,6 @@ export type AddTenantFormState = {
     leaseEndDate: string;
     propertyType: string;
     rentRecurrence: string;
+    propertyAddress: string;
+    note?: string;
 };

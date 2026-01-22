@@ -8,8 +8,11 @@ import { ThemeColors } from '@/theme/colors';
 import { ThemeFonts } from '@/theme/fonts';
 import { ThemeLayout } from '@/theme/layout';
 import { ThemeSpacing } from '@/theme/spacing';
+import { useAppSelector } from '@/store/hooks';
+import { selectActiveTenant } from '../store/tenants.selectors';
 
 const TenantPropertyInfo = React.memo(() => {
+  const tenant = useAppSelector(selectActiveTenant);
   const { Colors, Fonts, Layout, Spacing } = useTheme();
   const styles = React.useMemo(
     () => stylesFn(Colors, Fonts, Layout, Spacing),
@@ -30,7 +33,9 @@ const TenantPropertyInfo = React.memo(() => {
 
         <View style={styles.propertyTextContainer}>
           <Text style={styles.propertyLabel}>Address</Text>
-          <Text style={styles.propertyName}>242, New Gouri Nagar, Indore</Text>
+          <Text style={styles.propertyName}>
+            {tenant?.propertyAddress || 'Not provided'}
+          </Text>
         </View>
       </View>
 
@@ -45,8 +50,11 @@ const TenantPropertyInfo = React.memo(() => {
         </View>
 
         <View style={styles.propertyTextContainer}>
-          <Text style={styles.propertyLabel}>Flat</Text>
-          <Text style={styles.rentText}>{commonIcons.rupees} 15,000/month</Text>
+          <Text style={styles.propertyLabel}>Rent</Text>
+          <Text style={styles.rentText}>
+            {commonIcons.rupees} {tenant?.propertyRent || 0}/
+            {tenant?.rentRecurrence || 'month'}
+          </Text>
         </View>
       </View>
     </>

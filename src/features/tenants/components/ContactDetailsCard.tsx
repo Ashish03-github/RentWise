@@ -5,8 +5,11 @@ import { ThemeFonts } from '@/theme/fonts';
 import { ThemeLayout } from '@/theme/layout';
 import { ThemeSpacing } from '@/theme/spacing';
 import useTheme from '@/common/hooks/useTheme';
+import { useAppSelector } from '@/store/hooks';
+import { selectActiveTenant } from '../store/tenants.selectors';
 
 const ContactDetailsCard = React.memo(() => {
+  const tenant = useAppSelector(selectActiveTenant);
   const { Colors, Fonts, Layout, Spacing } = useTheme();
   const styles = React.useMemo(
     () => stylesFn(Colors, Fonts, Layout, Spacing),
@@ -17,11 +20,15 @@ const ContactDetailsCard = React.memo(() => {
       <Text style={styles.sectionTitle}>Contact Details</Text>
       <View style={styles.depositRow}>
         <Text style={styles.depositLabel}>Phone Number:</Text>
-        <Text style={styles.depositAmount}>+91 9730592488</Text>
+        <Text style={styles.depositAmount}>
+          {tenant?.phone || 'Not provided'}
+        </Text>
       </View>
       <View style={styles.depositRow}>
         <Text style={styles.depositLabel}>Email Address:</Text>
-        <Text style={styles.depositAmount}> ashishyadav1261@gmail.com </Text>
+        <Text style={styles.depositAmount}>
+          {tenant?.email || 'Not provided'}
+        </Text>
       </View>
     </View>
   );

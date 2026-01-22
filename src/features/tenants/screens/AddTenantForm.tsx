@@ -7,13 +7,13 @@ import { useAddTenantFormController } from '../controller';
 import { Container, RHFInput, RHFDropdown } from '@/common/components';
 
 const AddTenantForm = () => {
-  const { control, errors, handleSubmit, onSubmit } =
+  const { control, errors, handleSubmit, onSubmit, isEditMode } =
     useAddTenantFormController();
 
   return (
     <Container
-      screenHeading="Add Tenant"
-      buttonLabel="Add Tenant"
+      screenHeading={isEditMode ? 'Edit Tenant' : 'Add Tenant'}
+      buttonLabel={isEditMode ? 'Update Tenant' : 'Add Tenant'}
       onButtonPress={handleSubmit(onSubmit)}
     >
       <RHFInput
@@ -46,11 +46,12 @@ const AddTenantForm = () => {
       />
 
       <RHFDropdown
+        items={propertyStatusItems}
         name="property"
         label="Select Property"
-        items={propertyStatusItems}
-        control={control}
         errors={errors}
+        control={control}
+        placeholder="Select property"
       />
 
       <RHFDropdown
@@ -59,6 +60,7 @@ const AddTenantForm = () => {
         items={propertyTypeItems}
         control={control}
         errors={errors}
+        placeholder="Select property type"
       />
 
       <RHFInput
@@ -103,6 +105,18 @@ const AddTenantForm = () => {
         items={rentRecurrenceItems}
         control={control}
         errors={errors}
+        placeholder="Select rent recurrence period"
+      />
+
+      <RHFInput
+        name="note"
+        label="Note"
+        multiline
+        errors={errors}
+        control={control}
+        numberOfLines={3}
+        placeholder="Enter note"
+        type="Personal-Details-Field"
       />
     </Container>
   );

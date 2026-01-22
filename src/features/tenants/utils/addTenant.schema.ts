@@ -43,6 +43,14 @@ export const addTenantSchema = z.object({
         .string()
         .min(1, 'Rent recurrence is required'),
 
+    propertyAddress: z
+        .string()
+        .min(3, 'Property address is required'),
+
+    note: z
+        .string()
+        .optional(),
+
 })
 
 export type AddTenantFormValues = z.infer<typeof addTenantSchema>;

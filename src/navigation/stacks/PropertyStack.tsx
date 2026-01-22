@@ -5,6 +5,7 @@ import {
   PropertyDetailsScreen,
   PropertyScreen,
 } from '@/features/property/screens';
+import PropertyHistory from '@/features/property/screens/PropertyHistory';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,14 @@ export default function PropertyStack() {
       <Stack.Screen
         name={PropertyRoutes.propertyDetails}
         component={PropertyDetailsScreen}
+      />
+      <Stack.Screen
+        name={PropertyRoutes.propertyHistory}
+        component={PropertyHistory}
+      />
+      <Stack.Screen
+        name={PropertyRoutes.editProperty}
+        component={AddPropertyFormScreen}
       />
     </Stack.Navigator>
   );

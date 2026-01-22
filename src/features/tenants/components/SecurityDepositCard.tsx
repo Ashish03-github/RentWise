@@ -6,13 +6,20 @@ import { ThemeFonts } from '@/theme/fonts';
 import { ThemeLayout } from '@/theme/layout';
 import { ThemeSpacing } from '@/theme/spacing';
 import { commonIcons } from '@/common/constants/commonIcons';
+import { useAppSelector } from '@/store/hooks';
+import { selectActiveTenant } from '../store/tenants.selectors';
 
 const SecurityDepositCard = React.memo(() => {
+  const tenant = useAppSelector(selectActiveTenant);
   const { Colors, Fonts, Layout, Spacing } = useTheme();
   const styles = React.useMemo(
     () => stylesFn(Colors, Fonts, Layout, Spacing),
     [Colors, Fonts, Layout, Spacing],
   );
+
+  const totalDeposit = tenant?.propertyDeposit || '0';
+  const paidAmount = '0'; // TODO: Calculate from payment history
+  const remaining = String(Number(totalDeposit) - Number(paidAmount));
 
   const DepositRow = ({ label, value, color }: any) => (
     <View style={styles.depositRow}>
@@ -27,9 +34,9 @@ const SecurityDepositCard = React.memo(() => {
     <View style={styles.card}>
       <Text style={styles.sectionTitle}>Security Deposit</Text>
 
-      <DepositRow label="Total" value="50,000" />
-      <DepositRow label="Paid Amount" value="20,000" color="#4CAF50" />
-      <DepositRow label="Remaining" value="30,000" />
+      <DepositRow label="Total" value={totalDeposit} />
+      <DepositRow label="Paid Amount" value={paidAmount} color="#4CAF50" />
+      <DepositRow label="Remaining" value={remaining} />
     </View>
   );
 });

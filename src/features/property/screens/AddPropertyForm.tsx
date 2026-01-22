@@ -8,14 +8,14 @@ import {
 import { useAddPropertyFormController } from '../controller';
 
 const AddPropertyForm = () => {
-  const { control, handleSubmit, errors, onSubmit } =
+  const { control, handleSubmit, errors, onSubmit, isEditMode } =
     useAddPropertyFormController();
 
   return (
     <Container
       onButtonPress={handleSubmit(onSubmit)}
-      buttonLabel={'Add Property'}
-      screenHeading="Add Property"
+      buttonLabel={isEditMode ? 'Update Property' : 'Add Property'}
+      screenHeading={isEditMode ? 'Edit Property' : 'Add Property'}
     >
       <RHFInput
         control={control}

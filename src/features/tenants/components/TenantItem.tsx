@@ -5,20 +5,23 @@ import useTheme from '@/common/hooks/useTheme';
 import { ThemeColors } from '@/theme/colors';
 import { ThemeFonts } from '@/theme/fonts';
 import { ThemeLayout } from '@/theme/layout';
-import { AppImage } from '@/common/components';
+import { AppImage, AppIcon } from '@/common/components';
 import { ThemeSpacing } from '@/theme/spacing';
 import { TenantItem as Tenant } from '../types/tenant.components.type';
 import { formatDate } from '@/utils/utils.helper';
 import { useNavigation } from '@react-navigation/native';
 import { TenantRoutes } from '@/navigation/routes';
+import { useAppDispatch } from '@/store/hooks';
+import { setActiveTenantId } from '../store/tenants.slice';
+import { DUMMY_USER } from '../constants/tenants.dummy.data';
 
 type TenantItemProps = {
   item: Tenant;
-  key: number;
 };
 
 const TenantItem: React.FC<TenantItemProps> = ({ item }) => {
   const {
+    id,
     tenantName,
     propertyName,
     leaseStartDate,
@@ -27,21 +30,40 @@ const TenantItem: React.FC<TenantItemProps> = ({ item }) => {
     tenantImage,
   } = item;
 
-  const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+  const navigation = useNavigation<any>();
   const { Colors, Fonts, Layout, Spacing } = useTheme();
   const styles = React.useMemo(
     () => stylesFn(Colors, Fonts, Layout, Spacing),
     [Colors, Fonts, Layout, Spacing],
   );
 
-  const navigateTo = useCallback(() => {
+  const navigateToDetails = useCallback(() => {
+    dispatch(setActiveTenantId(id || ''));
     navigation.navigate(TenantRoutes.tenantDetails);
-  }, []);
+  }, [dispatch, navigation, id]);
+
+  const navigateToEdit = useCallback(() => {
+    dispatch(setActiveTenantId(id || ''));
+    navigation.navigate(TenantRoutes.addTenant);
+  }, [dispatch, navigation, id]);
+
+  const isRemoved = (item as any)?._isRemoved;
+  const statusText = isRemoved
+    ? 'Removed'
+    : propertyStatus === 'Vacant'
+    ? 'In-Active'
+    : propertyStatus === 'Occupied'
+    ? 'Active'
+    : propertyStatus === 'Booked'
+    ? 'Booked'
+    : 'Active';
+
   return (
-    <Pressable onPress={navigateTo} style={styles.tenantItemContainer}>
+    <Pressable onPress={navigateToDetails} style={styles.tenantItemContainer}>
       <View style={styles.tenantImageContainer}>
         <AppImage
-          uri={tenantImage}
+          uri={tenantImage || DUMMY_USER}
           resizeMode="cover"
           imageStyle={styles.imageStyle}
         />
@@ -58,25 +80,47 @@ const TenantItem: React.FC<TenantItemProps> = ({ item }) => {
             {formatDate(leaseStartDate)} - {formatDate(leaseEndDate)}
           </Text>
         </View>
+
+        {!isRemoved && (
+          <Pressable
+            onPress={navigateToEdit}
+            hitSlop={10}
+            style={styles.editButton}
+          >
+            <AppIcon type="fontAwesome6" name="pencil" size={10} />
+          </Pressable>
+        )}
       </View>
       <View style={styles.statusContainer}>
         <View
           style={[
             styles.statusBadge,
-            propertyStatus === 'Vacant'
+            isRemoved
+              ? styles.removedBadge
+              : propertyStatus === 'Vacant'
               ? styles.vacantBadge
+              : propertyStatus === 'Occupied'
+              ? styles.occupiedBadge
+              : propertyStatus === 'Booked'
+              ? styles.bookedBadge
               : styles.occupiedBadge,
           ]}
         >
           <Text
             style={[
               styles.statusText,
-              propertyStatus === 'Vacant'
+              isRemoved
+                ? styles.removedText
+                : propertyStatus === 'Vacant'
                 ? styles.vacantText
+                : propertyStatus === 'Occupied'
+                ? styles.occupiedText
+                : propertyStatus === 'Booked'
+                ? styles.bookedText
                 : styles.occupiedText,
             ]}
           >
-            {propertyStatus === 'Vacant' ? 'In-Active' : 'Active'}
+            {statusText}
           </Text>
         </View>
       </View>
@@ -164,6 +208,28 @@ const stylesFn = (
     },
     vacantText: {
       color: '#EF4444',
+    },
+    bookedBadge: {
+      backgroundColor: 'rgba(251, 191, 36, 0.1)',
+    },
+    bookedText: {
+      color: '#FBBF24',
+    },
+    removedBadge: {
+      backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    },
+    removedText: {
+      color: '#EF4444',
+    },
+    editButton: {
+      position: 'absolute',
+      right: scale(6),
+      bottom: scale(0),
+      ...Spacing.px3,
+      paddingVertical: scale(6),
+      ...Layout.rounded,
+      ...Colors.primaryLight1,
+      ...Layout.center,
     },
   });
 

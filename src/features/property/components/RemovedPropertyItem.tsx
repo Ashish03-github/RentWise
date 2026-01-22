@@ -1,59 +1,45 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native';
 import React, { useCallback } from 'react';
-import { scale } from '@/theme/scale';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import useTheme from '@/common/hooks/useTheme';
 import { ThemeColors } from '@/theme/colors';
 import { ThemeFonts } from '@/theme/fonts';
 import { ThemeLayout } from '@/theme/layout';
-import { AppIcon, AppImage } from '@/common/components';
 import { ThemeSpacing } from '@/theme/spacing';
-import { Property } from '../types/proprty.type';
+import { scale } from '@/theme/scale';
+import { AppIcon, AppImage } from '@/common/components';
+import { BUILDING_IMAGE } from '../constants/properties.dummy.data';
+import { commonIcons } from '@/common/constants/commonIcons';
+import { PropertyHistoryItem } from '../store/properties.slice';
 import { useNavigation } from '@react-navigation/native';
 import { PropertyRoutes } from '@/navigation/routes';
-import { commonIcons } from '@/common/constants/commonIcons';
-import { BUILDING_IMAGE } from '../constants/properties.dummy.data';
 import { useAppDispatch } from '@/store/hooks';
 import { setActivePropertyId } from '../store/properties.slice';
 
-type PropertyItemProps = {
-  item: Property;
+type RemovedPropertyItemProps = {
+  item: PropertyHistoryItem;
 };
 
-const PropertyItem: React.FC<PropertyItemProps> = ({ item }) => {
-  const {
-    image,
-    propertyName,
-    propertyAddress,
-    propertyRent,
-    propertyStatus,
-    propertyType,
-    rentRecurrence,
-  } = item;
-
+const RemovedPropertyItem: React.FC<RemovedPropertyItemProps> = ({ item }) => {
+  const property = item.snapshot;
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
 
-  const navigateTo = useCallback(() => {
-    dispatch(setActivePropertyId(item.id || ''));
+  const navigateToDetails = useCallback(() => {
+    dispatch(setActivePropertyId(property.id || ''));
     navigation.navigate(PropertyRoutes.propertyDetails);
-  }, [dispatch, item.id, navigation]);
-
-  const navigateToEdit = useCallback(() => {
-    dispatch(setActivePropertyId(item.id || ''));
-    navigation.navigate(PropertyRoutes.addProperty);
-  }, [dispatch, item.id, navigation]);
+  }, [dispatch, navigation, property.id]);
 
   const { Colors, Fonts, Layout, Spacing } = useTheme();
   const styles = React.useMemo(
     () => stylesFn(Colors, Fonts, Layout, Spacing),
-    [Colors, Fonts, Layout],
+    [Colors, Fonts, Layout, Spacing],
   );
 
   return (
-    <Pressable onPress={navigateTo} style={styles.propertyItemContainer}>
+    <Pressable onPress={navigateToDetails} style={styles.propertyItemContainer}>
       <View style={styles.propertyImageContainer}>
         <AppImage
-          uri={image || BUILDING_IMAGE}
+          uri={property.image || BUILDING_IMAGE}
           resizeMode="cover"
           imageStyle={styles.imageStyle}
         />
@@ -64,67 +50,30 @@ const PropertyItem: React.FC<PropertyItemProps> = ({ item }) => {
           ellipsizeMode="tail"
           style={styles.propertyName}
         >
-          {propertyName}
+          {property.propertyName}
         </Text>
         <Text
           numberOfLines={1}
           ellipsizeMode="tail"
           style={styles.propertyAddress}
         >
-          {propertyAddress}
+          {property.propertyAddress}
         </Text>
         <View style={styles.propertyTypeContainer}>
           <AppIcon name="house" size={12} />
           <Text numberOfLines={1} style={styles.propertyType}>
-            {propertyType}
+            {property.propertyType}
           </Text>
         </View>
-
-        <Pressable
-          onPress={navigateToEdit}
-          hitSlop={10}
-          style={styles.editButton}
-        >
-          <AppIcon type="fontAwesome6" name="pencil" size={10} />
-        </Pressable>
       </View>
       <View style={styles.propertyStatusAndAmountContainer}>
-        <View
-          style={[
-            styles.statusBadge,
-            propertyStatus === 'Vacant'
-              ? styles.vacantBadge
-              : propertyStatus === 'Occupied'
-              ? styles.occupiedBadge
-              : propertyStatus === 'Booked'
-              ? styles.bookedBadge
-              : styles.occupiedBadge,
-          ]}
-        >
-          <Text
-            style={[
-              styles.statusText,
-              propertyStatus === 'Vacant'
-                ? styles.vacantText
-                : propertyStatus === 'Occupied'
-                ? styles.occupiedText
-                : propertyStatus === 'Booked'
-                ? styles.bookedText
-                : styles.occupiedText,
-            ]}
-          >
-            {propertyStatus === 'Vacant'
-              ? 'Vacant'
-              : propertyStatus === 'Occupied'
-              ? 'Occupied'
-              : propertyStatus === 'Booked'
-              ? 'Booked'
-              : 'Occupied'}
-          </Text>
+        <View style={styles.removedPill}>
+          <Text style={styles.removedText}>Removed</Text>
         </View>
         <View style={styles.propertyRentContainer}>
           <Text style={styles.propertyRentText}>
-            {commonIcons.rupees} {propertyRent}/{rentRecurrence}
+            {commonIcons.rupees} {property.propertyRent}/
+            {property.rentRecurrence}
           </Text>
         </View>
       </View>
@@ -232,38 +181,87 @@ const stylesFn = (
       ...Layout.alignCenter,
       ...Spacing.pt4,
     },
-    statusContainer: {
-      ...Layout.center,
-      minWidth: scale(70),
+    container: {
+      ...Layout.fullWidth,
+      ...Layout.flexRow,
+      ...Spacing.p2,
+      ...Spacing.mb3,
+      ...Colors.white,
+      borderRadius: scale(10),
     },
-    statusBadge: {
-      ...Spacing.px4,
+    imageContainer: {
+      width: scale(50),
+      height: scale(50),
+      borderRadius: scale(10),
+      overflow: 'hidden',
+      marginRight: scale(12),
+    },
+    // imageStyle: {
+    //   ...Layout.fullWidth,
+    //   ...Layout.fullHeight,
+    //   borderRadius: scale(10),
+    // },
+    detailsContainer: {
+      ...Layout.flex,
+      ...Layout.justifyCenter,
+    },
+    name: {
+      ...Fonts.font600,
+      ...Fonts.sz12,
+    },
+    address: {
+      ...Fonts.font400Italic,
+      ...Fonts.sz10,
+      ...Colors.textSecondary,
+    },
+    metaRow: {
+      ...Layout.flexRow,
+      ...Layout.center,
+      ...Spacing.mt2,
+    },
+    typePill: {
+      ...Spacing.px3,
       ...Spacing.py1,
+      ...Layout.roundedMd,
+      ...Colors.primaryLight1,
+      ...Layout.justifyCenter,
+      ...Layout.flexRow,
+      ...Layout.alignCenter,
+      maxWidth: scale(160),
+    },
+    typeText: {
+      ...Fonts.font500,
+      ...Fonts.sz8,
+      ...Colors.textBlack,
+      ...Spacing.ml1,
+    },
+    removedPill: {
+      paddingHorizontal: scale(10),
+      paddingVertical: scale(4),
       borderRadius: scale(12),
-      ...Layout.center,
-    },
-    occupiedBadge: {
-      backgroundColor: 'rgba(34, 197, 94, 0.1)',
-    },
-    vacantBadge: {
       backgroundColor: 'rgba(239, 68, 68, 0.1)',
     },
-    statusText: {
+    removedText: {
       ...Fonts.font500,
       ...Fonts.sz9,
-    },
-    occupiedText: {
-      color: '#22C55E',
-    },
-    vacantText: {
       color: '#EF4444',
     },
-    bookedBadge: {
-      backgroundColor: 'rgba(251, 191, 36, 0.1)',
+    bottomRow: {
+      ...Layout.flexRow,
+      ...Layout.justifyBetween,
+      ...Layout.alignCenter,
+      ...Spacing.mt2,
     },
-    bookedText: {
-      color: '#FBBF24',
+    rentText: {
+      ...Fonts.font600Italic,
+      ...Fonts.sz10,
+      ...Colors.textBlack,
+    },
+    dateText: {
+      ...Fonts.font500Italic,
+      ...Fonts.sz8,
+      ...Colors.textSecondary,
     },
   });
 
-export default PropertyItem;
+export default RemovedPropertyItem;

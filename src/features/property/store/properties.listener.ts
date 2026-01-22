@@ -1,6 +1,6 @@
 import { createListenerMiddleware } from "@reduxjs/toolkit";
 import { propertyApi } from "../services";
-import { addProperty, getProperties, getPropertyById, removeProperty, updateProperty } from "./properties.slice";
+import { addProperty, removeProperty, setProperties, upsertProperty, updateProperty } from "./properties.slice";
 
 export const propertyListener = createListenerMiddleware();
 
@@ -15,7 +15,7 @@ propertyListener.startListening({
 propertyListener.startListening({
     matcher: propertyApi.endpoints.getProperties.matchFulfilled,
     effect: async (action, api) => {
-        api.dispatch(getProperties(action.payload))
+        api.dispatch(setProperties(action.payload))
     }
 })
 
@@ -23,7 +23,7 @@ propertyListener.startListening({
 propertyListener.startListening({
     matcher: propertyApi.endpoints.getPropertyById.matchFulfilled,
     effect: async (action, api) => {
-        api.dispatch(getPropertyById(action.payload))
+        api.dispatch(upsertProperty(action.payload))
     }
 });
 

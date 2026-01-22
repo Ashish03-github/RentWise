@@ -1,45 +1,100 @@
+import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit';
+import { Property } from '../types/proprty.type';
 
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Property } from "../types/proprty.type";
+export type PropertyHistoryItem = {
+    id: string;
+    propertyId: string;
+    action: 'CREATED' | 'UPDATED' | 'DELETED';
+    timestamp: number;
+    snapshot: Property;
+};
 
-type propertyState = {
-    properties: Property[],
-    propertyById: Property[],
-}
+type PropertyState = {
+    properties: Property[];
+    history: PropertyHistoryItem[];
+    activePropertyId: string | null;
+};
 
-let initialState: propertyState = {
+const initialState: PropertyState = {
     properties: [],
-    propertyById: []
-}
+    history: [],
+    activePropertyId: null,
+};
 
 const propertySlice = createSlice({
-    name: "properties",
+    name: 'properties',
     initialState,
     reducers: {
-        getProperties: () => { },
         addProperty: (state, action: PayloadAction<Property>) => {
-            state.properties = [...state.properties, action.payload]
+            state.properties.push(action.payload);
+
+            state.history.push({
+                id: nanoid(),
+                propertyId: action.payload.id!,
+                action: 'CREATED',
+                timestamp: Date.now(),
+                snapshot: action.payload,
+            });
         },
-        getPropertyById: (state, action: PayloadAction<{ id: string }>) => {
-            state.propertyById = state.properties.filter(property => property.id === action.payload.id)
-        },
+
         updateProperty: (state, action: PayloadAction<Property>) => {
-            let propertyIdToUpdate = action.payload.id
-            state.properties = state.properties.map(property => property.id === propertyIdToUpdate ?
-                { ...action.payload } :
-                property)
+            const index = state.properties.findIndex(
+                p => p.id === action.payload.id,
+            );
+
+            if (index !== -1) {
+                state.properties[index] = action.payload;
+
+                state.history.push({
+                    id: nanoid(),
+                    propertyId: action.payload.id!,
+                    action: 'UPDATED',
+                    timestamp: Date.now(),
+                    snapshot: action.payload,
+                });
+            }
         },
+
         removeProperty: (state, action: PayloadAction<{ id: string }>) => {
-            state.properties = state.properties.filter(property => property.id !== action.payload.id)
-        }
-    }
-})
+            const property = state.properties.find(
+                p => p.id === action.payload.id,
+            );
+
+            state.properties = state.properties.filter(
+                p => p.id !== action.payload.id,
+            );
+
+            if (property) {
+                state.history.push({
+                    id: nanoid(),
+                    propertyId: action.payload.id,
+                    action: 'DELETED',
+                    timestamp: Date.now(),
+                    snapshot: property,
+                });
+            }
+
+            if (state.activePropertyId === action.payload.id) {
+                state.activePropertyId = null;
+            }
+        },
+
+        setActivePropertyId: (state, action: PayloadAction<string>) => {
+            state.activePropertyId = action.payload;
+        },
+
+        clearActivePropertyId: state => {
+            state.activePropertyId = null;
+        },
+    },
+});
 
 export const {
     addProperty,
-    getProperties,
-    getPropertyById,
+    updateProperty,
     removeProperty,
-    updateProperty
-} = propertySlice.actions
-export default propertySlice.reducer
+    setActivePropertyId,
+    clearActivePropertyId,
+} = propertySlice.actions;
+
+export default propertySlice.reducer;

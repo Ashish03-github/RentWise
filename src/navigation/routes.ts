@@ -38,11 +38,13 @@ export const TenantRoutes = {
     addTenant: "AddTenant",
     tenantDetails: "TenantDetails",
     editTenant: 'EditTenant',
+    tenantHistory: "TenantHistory",
 }
 
 export const PropertyRoutes = {
     property: 'Property',
     addProperty: 'AddProperty',
     propertyDetails: "PropertyDetails",
+    propertyHistory: "PropertyHistory",
     editProperty: 'EditProperty',
 }

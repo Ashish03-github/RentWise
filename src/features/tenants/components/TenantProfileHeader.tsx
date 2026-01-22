@@ -7,27 +7,60 @@ import { ThemeFonts } from '@/theme/fonts';
 import { ThemeLayout } from '@/theme/layout';
 import { ThemeSpacing } from '@/theme/spacing';
 import TenantPropertyInfo from '../components/TenantPropertyInfo';
+import { useAppSelector } from '@/store/hooks';
+import { selectActiveTenant } from '../store/tenants.selectors';
+import { AppImage } from '@/common/components';
+import { DUMMY_USER } from '../constants/tenants.dummy.data';
+import { formatDate } from '@/utils/utils.helper';
 
 const TenantProfileHeader = React.memo(() => {
+  const tenant = useAppSelector(selectActiveTenant);
   const { Colors, Fonts, Layout, Spacing } = useTheme();
   const styles = React.useMemo(
     () => stylesFn(Colors, Fonts, Layout, Spacing),
     [Colors, Fonts, Layout, Spacing],
   );
 
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
   return (
     <View style={styles.profileSection}>
       <View style={styles.profileDetailsContainer}>
         <View style={styles.profileImageWrapper}>
-          <View style={styles.profileImage}>
-            <Text style={styles.profileInitial}>RS</Text>
-          </View>
+          {tenant?.tenantImage ? (
+            <AppImage
+              uri={tenant.tenantImage || DUMMY_USER}
+              resizeMode="cover"
+              imageStyle={styles.profileImage}
+            />
+          ) : (
+            <View style={styles.profileImage}>
+              <Text style={styles.profileInitial}>
+                {getInitials(tenant?.tenantName || 'TN')}
+              </Text>
+            </View>
+          )}
         </View>
 
         <View style={styles.profileDetails}>
-          <Text style={styles.tenantName}>Rahul Sharma</Text>
-          <Text style={styles.propertyName}>Greenwood Apartments</Text>
-          <Text style={styles.leaseDuration}>Mar 1, 2024 - Feb 28, 2025</Text>
+          <Text style={styles.tenantName}>
+            {tenant?.tenantName || 'Not found'}
+          </Text>
+          <Text style={styles.propertyName}>
+            {tenant?.propertyName || ''}
+          </Text>
+          <Text style={styles.leaseDuration}>
+            {tenant?.leaseStartDate && tenant?.leaseEndDate
+              ? `${formatDate(tenant.leaseStartDate)} - ${formatDate(tenant.leaseEndDate)}`
+              : ''}
+          </Text>
         </View>
       </View>
 
@@ -60,6 +93,7 @@ const stylesFn = (
       ...Layout.center,
       ...Spacing.mb3,
       ...Colors.primary,
+      overflow: 'hidden',
     },
     profileInitial: {
       ...Fonts.sz26,

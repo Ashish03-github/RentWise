@@ -10,10 +10,11 @@ import { AppIcon, AppImage } from '@/common/components';
 import { BUILDING_IMAGE } from '../constants/properties.dummy.data';
 import { commonIcons } from '@/common/constants/commonIcons';
 import { useAppSelector } from '@/store/hooks';
-import { selectPropertyById } from '../store/properties.selectors';
+import { selectActiveProperty } from '../store/properties.selectors';
 
 const PropertyCard = () => {
-  const property = useAppSelector(selectPropertyById)[0];
+  const property = useAppSelector(selectActiveProperty);
+
   const { Colors, Fonts, Layout, Spacing } = useTheme();
   const styles = React.useMemo(
     () => stylesFn(Colors, Fonts, Layout, Spacing),
@@ -25,7 +26,7 @@ const PropertyCard = () => {
       <View style={styles.imageWrapper}>
         <AppImage
           resizeMode="cover"
-          uri={property.image || BUILDING_IMAGE}
+          uri={property?.image || BUILDING_IMAGE}
           imageStyle={styles.imageStyle}
         />
       </View>
@@ -38,36 +39,56 @@ const PropertyCard = () => {
           </View>
           <View style={styles.propertyRentContainer}>
             <Text style={styles.propertyRentText}>
-              {commonIcons.rupees} {property.propertyRent} /{' '}
-              {property.rentRecurrence}
+              {commonIcons.rupees} {property?.propertyRent} /{' '}
+              {property?.rentRecurrence}
             </Text>
           </View>
         </View>
-        <Text style={styles.propertyAddress}>{property.propertyAddress}</Text>
+        <Text style={styles.propertyAddress}>{property?.propertyAddress}</Text>
 
         <View style={styles.propertyTypesWrapper}>
           <View style={styles.propertyTypeContainer}>
             <AppIcon name="house" size={15} />
-            <Text style={styles.propertyType}>{property.propertyType}</Text>
+            <Text style={styles.propertyType}>{property?.propertyType}</Text>
           </View>
 
           <View
             style={[
               styles.statusBadge,
-              property.propertyStatus === 'Vacant'
+              (property as any)?._isRemoved
+                ? styles.removedBadge
+                : property?.propertyStatus === 'Vacant'
                 ? styles.vacantBadge
+                : property?.propertyStatus === 'Occupied'
+                ? styles.occupiedBadge
+                : property?.propertyStatus === 'Booked'
+                ? styles.bookedBadge
                 : styles.occupiedBadge,
             ]}
           >
             <Text
               style={[
                 styles.statusText,
-                property.propertyStatus === 'Vacant'
+                (property as any)?._isRemoved
+                  ? styles.removedText
+                  : property?.propertyStatus === 'Vacant'
                   ? styles.vacantText
+                  : property?.propertyStatus === 'Occupied'
+                  ? styles.occupiedText
+                  : property?.propertyStatus === 'Booked'
+                  ? styles.bookedText
                   : styles.occupiedText,
               ]}
             >
-              {property.propertyStatus ? 'Vacant' : 'Occupied'}
+              {(property as any)?._isRemoved
+                ? 'Removed'
+                : property?.propertyStatus === 'Vacant'
+                ? 'Vacant'
+                : property?.propertyStatus === 'Occupied'
+                ? 'Occupied'
+                : property?.propertyStatus === 'Booked'
+                ? 'Booked'
+                : 'Occupied'}
             </Text>
           </View>
         </View>
@@ -205,6 +226,18 @@ const stylesFn = (
       color: '#22C55E',
     },
     vacantText: {
+      color: '#EF4444',
+    },
+    bookedBadge: {
+      backgroundColor: 'rgba(251, 191, 36, 0.1)',
+    },
+    bookedText: {
+      color: '#FBBF24',
+    },
+    removedBadge: {
+      backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    },
+    removedText: {
       color: '#EF4444',
     },
   });
