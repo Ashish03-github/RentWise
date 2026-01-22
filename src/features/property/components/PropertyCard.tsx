@@ -9,20 +9,23 @@ import { scale } from '@/theme/scale';
 import { AppIcon, AppImage } from '@/common/components';
 import { BUILDING_IMAGE } from '../constants/properties.dummy.data';
 import { commonIcons } from '@/common/constants/commonIcons';
+import { useAppSelector } from '@/store/hooks';
+import { selectPropertyById } from '../store/properties.selectors';
 
 const PropertyCard = () => {
+  const property = useAppSelector(selectPropertyById)[0];
   const { Colors, Fonts, Layout, Spacing } = useTheme();
   const styles = React.useMemo(
     () => stylesFn(Colors, Fonts, Layout, Spacing),
     [Colors, Fonts, Layout],
   );
-  const propertyStatus = 'Occupied';
+
   return (
     <View style={styles.propertyCardContainer}>
       <View style={styles.imageWrapper}>
         <AppImage
-          resizeMode="stretch"
-          uri={BUILDING_IMAGE}
+          resizeMode="cover"
+          uri={property.image || BUILDING_IMAGE}
           imageStyle={styles.imageStyle}
         />
       </View>
@@ -30,29 +33,28 @@ const PropertyCard = () => {
         <View style={styles.propertyTypeAndStatusContainer}>
           <View style={styles.propertyNameContainer}>
             <Text numberOfLines={1} style={styles.propertyName}>
-              Room 1
+              {property?.propertyName || 'Not found.'}
             </Text>
           </View>
           <View style={styles.propertyRentContainer}>
             <Text style={styles.propertyRentText}>
-              {commonIcons.rupees} 4,000 / Month
+              {commonIcons.rupees} {property.propertyRent} /{' '}
+              {property.rentRecurrence}
             </Text>
           </View>
         </View>
-        <Text style={styles.propertyAddress}>
-          242, New Gouri Nagar, Indore, Madhya Pradesh
-        </Text>
+        <Text style={styles.propertyAddress}>{property.propertyAddress}</Text>
 
         <View style={styles.propertyTypesWrapper}>
           <View style={styles.propertyTypeContainer}>
             <AppIcon name="house" size={15} />
-            <Text style={styles.propertyType}>Flat</Text>
+            <Text style={styles.propertyType}>{property.propertyType}</Text>
           </View>
 
           <View
             style={[
               styles.statusBadge,
-              propertyStatus === 'Vacant'
+              property.propertyStatus === 'Vacant'
                 ? styles.vacantBadge
                 : styles.occupiedBadge,
             ]}
@@ -60,17 +62,16 @@ const PropertyCard = () => {
             <Text
               style={[
                 styles.statusText,
-                propertyStatus === 'Vacant'
+                property.propertyStatus === 'Vacant'
                   ? styles.vacantText
                   : styles.occupiedText,
               ]}
             >
-              {propertyStatus === 'Vacant' ? 'Vacant' : 'Occupied'}
+              {property.propertyStatus ? 'Vacant' : 'Occupied'}
             </Text>
           </View>
         </View>
       </View>
-      {/* <Text style={styles.propertyName}>Room 1</Text> */}
     </View>
   );
 };

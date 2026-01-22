@@ -34,8 +34,8 @@ const PropertyItem: React.FC<PropertyItemProps> = ({ item, key }) => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const navigateTo = useCallback(() => {
-    // dispatch(getPropertyById({ id: item.id }));
-    navigation.navigate(PropertyRoutes.propertyDetails);
+    dispatch(getPropertyById({ id: item.id || '' }));
+    navigation.navigate(PropertyRoutes.propertyDetails, { id: item.id });
   }, []);
 
   const { Colors, Fonts, Layout, Spacing } = useTheme();
@@ -43,6 +43,7 @@ const PropertyItem: React.FC<PropertyItemProps> = ({ item, key }) => {
     () => stylesFn(Colors, Fonts, Layout, Spacing),
     [Colors, Fonts, Layout],
   );
+
   return (
     <Pressable onPress={navigateTo} style={styles.propertyItemContainer}>
       <View style={styles.propertyImageContainer}>

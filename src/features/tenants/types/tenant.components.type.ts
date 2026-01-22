@@ -1,6 +1,6 @@
-import { PropertyItem } from "@/features/property/types/proprty.type";
+import { Property } from "@/features/property/types/proprty.type";
 
-export interface TenantItem extends PropertyItem {
+export interface TenantItem extends Property {
     tenantName: string;
     propertyName: string;
     propertyAddress: string;

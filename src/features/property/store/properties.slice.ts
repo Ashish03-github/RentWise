@@ -2,7 +2,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Property } from "../types/proprty.type";
 
-
 type propertyState = {
     properties: Property[],
     propertyById: Property[],
@@ -17,11 +16,8 @@ const propertySlice = createSlice({
     name: "properties",
     initialState,
     reducers: {
-        getProperties: () => {
-
-        },
+        getProperties: () => { },
         addProperty: (state, action: PayloadAction<Property>) => {
-            console.log("Added Property =>", action.payload)
             state.properties = [...state.properties, action.payload]
         },
         getPropertyById: (state, action: PayloadAction<{ id: string }>) => {
@@ -39,5 +35,11 @@ const propertySlice = createSlice({
     }
 })
 
-export const { addProperty, getProperties, getPropertyById, removeProperty, updateProperty } = propertySlice.actions
+export const {
+    addProperty,
+    getProperties,
+    getPropertyById,
+    removeProperty,
+    updateProperty
+} = propertySlice.actions
 export default propertySlice.reducer
