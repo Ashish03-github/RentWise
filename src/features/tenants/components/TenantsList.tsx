@@ -5,6 +5,7 @@ import TenantItem from './TenantItem';
 import { EmptyState } from '@/common/components';
 import { useAppSelector } from '@/store/hooks';
 import { selectTenants } from '../store/tenants.selectors';
+import { tenantsData } from '../constants/tenants.dummy.data';
 
 const TenantsList = () => {
   const tenants = useAppSelector(selectTenants);
@@ -18,11 +19,11 @@ const TenantsList = () => {
 
   return (
     <FlatList
-      data={tenants}
+      data={tenantsData}
       renderItem={renderItem}
       removeClippedSubviews={true}
       contentContainerStyle={{ flex: 1 }}
-      keyExtractor={(item) => item.id || item.tenantName}
+      keyExtractor={item => item.id || item.tenantName}
       ListEmptyComponent={
         <EmptyState icon="user-xmark" message="No tenant added yet." />
       }

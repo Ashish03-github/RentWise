@@ -1,7 +1,11 @@
 import React from 'react';
 import { View, StatusBar, Platform } from 'react-native';
 
-const AppStatusBar = ({ backgroundColor }: { backgroundColor: string }) => {
+const AppStatusBar = ({
+  backgroundColor = '#F7F7F7',
+}: {
+  backgroundColor?: string;
+}) => {
   return (
     <View
       style={{
@@ -12,7 +16,7 @@ const AppStatusBar = ({ backgroundColor }: { backgroundColor: string }) => {
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="light-content"
+        barStyle="dark-content"
       />
     </View>
   );

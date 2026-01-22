@@ -9,6 +9,8 @@ import { scale, scaleVertical } from '@/theme/scale';
 import AppIcon from './AppIcon';
 import { ICONS } from '@/constants/icons';
 import { useNavigation } from '@react-navigation/native';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { ChatsRoutes } from '@/navigation/routes';
 
 type AppHeaderProps = {
   heading?: string | null;
@@ -17,6 +19,8 @@ type AppHeaderProps = {
 const AppHeader: React.FC<AppHeaderProps> = ({ heading, isDashboard }) => {
   const { Colors, Fonts, Layout, Spacing } = useTheme();
   const navigation = useNavigation();
+  const drawerNavigation = useNavigation<DrawerNavigationProp<any>>();
+
   const styles = React.useMemo(
     () => stylesFn(Colors, Fonts, Layout, Spacing),
     [Colors, Fonts, Layout, Spacing],
@@ -26,15 +30,37 @@ const AppHeader: React.FC<AppHeaderProps> = ({ heading, isDashboard }) => {
     <View style={styles.headerContainer}>
       {isDashboard ? (
         <View style={styles.dashboardHeadingWithIcon}>
+          <AppIcon
+            size={30}
+            type="ionicons"
+            name={ICONS.MENU}
+            color={Colors.primaryPure}
+            onPress={() => drawerNavigation.openDrawer()}
+          />
           <Text style={styles.logoText}>RentWise</Text>
           <AppIcon type="octicons" name={ICONS.BELL} size={scale(20)} />
+          <AppIcon
+            type="ionicons"
+            onPress={() => navigation.navigate(ChatsRoutes.chats)}
+            name={ICONS.CHAT}
+            size={scale(24)}
+          />
         </View>
       ) : (
         <View style={styles.headingWithIconContainer}>
           <AppIcon
-            onPress={() => navigation.goBack()}
+            size={30}
+            type="ionicons"
+            name={ICONS.MENU}
+            color={Colors.primaryPure}
+            onPress={() => drawerNavigation.openDrawer()}
+          />
+          <AppIcon
             type="ionicons"
             name={ICONS.back}
+            style={{ ...Spacing.ml4 }}
+            // color={Colors.lightGrayPure}
+            onPress={() => navigation.goBack()}
           />
           <Text style={styles.screenHeadingText}>{heading}</Text>
         </View>
@@ -53,7 +79,7 @@ const stylesFn = (
     headerContainer: {
       ...Spacing.px4,
       ...Layout.justifyEnd,
-      height: scaleVertical(50),
+      // height: scaleVertical(50),
       // backgroundColor: 'red',
     },
     logoText: {

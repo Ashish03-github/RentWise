@@ -7,6 +7,12 @@ export const AuthRoutes = {
 
 export const DrawerRoutes = {
     mainTabs: 'MainTabs',
+    chatsStack: "ChatsStack"
+}
+
+export const ChatsRoutes = {
+    chats: 'Chats',
+    messages: "Messages"
 }
 
 export const BottomTabRoutes = {
@@ -20,6 +26,7 @@ export const BottomTabRoutes = {
 // Screens/Features
 export const DashboardRoutes = {
     home: 'DashboardHome',
+    chats: "Chats"
 }
 
 export const PaymentRoutes = {

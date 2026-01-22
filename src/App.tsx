@@ -6,7 +6,7 @@ import { StatusBar } from './common/components';
 const App = () => {
   return (
     <Provider store={store}>
-      <StatusBar backgroundColor="#1F75EC" />
+      <StatusBar />
       <RootNavigator />
     </Provider>
   );
