@@ -2,6 +2,7 @@ import { BUILDING_IMAGE } from "@/features/property/constants/properties.dummy.d
 import { Icons } from "../assets/payments.icons";
 import { PaymentStatus, RecentPayment } from "../types/payments.components.type";
 import { DUMMY_USER } from "@/features/tenants/constants/tenants.dummy.data";
+import { AddPaymentFormValues } from "../utils/addPayement.form.schema";
 
 export const paymentsInfoDummyData = [
     {
@@ -243,17 +244,16 @@ export const rentStatusItems = [
 ];
 
 
-export const ADD_PAYMENT_FORM_VALUES = {
-    tenantName: '',
-    propertyName: '',
+export const ADD_PAYMENT_FORM_VALUES: AddPaymentFormValues = {
+    tenantId: '',
+    propertyId: '',
     fromDate: '',
     toDate: '',
     paidAmount: '',
-    remainingAmount: '',
     rentStatus: '',
     paymentType: '',
-    note: ''
-}
+    note: '',
+};
 
 
 

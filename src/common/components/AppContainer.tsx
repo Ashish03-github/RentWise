@@ -23,6 +23,7 @@ const AppContainer = ({
   children,
   isDashboard,
   overlayType,
+  scrollEnable = true,
   screenHeading,
   onCloseOverlay,
   modalComponent,
@@ -55,18 +56,21 @@ const AppContainer = ({
         <>
           <AppHeader isDashboard={isDashboard} heading={screenHeading} />
 
-          {/* <ScrollView
-            style={styles.flex}
-            automaticallyAdjustKeyboardInsets
-            scrollEnabled={false}
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={[styles.container, style]}
-          >
-            {children}
-          </ScrollView> */}
-
-          <View style={[styles.flex, styles.container, style]}>{children}</View>
+          {scrollEnable ? (
+            <ScrollView
+              style={styles.flex}
+              automaticallyAdjustKeyboardInsets
+              keyboardShouldPersistTaps="handled"
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={[styles.container, style]}
+            >
+              {children}
+            </ScrollView>
+          ) : (
+            <View style={[styles.flex, styles.container, style]}>
+              {children}
+            </View>
+          )}
 
           {buttonLabel ? (
             <Button

@@ -7,8 +7,14 @@ import { useAddTenantFormController } from '../controller';
 import { Container, RHFInput, RHFDropdown } from '@/common/components';
 
 const AddTenantForm = () => {
-  const { control, errors, handleSubmit, onSubmit, isEditMode } =
-    useAddTenantFormController();
+  const {
+    control,
+    errors,
+    propertyOptions,
+    handleSubmit,
+    onSubmit,
+    isEditMode,
+  } = useAddTenantFormController();
 
   return (
     <Container
@@ -46,74 +52,51 @@ const AddTenantForm = () => {
       />
 
       <RHFDropdown
-        name="property"
+        name="propertyId"
         label="Select Property"
-        items={propertyStatusItems}
+        items={propertyOptions}
         control={control}
         errors={errors}
-        placeholder="Select property"
       />
 
       <RHFInput
         name="propertyAddress"
         label="Property Address"
-        placeholder="Enter property address"
         control={control}
         errors={errors}
+        editable={false}
       />
 
-      <RHFDropdown
+      <RHFInput
         name="propertyType"
         label="Property Type"
-        items={propertyTypeItems}
         control={control}
         errors={errors}
-        placeholder="Select property type"
+        editable={false}
       />
 
       <RHFInput
         name="deposit"
-        label="Property Deposit"
-        keyboardType="number-pad"
-        placeholder="Enter deposit amount"
+        label="Deposit"
         control={control}
         errors={errors}
-        type="Personal-Details-Field"
+        editable={false}
       />
 
       <RHFInput
         name="rent"
-        label="Property Rent"
-        keyboardType="number-pad"
-        placeholder="Enter rent amount"
+        label="Rent"
         control={control}
         errors={errors}
-        type="Personal-Details-Field"
+        editable={false}
       />
 
-      <RHFDropdown
-        name="leaseStartDate"
-        label="Lease Start Date"
-        isDatePicker
-        control={control}
-        errors={errors}
-      />
-
-      <RHFDropdown
-        name="leaseEndDate"
-        label="Lease End Date"
-        isDatePicker
-        control={control}
-        errors={errors}
-      />
-
-      <RHFDropdown
+      <RHFInput
         name="rentRecurrence"
         label="Rent Recurrence"
-        items={rentRecurrenceItems}
         control={control}
         errors={errors}
-        placeholder="Select rent recurrence period"
+        editable={false}
       />
 
       <RHFInput

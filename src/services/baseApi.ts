@@ -41,7 +41,7 @@ export const api = createApi({
             return headers;
         }
     }),
-    tagTypes: ['Auth', 'Bills'],
+    tagTypes: ['Auth', 'Bills', "RecentPayments"],
     endpoints: () => ({}),
 })
 

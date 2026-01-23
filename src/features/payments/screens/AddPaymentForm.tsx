@@ -7,33 +7,38 @@ import {
 import useAddPaymentFormController from '../controller/useAddPaymentFormController';
 
 const AddPaymentForm = () => {
-  const { control, errors, onSubmit, handleSubmit } =
-    useAddPaymentFormController();
+  const {
+    control,
+    errors,
+    tenantOptions,
+    propertyOptions,
+    onSubmit,
+    handleSubmit,
+  } = useAddPaymentFormController();
 
   return (
     <Container
+      scrollEnable={true}
       buttonLabel={'Add Payment'}
       screenHeading={'Add Payments'}
       onButtonPress={handleSubmit(onSubmit)}
     >
       <RHFDropdown
-        items={[]}
-        errors={errors}
-        control={control}
-        name="tenantName"
+        name="tenantId"
         label="Select Tenant"
-        placeholder="Select tenant"
-        emptyMessage="No tenant added yet."
+        items={tenantOptions}
+        control={control}
+        errors={errors}
+        emptyMessage="No tenant for added yet."
       />
 
       <RHFDropdown
-        items={[]}
-        errors={errors}
-        control={control}
-        name="propertyName"
+        name="propertyId"
         label="Select Property"
-        placeholder="Select property type"
-        emptyMessage="No property added yet."
+        items={propertyOptions}
+        control={control}
+        errors={errors}
+        emptyMessage="No property for selected tenant"
       />
 
       <RHFDropdown

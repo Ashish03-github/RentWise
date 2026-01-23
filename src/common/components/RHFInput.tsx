@@ -4,7 +4,7 @@ import { FormInput } from '.';
 
 type Props = {
   name: string;
-  control: any;
+  control?: any;
   errors?: any;
 } & React.ComponentProps<typeof FormInput>;
 const RHFInput = ({ name, control, errors, ...props }: Props) => {

@@ -10,7 +10,7 @@ const PaymentScreen = () => {
   const { Layout } = useTheme();
   const styles = React.useMemo(() => stylesFn(Layout), [Layout]);
   return (
-    <Container screenHeading={'Payments'}>
+    <Container scrollEnable={false} screenHeading={'Payments'}>
       <View style={styles.container}>
         <RecentPaymentsList />
         <CircularButton nextToScreen={PaymentRoutes.addPayment} />
