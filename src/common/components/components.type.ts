@@ -8,6 +8,8 @@ export interface AppContainerProps {
     backgroundColor?: string;
     children: React.ReactNode;
 
+    scrollEnable?: boolean;
+
     screenHeading: string | null;
     buttonLabel?: string | null;
     onButtonPress?: () => void;

@@ -11,10 +11,10 @@ import {
   tenant,
 } from '../constants/payments.dummy.data';
 
-const TABS = ['Rent Summary', 'Payment History'] as const;
+const TABS = ['Rent Summary', 'Payment History'];
 
 const PaymentDetailsScreen = () => {
-  const [activeTab, setActiveTab] = useState<(typeof TABS)[number]>(TABS[0]);
+  const [activeTab, setActiveTab] = useState(TABS[0]);
 
   return (
     <Container buttonLabel="Send Reminder" screenHeading="Payments Details">

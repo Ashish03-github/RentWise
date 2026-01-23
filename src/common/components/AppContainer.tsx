@@ -6,6 +6,7 @@ import {
   Platform,
   Modal,
   Pressable,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -54,15 +55,18 @@ const AppContainer = ({
         <>
           <AppHeader isDashboard={isDashboard} heading={screenHeading} />
 
-          <ScrollView
+          {/* <ScrollView
             style={styles.flex}
             automaticallyAdjustKeyboardInsets
+            scrollEnabled={false}
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
             contentContainerStyle={[styles.container, style]}
           >
             {children}
-          </ScrollView>
+          </ScrollView> */}
+
+          <View style={[styles.flex, styles.container, style]}>{children}</View>
 
           {buttonLabel ? (
             <Button
@@ -122,7 +126,8 @@ const stylesFn = (
       ...Spacing.pb1,
     },
     buttonStyle: {
-      ...Spacing.m4,
+      ...Spacing.mx3,
+      ...Spacing.mb1,
     },
     modalContainer: {
       ...Layout.flex,

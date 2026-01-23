@@ -1,13 +1,13 @@
-import { PropertyItem } from "@/features/property/types/proprty.type";
+import { Property } from "@/features/property/types/proprty.type";
 
-export interface RecentPayment extends PropertyItem {
+export interface RecentPayment extends Property {
     tenantName: string;
     propertyName: string;
     propertyAddress: string;
     tenantImage: string;
     leaseStartDate: string;
     leaseEndDate: string;
-    propertyRent: number,
+    propertyRent: string,
     paymentstatus: "Paid" | "Partial" | "Pending",
     paidAmount: number,
     pendingAmount: number,

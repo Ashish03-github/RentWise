@@ -1,6 +1,5 @@
 import React from 'react';
 import { CircularButton, Container } from '@/common/components';
-import PaymentsInfo from '../components/PaymentsInfo';
 import RecentPaymentsList from '../components/RecentPaymentsList';
 import { StyleSheet, View } from 'react-native';
 import useTheme from '@/common/hooks/useTheme';
@@ -13,7 +12,6 @@ const PaymentScreen = () => {
   return (
     <Container screenHeading={'Payments'}>
       <View style={styles.container}>
-        <PaymentsInfo />
         <RecentPaymentsList />
         <CircularButton nextToScreen={PaymentRoutes.addPayment} />
       </View>

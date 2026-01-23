@@ -11,6 +11,7 @@ import useTheme from '@/common/hooks/useTheme';
 import { Dropdown, EmptyState } from '@/common/components';
 import { scale, scaleVertical } from '@/theme/scale';
 import { RecentPayment } from '../types/payments.components.type';
+import PaymentsInfo from './PaymentsInfo';
 
 const RecentPaymentsList = () => {
   const [selectedFilter, setSelectedFilter] = React.useState<
@@ -57,65 +58,61 @@ const RecentPaymentsList = () => {
   );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.headerRow}>
-        <Text style={styles.sectionHeading}>Recent Payments</Text>
+    <FlatList
+      data={recentPaymentsData}
+      initialNumToRender={10}
+      renderItem={renderItem}
+      removeClippedSubviews={true}
+      keyExtractor={(_, i) => i.toString()}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.listContentContainer}
+      ListHeaderComponent={
+        <View style={styles.header}>
+          <PaymentsInfo />
 
-        <Dropdown
-          iconSize={16}
-          value={selectedFilter}
-          styles={dropdownStyle}
-          // placeholder="Select"
-          onChange={setSelectedFilter}
-          items={recentPaymentsFilterOptions}
-        />
-      </View>
+          <View style={styles.headerRow}>
+            <Text style={styles.sectionHeading}>Recent Payments</Text>
 
-      <View style={styles.listContainerStyle}>
-        <FlatList
-          data={recentPaymentsData}
-          initialNumToRender={10}
-          renderItem={renderItem}
-          removeClippedSubviews={true}
-          keyExtractor={(_, i) => i.toString()}
-          contentContainerStyle={styles.listContentContainer}
-          ListEmptyComponent={
-            <EmptyState
-              icon="circle-exclamation"
-              message="No payment history found."
+            <Dropdown
+              iconSize={16}
+              value={selectedFilter}
+              styles={dropdownStyle}
+              // placeholder="Select"
+              onChange={setSelectedFilter}
+              items={recentPaymentsFilterOptions}
             />
-          }
+          </View>
+        </View>
+      }
+      ListEmptyComponent={
+        <EmptyState
+          icon="circle-exclamation"
+          message="No payment history found."
         />
-      </View>
-    </View>
+      }
+    />
   );
 };
 
 const stylesFn = (Spacing: ThemeSpacing, Fonts: ThemeFonts) =>
   StyleSheet.create({
-    container: {
-      flex: 1,
-      // marginTop: scale(16),
+    header: {
+      ...Spacing.mb2,
     },
 
     headerRow: {
-      flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
+      ...Spacing.pt3,
     },
 
     sectionHeading: {
       ...Fonts.sz14,
       ...Fonts.font600,
-      // ...Spacing.my2,
-    },
-    listContainerStyle: {
-      flex: 9,
     },
     listContentContainer: {
-      flex: 1,
+      paddingBottom: scaleVertical(80),
     },
   });
-
 export default RecentPaymentsList;
