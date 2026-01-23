@@ -25,6 +25,7 @@ export interface AppContainerProps {
 export interface AppInputProps extends TextInputProps {
     label?: string;
     error?: string;
+    wrapperStyle?: StyleProp<ViewStyle>,
     containerStyle?: object;
     leftIcon?: React.ReactNode;
     rightIcon?: React.ReactNode;

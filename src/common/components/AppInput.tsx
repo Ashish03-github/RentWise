@@ -26,6 +26,7 @@ const AppInput = forwardRef<TextInput, AppInputProps>(
       onChangeText,
       onDebouncedChange,
       debounceDelay = 500,
+      wrapperStyle,
       containerStyle,
       leftIcon,
       rightIcon,
@@ -86,7 +87,7 @@ const AppInput = forwardRef<TextInput, AppInputProps>(
     );
 
     return (
-      <View style={styles.wrapper}>
+      <View style={[styles.wrapper, wrapperStyle]}>
         {label && <Text style={styles.label}>{label}</Text>}
 
         <View style={containerStyles}>

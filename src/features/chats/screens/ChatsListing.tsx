@@ -13,6 +13,7 @@ import { ThemeSpacing } from '@/theme/spacing';
 import useTheme from '@/common/hooks/useTheme';
 import { TenantItem } from '@/features/tenants/types/tenant.components.type';
 import { ChatsRoutes } from '@/navigation/routes';
+import { useNavigation } from '@react-navigation/native';
 
 const ChatsListing = () => {
   const { Colors, Fonts, Layout, Spacing } = useTheme();
@@ -21,9 +22,14 @@ const ChatsListing = () => {
     [Colors, Fonts, Layout, Spacing],
   );
 
+  const navigation = useNavigation<any>();
+
   const renderItem = useCallback(
     ({ item }: { item: TenantItem }) => (
-      <Pressable style={styles.tenantItemContainer}>
+      <Pressable
+        onPress={() => navigation.navigate(ChatsRoutes.messages)}
+        style={styles.tenantItemContainer}
+      >
         <View style={styles.tenantImageContainer}>
           <AppImage
             uri={DUMMY_USER}
@@ -46,6 +52,7 @@ const ChatsListing = () => {
     ),
     [],
   );
+
   return (
     <Container screenHeading={'Chats'}>
       <View style={{ flex: 1 }}>
@@ -56,7 +63,7 @@ const ChatsListing = () => {
           removeClippedSubviews={true}
         />
 
-        <CircularButton nextToScreen={ChatsRoutes.messages} />
+        <CircularButton nextToScreen={''} />
       </View>
     </Container>
   );

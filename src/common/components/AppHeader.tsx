@@ -5,12 +5,12 @@ import { ThemeColors } from '@/theme/colors';
 import { ThemeFonts } from '@/theme/fonts';
 import { ThemeLayout } from '@/theme/layout';
 import { ThemeSpacing } from '@/theme/spacing';
-import { scale, scaleVertical } from '@/theme/scale';
+import { scale } from '@/theme/scale';
 import AppIcon from './AppIcon';
 import { ICONS } from '@/constants/icons';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { ChatsRoutes } from '@/navigation/routes';
+import { DrawerRoutes } from '@/navigation/routes';
 
 type AppHeaderProps = {
   heading?: string | null;
@@ -18,7 +18,7 @@ type AppHeaderProps = {
 };
 const AppHeader: React.FC<AppHeaderProps> = ({ heading, isDashboard }) => {
   const { Colors, Fonts, Layout, Spacing } = useTheme();
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const drawerNavigation = useNavigation<DrawerNavigationProp<any>>();
 
   const styles = React.useMemo(
@@ -41,7 +41,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ heading, isDashboard }) => {
           <AppIcon type="octicons" name={ICONS.BELL} size={scale(20)} />
           <AppIcon
             type="ionicons"
-            onPress={() => navigation.navigate(ChatsRoutes.chats)}
+            onPress={() => navigation.navigate(DrawerRoutes.chatsStack)}
             name={ICONS.CHAT}
             size={scale(24)}
           />
