@@ -14,10 +14,12 @@ import { addTenant, updateTenant, clearActiveTenantId } from '../store/tenants.s
 import { selectActiveTenant } from '../store/tenants.selectors';
 import { TenantItem } from '../types/tenant.components.type';
 import { BUILDING_IMAGE } from '@/features/property/constants/properties.dummy.data';
+import { useNavigation } from '@react-navigation/native';
 
 const useAddTenantFormController = () => {
     const dispatch = useAppDispatch();
     const activeTenant = useAppSelector(selectActiveTenant);
+    const navigation = useNavigation()
 
     const isEditMode = !!activeTenant && !(activeTenant as any)?._isRemoved;
 
@@ -105,7 +107,7 @@ const useAddTenantFormController = () => {
             dispatch(addTenant(newTenant));
         }
 
-        // navigation.goBack();
+        navigation.goBack();
     };
 
     return {

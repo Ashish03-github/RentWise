@@ -64,7 +64,7 @@ const stylesFn = (
     },
     historyChipText: {
       ...Fonts.font500,
-      ...Fonts.sz12,
+      ...Fonts.sz10,
       ...Colors.textBlack,
       ...Spacing.ml2,
     },

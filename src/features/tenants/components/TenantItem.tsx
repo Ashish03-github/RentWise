@@ -79,17 +79,16 @@ const TenantItem: React.FC<TenantItemProps> = ({ item }) => {
           <Text style={styles.leaseDateText}>
             {formatDate(leaseStartDate)} - {formatDate(leaseEndDate)}
           </Text>
+          {!isRemoved && (
+            <Pressable
+              onPress={navigateToEdit}
+              hitSlop={10}
+              style={styles.editButton}
+            >
+              <AppIcon type="fontAwesome6" name="pencil" size={10} />
+            </Pressable>
+          )}
         </View>
-
-        {!isRemoved && (
-          <Pressable
-            onPress={navigateToEdit}
-            hitSlop={10}
-            style={styles.editButton}
-          >
-            <AppIcon type="fontAwesome6" name="pencil" size={10} />
-          </Pressable>
-        )}
       </View>
       <View style={styles.statusContainer}>
         <View
@@ -223,7 +222,7 @@ const stylesFn = (
     },
     editButton: {
       position: 'absolute',
-      right: scale(6),
+      ...Spacing.right8,
       bottom: scale(0),
       ...Spacing.px3,
       paddingVertical: scale(6),

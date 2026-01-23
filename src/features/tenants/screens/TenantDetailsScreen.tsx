@@ -10,13 +10,14 @@ import TenantProfileHeader from '../components/TenantProfileHeader';
 import TenantTabRenderer from '../components/TenantTabRenderer';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { removeTenant, selectActiveTenant } from '../store';
+import { useNavigation } from '@react-navigation/native';
 
 const TABS = ['Security Deposit', 'Payment History', 'Contact Details'];
 
 const TenantDetailsScreen = () => {
   const dispatch = useAppDispatch();
   const activeTeanat = useAppSelector(selectActiveTenant);
-
+  const navigation = useNavigation();
   const { Colors, Fonts, Layout, Spacing } = useTheme();
   const styles = React.useMemo(
     () => stylesFn(Colors, Fonts, Layout, Spacing),
@@ -27,6 +28,7 @@ const TenantDetailsScreen = () => {
 
   const onLeaseEnd = useCallback(() => {
     dispatch(removeTenant({ id: activeTeanat?.id }));
+    navigation.goBack();
   }, []);
 
   return (
