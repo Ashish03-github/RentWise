@@ -251,6 +251,7 @@ export const ADD_PAYMENT_FORM_VALUES: AddPaymentFormValues = {
     toDate: '',
     paidAmount: '',
     rentStatus: '',
+    remainingAmount: '',
     paymentType: '',
     note: '',
 };

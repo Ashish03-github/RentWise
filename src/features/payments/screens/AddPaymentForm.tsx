@@ -10,10 +10,10 @@ const AddPaymentForm = () => {
   const {
     control,
     errors,
-    tenantOptions,
-    propertyOptions,
     onSubmit,
     handleSubmit,
+    tenantOptions,
+    propertyOptions,
   } = useAddPaymentFormController();
 
   return (

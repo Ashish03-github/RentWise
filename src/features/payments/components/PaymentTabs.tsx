@@ -3,8 +3,8 @@ import { AppTabs } from '@/common/components';
 
 type PaymentTab = {
   tabs: string[];
-  activeTab: 'Rent Summary' | 'Payment History';
-  onChange: Dispatch<SetStateAction<'Rent Summary' | 'Payment History'>>;
+  activeTab: string;
+  onChange: Dispatch<SetStateAction<string>>;
 };
 const PaymentTabs = ({ tabs, activeTab, onChange }: PaymentTab) => {
   return (

@@ -1,0 +1,1 @@
+export { default as paymentReducer } from './payment.slice'

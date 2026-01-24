@@ -10,13 +10,15 @@ import {
 } from '../utils/addPayement.form.schema';
 import { ADD_PAYMENT_FORM_VALUES } from '../constants/payments.dummy.data';
 import { DUMMY_USER } from '@/features/tenants/constants/tenants.dummy.data';
-import { BUILDING_IMAGE } from '@/features/property/constants/properties.dummy.data';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { addPayment } from '../store/payment.slice';
 
 const useAddPaymentFormController = () => {
   const navigation = useNavigation();
   const tenants = useAppSelector(selectTenants);
   const properties = useAppSelector(selectProperties);
+  const dispatch = useDispatch();
 
   const {
     control,
@@ -77,18 +79,14 @@ const useAddPaymentFormController = () => {
     if (!selectedTenant || !selectedProperty) return;
 
     const finalPaymentPayload = {
+      // payment id
+      id: Date.now().toString(),
       /** Property */
-      image: BUILDING_IMAGE,
-      propertyName: selectedProperty.propertyName,
-      propertyType: selectedProperty.propertyType,
-      propertyAddress: selectedProperty.propertyAddress,
-      propertyStatus: selectedProperty.propertyStatus,
-      propertyRent: selectedProperty.propertyRent,
-      propertyDeposit: selectedProperty.propertyDeposit,
-      rentRecurrence: selectedProperty.rentRecurrence,
+      propertyId: propertyId,
 
       /** Tenant */
       // tenantImage: selectedTenant.tenantImage,
+      tenantId: tenantId,
       tenantImage: DUMMY_USER,
       tenantName: selectedTenant.tenantName,
       leaseStartDate: selectedTenant.leaseStartDate,
@@ -106,9 +104,13 @@ const useAddPaymentFormController = () => {
       /** Meta */
       fromDate: formData.fromDate,
       toDate: formData.toDate,
-      paymentType: formData.paymentType,
+      payementDate: new Date().toDateString(),
       note: formData.note,
+      paymentType: formData.paymentType,
     };
+
+    // console.log(formData);
+    dispatch(addPayment(finalPaymentPayload));
 
     navigation.goBack();
   };

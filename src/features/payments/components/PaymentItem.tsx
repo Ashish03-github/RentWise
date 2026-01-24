@@ -15,18 +15,30 @@ import { AppImage } from '@/common/components';
 import { STATUS_UI_MAP } from '../constants/payments.dummy.data';
 import { useNavigation } from '@react-navigation/native';
 import { PaymentRoutes } from '@/navigation/routes';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { selectPaymentById } from '../store/payment.slice';
+import { selectProperties } from '@/features/property/store/properties.selectors';
 
 const PaymentItem: React.FC<PaymentItemProps> = ({ item, index }) => {
   const {
+    id,
     tenantName,
-    propertyName,
-    leaseStartDate,
-    leaseEndDate,
+    propertyId,
     tenantImage,
     paymentstatus,
+    fromDate,
+    toDate,
   } = item;
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
+  const dispatch = useAppDispatch();
+
+  const properites = useAppSelector(selectProperties);
+  const selectedProperty = useMemo(
+    () => properites.find(p => p.id === propertyId),
+    [propertyId],
+  );
+
   const { Colors, Fonts, Layout, Spacing } = useTheme();
   const styles = useMemo(
     () => stylesFn(Colors, Fonts, Layout, Spacing),
@@ -37,8 +49,10 @@ const PaymentItem: React.FC<PaymentItemProps> = ({ item, index }) => {
     STATUS_UI_MAP[paymentstatus as PaymentStatus] ?? STATUS_UI_MAP.Pending;
 
   const navigateTo = useCallback(() => {
+    dispatch(selectPaymentById({ id: id }));
     navigation.navigate(PaymentRoutes.paymentDetails);
   }, []);
+
   return (
     <Pressable
       onPress={navigateTo}
@@ -58,10 +72,10 @@ const PaymentItem: React.FC<PaymentItemProps> = ({ item, index }) => {
           {tenantName}
         </Text>
         <Text style={styles.propertyName} numberOfLines={1}>
-          {propertyName}
+          {selectedProperty?.propertyName}
         </Text>
         <Text style={styles.leaseDateText}>
-          {formatDate(leaseStartDate)} - {formatDate(leaseEndDate)}
+          {formatDate(fromDate)} - {formatDate(toDate)}
         </Text>
       </View>
 
